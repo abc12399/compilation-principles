@@ -4,5 +4,5 @@ image = { source = "dockerfile", path = "." }
 
 run = [
   # 运行程序
-  "java -cp src/Test $input",
+  "java -cp dst/Test $input",
 ]
