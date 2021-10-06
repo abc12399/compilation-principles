@@ -1,4 +1,4 @@
 FROM openjdk:14
 COPY . /myapp/
 WORKDIR /myapp/
-RUN javac src/*.java
+RUN javac -cp src/ src/*.java -d dst/
