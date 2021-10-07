@@ -61,7 +61,7 @@ public class Scanner {
     }
 
     public boolean isLetter(){
-        if(ch>='a'&&ch<='z'||ch>='A'&&ch<='Z'){
+        if(ch>='a'&&ch<='z'||ch>='A'&&ch<='Z'||ch=='_'){
             return true;
         }
         return false;
