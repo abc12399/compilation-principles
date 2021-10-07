@@ -99,7 +99,7 @@ public class Scanner {
         getNbc();
         if(isLetter()){
             while (isLetter()||isDigit()){
-                System.out.println(ch);
+                //System.out.println(ch);
                 catToken();
                 getchar();
             }
@@ -139,6 +139,11 @@ public class Scanner {
                 word.setType("Assign");
                 return word;
             }
+        }
+        else if(ch=='\u0000'){
+            word.setType("");
+            word.setWord("");
+            return word;
         }
         else{
             switch (ch) {
