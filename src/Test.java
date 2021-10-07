@@ -4,6 +4,7 @@ public class Test {
     public static void main(String[] args) {
 
         String path=args[0];
+        //String path="src/a.txt";
       //  System.out.println(path);
 
         String filecontent="";
@@ -20,7 +21,7 @@ public class Test {
                     e.printStackTrace();
                 }
                 filecontent+=str;
-              //  filecontent+='\n';
+                filecontent+='\n';
             }
 
         } catch (FileNotFoundException e) {

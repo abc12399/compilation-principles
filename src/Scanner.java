@@ -44,14 +44,14 @@ public class Scanner {
             ch=list[pos];
             pos++;
         }
-        if(pos==content.length()+1){
+        if(pos==content.length()){
             isFinish=true;
         }
         return ch;
     }
 
     public void getNbc(){
-        while((ch==' '||ch=='\t'||ch=='\n')&&pos<list.length) {
+        while((ch==' '||ch=='\t'||ch=='\n')&&pos<list.length-1) {
             ch = list[pos];
             pos++;
         }
@@ -99,6 +99,7 @@ public class Scanner {
         getNbc();
         if(isLetter()){
             while (isLetter()||isDigit()){
+                System.out.println(ch);
                 catToken();
                 getchar();
             }
