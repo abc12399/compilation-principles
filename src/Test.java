@@ -43,6 +43,9 @@ public class Test {
                     System.out.println(word.getType());
                     break;
                 }
+                else if(word.getType().equals("\n")){
+                    break;
+                }
                 System.out.println(word.getType());
             }
         }

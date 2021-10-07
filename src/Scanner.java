@@ -51,7 +51,7 @@ public class Scanner {
     }
 
     public void getNbc(){
-        while((ch==' '||ch=='\t'||ch=='\n')&&pos<list.length-1) {
+        while((ch==' '||ch=='\t'||ch=='\n')&&pos<content.length()-1) {
             ch = list[pos];
             pos++;
         }
@@ -140,11 +140,6 @@ public class Scanner {
                 return word;
             }
         }
-        else if(ch=='\u0000'){
-            word.setType("");
-            word.setWord("");
-            return word;
-        }
         else{
             switch (ch) {
                 case ';':
@@ -177,8 +172,11 @@ public class Scanner {
                 case '>':
                     word.setType("Gt");
                     return word;
+                case '\n':
+                    word.setType("\n");
+                    return word;
                 default:
-                 //   System.out.println(ch);
+                   // System.out.println(ch+"5");
                  //   System.out.println("1");
                     catToken();
                    // System.out.println(token);
