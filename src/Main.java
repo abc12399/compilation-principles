@@ -171,9 +171,17 @@ public class Main {
                 "}");
         }
         else {
-            pw.print("define dso_local i32 @main(){\n" +
-                    "    ret i32 "+ "-"+main.number+"\n" +
-                    "}");
+            if(main.number==0){
+                pw.print("define dso_local i32 @main(){\n" +
+                        "    ret i32 "+0+"\n" +
+                        "}");
+            }
+            else{
+                pw.print("define dso_local i32 @main(){\n" +
+                        "    ret i32 "+ "-"+main.number+"\n" +
+                        "}");
+            }
+
         }
 
         pw.flush();
