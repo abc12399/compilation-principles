@@ -98,6 +98,7 @@ public class Main {
                 FileWriter fw=new FileWriter(output_source);
                 pw=new PrintWriter(fw);
             } catch (IOException e) {
+                System.exit(-1);
                 e.printStackTrace();
             }
             BufferedReader bufferReader =new BufferedReader(in);
@@ -106,6 +107,7 @@ public class Main {
                 try {
                     if (!((str=bufferReader.readLine())!=null)) break;
                 } catch (IOException e) {
+                    System.exit(-1);
                     e.printStackTrace();
                 }
                 filecontent+=str;
@@ -113,6 +115,7 @@ public class Main {
             }
 
         } catch (FileNotFoundException e) {
+            System.exit(-1);
             e.printStackTrace();
         }
 
