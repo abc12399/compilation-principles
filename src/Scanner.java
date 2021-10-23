@@ -69,6 +69,8 @@ public class Scanner {
           //  System.out.println(list);
             ch=list[pos];
             pos++;
+
+
         }
         if(pos==content.length()){
             isFinish=true;
@@ -78,10 +80,13 @@ public class Scanner {
 
     public void getNbc(){
         while((ch==' '||ch=='\t'||ch=='\n')&&pos<content.length()-1) {
+            System.out.println(" ia getnbc");
             ch = list[pos];
             pos++;
         }
+
         if(pos==content.length()){
+            System.out.println("i am in getnbc");
             isFinish=true;
         }
     }
@@ -133,23 +138,26 @@ public class Scanner {
     }
 
     public Word scan(){
+
         token=new char[255];
         pos_token=0;
         word=new Word();
+        System.out.println(pos);
+        System.out.println("I am before getchar");
         getchar();
+        System.out.println(ch);
         getNbc();
+        System.out.println(pos);
         while(ch=='/'){
             getchar();
             if(ch=='/'){
                 while(ch!='\n'){
                     getchar();
-                  //  System.out.println(ch);
+
                 }
                 getchar();
                 getNbc();
-           //     System.out.println(token);
-             //   System.out.println(pos_token);
-              //  System.out.println(ch);
+
             }
             else if(ch=='*'){
                 while(ch!='\0'&&pos<list.length){
@@ -164,19 +172,23 @@ public class Scanner {
                     }
                 }
                 if(pos== list.length){
-                    System.out.println("aa");
+
                     System.exit(-1);
                 }
             }
             else{
                 pos--;
+                ch=list[pos-1];
+                System.out.println("here");
+                System.out.println(ch);
                 break;
             }
         }
+        System.out.println("i am behind ///");
+        System.out.println(pos);
         if(isLetter()){
-       //     System.out.println("1");
             while (isLetter()||isDigit()){
-                //System.out.println(ch);
+
                 catToken();
                 getchar();
             }
@@ -194,10 +206,13 @@ public class Scanner {
             return word;
         }
         else if(isDigit()){
+            System.out.println(pos);
+            System.out.println("I am in isDigit");
             if(ch=='1'||ch=='2'||ch=='3'||ch=='4'||ch=='5'||ch=='6'||ch=='7'||ch=='8'||ch=='9'){
                 while(isDigit()){
                     catToken();
                     getchar();
+                    getNbc();
                 }
                 pos--;
                 token[pos_token]='\0';
@@ -205,6 +220,7 @@ public class Scanner {
                 // System.out.println(token);
                 word.setWord((String.valueOf(token)).substring(0,pos_token));
                 word.setType(word.typelist[1]);
+                System.out.println(pos);
                 return word;
             }
             else if(ch=='0'){
@@ -264,6 +280,7 @@ public class Scanner {
 
         }
         else if(isEqual()){
+            System.out.println("22225");
             char ch1=getchar();
             if(ch1 =='='){
                 word.setType("Eq");
@@ -278,6 +295,7 @@ public class Scanner {
             }
         }
         else{
+            System.out.println(ch);
             switch (ch) {
                 case ';':
                     word.setWord(";");
@@ -329,7 +347,8 @@ public class Scanner {
                     return word;
                 default:
                     catToken();
-                   // System.out.println(token);
+                    System.out.println(token);
+
                     word.setWord("Err");
                     word.setType("Err");
                     return word;
