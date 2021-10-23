@@ -143,13 +143,13 @@ public class Scanner {
             if(ch=='/'){
                 while(ch!='\n'){
                     getchar();
-                    System.out.println(ch);
+                  //  System.out.println(ch);
                 }
                 getchar();
                 getNbc();
-                System.out.println(token);
-                System.out.println(pos_token);
-                System.out.println(ch);
+           //     System.out.println(token);
+             //   System.out.println(pos_token);
+              //  System.out.println(ch);
             }
             else if(ch=='*'){
                 while(ch!='\0'&&pos< list.length){
@@ -172,7 +172,7 @@ public class Scanner {
             }
         }
         if(isLetter()){
-            System.out.println("1");
+       //     System.out.println("1");
             while (isLetter()||isDigit()){
                 //System.out.println(ch);
                 catToken();
