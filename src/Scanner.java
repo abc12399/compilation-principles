@@ -138,7 +138,41 @@ public class Scanner {
         word=new Word();
         getchar();
         getNbc();
+        if(ch=='/'){
+            getchar();
+            if(ch=='/'){
+                while(ch!='\n'){
+                    getchar();
+                    System.out.println(ch);
+                }
+                getchar();
+                getNbc();
+                System.out.println(token);
+                System.out.println(pos_token);
+                System.out.println(ch);
+            }
+            else if(ch=='*'){
+                while(ch!='\0'&&pos< list.length){
+                    getchar();
+                    if(ch=='*'){
+                        getchar();
+                        if(ch=='/'){
+                            getchar();
+                            getNbc();
+                            break;
+                        }
+                    }
+                }
+                if(ch=='\0'||pos== list.length){
+                    System.exit(-1);
+                }
+            }
+            else{
+                pos--;
+            }
+        }
         if(isLetter()){
+            System.out.println("1");
             while (isLetter()||isDigit()){
                 //System.out.println(ch);
                 catToken();
