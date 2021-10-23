@@ -20,6 +20,9 @@ public class Main {
         else if(x=='*'){
             return m*n;
         }
+        else if(x=='%'){
+            return m%n;
+        }
         else {
             return m/n;
         }

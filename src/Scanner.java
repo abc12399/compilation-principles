@@ -345,6 +345,10 @@ public class Scanner {
                     word.setWord("\n");
                     word.setType("\n");
                     return word;
+                case '%':
+                    word.setWord("%");
+                    word.setType("%");
+                    return word;
                 default:
                     catToken();
                     System.out.println(token);
