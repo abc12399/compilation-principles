@@ -7,6 +7,7 @@ public class Main {
     public Scanner scanner;
     public int number;
 
+    public int flag=0;
     public void error(){
         System.out.println(word.getWord());
         System.exit(-1);
@@ -39,10 +40,41 @@ public class Main {
         }
         error();
     }
+
+    public void PrimaryExp(){
+        if(word.getWord().equals("(")){
+            word= scanner.scan();
+            Exp();
+            if(word.getWord().equals(")")){
+                word= scanner.scan();
+                return;
+            }
+        }
+        else{
+            number();
+        }
+    }
+    public void Exp(){
+        while(word.getWord().equals("+")||word.getWord().equals("-")){
+            if(word.getWord().equals("-")){
+                flag+=1;
+            }
+            word= scanner.scan();
+
+        }
+        PrimaryExp();
+        return;
+    }
     public void Stmt(){
         if(word.getWord().equals("return")){
             word= scanner.scan();
-            number();
+            //lab1
+            //number();
+
+            //lab2
+            Exp();
+
+
             if(word.getWord().equals(";")){
                 word= scanner.scan();
               //  System.out.println("1");
@@ -125,11 +157,25 @@ public class Main {
         main.word= main.scanner.scan();
 
         main.Funcdef();
-        System.out.println("sdfa");
-        System.out.println(main.number);
-        pw.print("define dso_local i32 @main(){\n" +
+//        System.out.println("sdfa");
+//        System.out.println(main.number);
+
+        //lab1
+//        pw.print("define dso_local i32 @main(){\n" +
+//                "    ret i32 "+ main.number+"\n" +
+//                "}");
+
+        if(main.flag%2==0){
+            pw.print("define dso_local i32 @main(){\n" +
                 "    ret i32 "+ main.number+"\n" +
                 "}");
+        }
+        else {
+            pw.print("define dso_local i32 @main(){\n" +
+                    "    ret i32 "+ "-"+main.number+"\n" +
+                    "}");
+        }
+
         pw.flush();
         pw.close();
 

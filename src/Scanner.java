@@ -303,6 +303,10 @@ public class Scanner {
                     word.setWord("+");
                     word.setType("Plus");
                     return word;
+                case '-':
+                    word.setWord("-");
+                    word.setType("Red");
+                    return word;
                 case '*':
                     word.setWord("*");
                     word.setType("Mult");
