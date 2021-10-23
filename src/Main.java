@@ -49,6 +49,7 @@ public class Main {
                 word= scanner.scan();
                 return;
             }
+            error();
         }
         else{
             number();
