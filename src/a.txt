@@ -1,8 +1,5 @@
 int main() { // mian
-    return /* 123
-
-
-
-
-    */234;
+    return /* 12
+    //dasa
+    234;
 }

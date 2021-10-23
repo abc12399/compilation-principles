@@ -138,7 +138,7 @@ public class Scanner {
         word=new Word();
         getchar();
         getNbc();
-        if(ch=='/'){
+        while(ch=='/'){
             getchar();
             if(ch=='/'){
                 while(ch!='\n'){
@@ -152,7 +152,7 @@ public class Scanner {
               //  System.out.println(ch);
             }
             else if(ch=='*'){
-                while(ch!='\0'&&pos< list.length){
+                while(ch!='\0'&&pos<list.length){
                     getchar();
                     if(ch=='*'){
                         getchar();
@@ -163,12 +163,14 @@ public class Scanner {
                         }
                     }
                 }
-                if(ch=='\0'||pos== list.length){
+                if(pos== list.length){
+                    System.out.println("aa");
                     System.exit(-1);
                 }
             }
             else{
                 pos--;
+                break;
             }
         }
         if(isLetter()){
