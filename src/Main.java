@@ -56,12 +56,7 @@ public class Main {
     public int number(){
         if(word.getType().equals("Number")){
             number= Integer.valueOf(word.getWord());
-          //  System.out.println(word.getWord());
-          //  System.out.println("555");
-       //     System.out.println(number);
             word= scanner.scan();
-          //  System.out.println("llll");
-            System.out.println(word.getWord());
             return number;
         }
         error();
@@ -69,19 +64,16 @@ public class Main {
     }
 
     public int PrimaryExp(){
-      //  System.out.println("asd");
-      //  System.out.println(word.getWord());
         if(word.getWord().equals("(")){
-           // System.out.println("aa");
+            System.out.println("(");
             word= scanner.scan();
-            System.out.println(word.getWord()+" ");
+
             int num=Exp();
-           // System.out.println("tre");
-           // System.out.println(num);
-          //  System.out.println(word.getWord());
             if(word.getWord().equals(")")){
+                System.out.println(")");
                 word= scanner.scan();
-                System.out.println(word.getWord()+" ");
+                System.out.println("primary:"+num);
+                System.out.println(word.getWord());
                 return num;
             }
             error();
@@ -96,39 +88,40 @@ public class Main {
     public int UnaryExp(){
         //System.out.println("tttt");
         while(word.getWord().equals("+")||word.getWord().equals("-")){
-          //  System.out.println("aaaaaaa");
+
             if(word.getWord().equals("-")){
                 flag+=1;
             }
             word= scanner.scan();
-            System.out.println(word.getWord()+" ");
+
         }
 
         int num=PrimaryExp();
 
+        System.out.println("flag:"+flag+"num:"+num);
         if(flag%2==0){
 
             flag=0;
             return num;
         }
         else{
-           // System.out.println("b");
             flag=0;
             return num*(-1);
         }
 
     }
     public int MulExp(){
-       // System.out.println("mul");
-       // System.out.println(word.getWord());
+
         int sum=UnaryExp();
+
         while(word.getWord().equals("*")||word.getWord().equals("/")||word.getWord().equals("%")){
-           // System.out.println("in *");
+            System.out.println("in *");
             char[] arr=word.getWord().toCharArray();
-         //   System.out.println(arr[0]);
+
             word= scanner.scan();
-            System.out.println(word.getWord()+" ");
+
             int num=UnaryExp();
+
             if(sum==0&&arr[0]=='/'){
                 error();
             }
@@ -137,24 +130,36 @@ public class Main {
             }
 
         }
+        System.out.println("sum"+sum);
         return sum;
     }
     public int Exp(){
-      //  System.out.println("exp");
+
         int sum=MulExp();
+
         while(word.getWord().equals("+")||word.getWord().equals("-")){
-            char[] arr=word.getWord().toCharArray();
-            word= scanner.scan();
-            System.out.println(word.getWord()+" ");
+            int temp=0;
+            while (word.getWord().equals("+")||word.getWord().equals("-")){
+                if(word.getWord().equals("-")){
+                    temp++;
+                }
+                word= scanner.scan();
+            }
+
             int num=MulExp();
-            sum=Operate(sum,num,arr[0]);
+            if(temp%2==0){
+                sum=Operate(sum,num,'+');
+            }
+            else{
+                sum=Operate(sum,num,'-');
+            }
+
         }
         return sum;
     }
     public void Stmt(){
         if(word.getWord().equals("return")){
             word= scanner.scan();
-            System.out.println(word.getWord()+" ");
             //lab1
             //number();
 
@@ -164,8 +169,6 @@ public class Main {
 
             if(word.getWord().equals(";")){
                 word= scanner.scan();
-                System.out.println(word.getWord()+" ");
-              //  System.out.println("1");
                 return;
             }
             error();
@@ -175,7 +178,7 @@ public class Main {
     public void Block(){
         if (word.getWord().equals("{")){
             word=scanner.scan();
-            System.out.println(word.getWord()+" ");
+       //     System.out.println(word.getWord()+" ");
             Stmt();
             if(word.getWord().equals("}")){
 
@@ -189,10 +192,8 @@ public class Main {
         Ident();
         if(word.getWord().equals("(")){
             word= scanner.scan();
-            System.out.println(word.getWord()+" ");
             if(word.getWord().equals(")")){
                 word= scanner.scan();
-                System.out.println(word.getWord()+" ");
                 Block();
                 return;
             }
