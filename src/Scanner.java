@@ -149,7 +149,7 @@ public class Scanner {
     public Word scan(){
         before2=before;
         before=pos;
-        token=new char[255];
+        token=new char[1000];
         pos_token=0;
         word=new Word();
       //  System.out.println(pos);
