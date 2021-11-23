@@ -349,7 +349,7 @@ public class Main {
                 String s1="\t";
                 s1+=var.getOrderUse();
                 s1+=" = sdiv i32 ";
-                if(varList.get(calnum).getType().equals("Value")){
+                if(varList.get(calnum).getType().equals("value")){
                     s1+=varList.get(calnum).getValue();
                 }
                 else{
@@ -401,7 +401,7 @@ public class Main {
                 String s1="\t";
                 s1+=var.getOrderUse();
                 s1+=" = srem i32 ";
-                if(varList.get(calnum).getType().equals("Value")){
+                if(varList.get(calnum).getType().equals("value")){
                     s1+=varList.get(calnum).getValue();
                 }
                 else{
@@ -445,7 +445,7 @@ public class Main {
                 String s1="\t";
                 s1+=var.getOrderUse();
                 s1+=" = add i32 ";
-                if(varList.get(calnum).getType().equals("Value")){
+                if(varList.get(calnum).getType().equals("value")){
                     s1+=varList.get(calnum).getValue();
                 }
                 else{
