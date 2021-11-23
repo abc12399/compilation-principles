@@ -375,7 +375,7 @@ public class Main {
                 String s1="\t";
                 s1+=var.getOrderUse();
                 s1+=" = mul i32 ";
-                if(varList.get(calnum).getType().equals("Value")){
+                if(varList.get(calnum).getType().equals("value")){
                     s1+=varList.get(calnum).getValue();
                 }
                 else{
