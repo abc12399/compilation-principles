@@ -1,4 +1,5 @@
 int main() {
-    return ((66)+-(5-5)--((1+2)%2));
+    int n = getint();
+    putint(n + 4);
+    return 0;
 }
-

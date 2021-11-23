@@ -31,6 +31,10 @@ public class Scanner {
 
     private char[] list;
 
+    private int before;
+
+    private int before2;
+
     private char[] token=new char[255];
 
     private int pos_token;
@@ -136,9 +140,15 @@ public class Scanner {
         }
         return temp;
     }
-
+    public void goBack(){
+        pos=before;
+    }
+    public void goBack2(){
+        pos=before2;
+    }
     public Word scan(){
-
+        before2=before;
+        before=pos;
         token=new char[255];
         pos_token=0;
         word=new Word();
@@ -348,6 +358,10 @@ public class Scanner {
                 case '%':
                     word.setWord("%");
                     word.setType("%");
+                    return word;
+                case ',':
+                    word.setWord(",");
+                    word.setType(",");
                     return word;
                 default:
                     catToken();
