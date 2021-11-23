@@ -35,7 +35,7 @@ public class Scanner {
 
     private int before2;
 
-    private char[] token;
+    private char[] token=new char[100000];
 
     private int pos_token;
 
@@ -149,7 +149,7 @@ public class Scanner {
     public Word scan(){
         before2=before;
         before=pos;
-        token=new char[100000000];
+        token=new char[100000];
         pos_token=0;
         word=new Word();
       //  System.out.println(pos);
