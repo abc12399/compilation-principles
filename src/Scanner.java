@@ -35,7 +35,7 @@ public class Scanner {
 
     private int before2;
 
-    private char[] token=new char[255];
+    private char[] token=new char[1000];
 
     private int pos_token;
 
