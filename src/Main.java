@@ -1085,6 +1085,7 @@ public class Main {
         }
 
         Main main=new Main();
+        System.out.println(filecontent);
         main.scanner =new Scanner(filecontent);
         main.word= main.scanner.scan();
 
