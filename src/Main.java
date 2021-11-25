@@ -5,8 +5,10 @@ import java.io.*;
 
 import java.net.MalformedURLException;
 import java.rmi.server.ExportException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.concurrent.locks.Condition;
 
 public class Main {
 
@@ -26,6 +28,8 @@ public class Main {
     public int waiting;
 
     public int searchFuncPos;
+
+
     public int Operate(int m,int n,char x){
         if(x=='+'){
             return m+n;
@@ -123,15 +127,55 @@ public class Main {
     }
     public void UnaryExp(){
         //System.out.println("tttt");
-        if(word.getWord().equals("+")||word.getWord().equals("-")){
-            while(word.getWord().equals("+")||word.getWord().equals("-")){
-
+        int z=0;
+        if(word.getWord().equals("+")||word.getWord().equals("-")||word.getWord().equals("!")){
+            while(word.getWord().equals("+")||word.getWord().equals("-")||word.getWord().equals("!")){
                 if(word.getWord().equals("-")){
                     flag+=1;
                 }
+                if(word.getWord().equals("!")){
+                    z++;
+                }
                 word= scanner.scan();
             }
+
             PrimaryExp();
+            for (int i = 0; i < z; i++) {
+                Var var=new Var();
+                var.setOrder(orderNum);
+                varList.add(var);
+                String s1="\t";
+                s1+=var.getOrderUse();
+                s1+=" = icmp eq i32 ";
+                if(varList.get(varNum-1).getType().equals("value")){
+                    s1+=varList.get(varNum-1).getValue();
+                }
+                else{
+                    s1+=varList.get(varNum-1).getOrderUse();
+                }
+                s1+=", 0\n";
+                varNum++;
+                orderNum++;
+                Out+=s1;
+
+                Var var1=new Var();
+                var1.setOrder(orderNum);
+                varList.add(var1);
+                String s2="\t";
+                s2+=var1.getOrderUse();
+                s2+=" = zext i1 ";
+                if(varList.get(varNum-1).getType().equals("value")){
+                    s2+=varList.get(varNum-1).getValue();
+                }
+                else{
+                    s2+=varList.get(varNum-1).getOrderUse();
+                }
+                s2+=" to i32\n";
+                Out+=s2;
+                varNum++;
+                orderNum++;
+
+            }
             //   System.out.println("flag:"+flag+"num:"+num);
             if(flag%2==0){
                 Var var=new Var();
@@ -495,6 +539,101 @@ public class Main {
     public void Exp(){
         AddExp();
     }
+    public void RelExp(){
+        System.out.println("dfs");
+
+        AddExp();
+        while (word.getWord().equals("<")||word.getWord().equals(">")||word.getWord().equals(">=")||word.getWord().equals("<=")){
+            int relnum=varNum-1;
+            if(word.getWord().equals("<")){
+                word= scanner.scan();
+                AddExp();
+                fillIn(" =  icmp slt i32 ",relnum);
+            }
+            else if(word.getWord().equals(">")){
+                word= scanner.scan();
+                AddExp();
+                fillIn(" =  icmp sgt i32 ",relnum);
+            }
+            else if(word.getWord().equals(">=")){
+                word= scanner.scan();
+                AddExp();
+                fillIn(" =  icmp sge i32 ",relnum);
+            }
+            else{
+                word= scanner.scan();
+                AddExp();
+                fillIn(" =  icmp sle i32 ",relnum);
+            }
+        }
+    }
+    public void fillIn(String str,int num){
+        Var var=new Var();
+        var.setOrder(orderNum);
+        varList.add(var);
+        String s1="\t";
+        s1+=var.getOrderUse();
+        s1+=str;
+        if(varList.get(num).getType().equals("value")){
+            s1+=varList.get(num).getValue();
+        }
+        else{
+            s1+=varList.get(num).getOrderUse();
+        }
+        s1+=", ";
+        if(varList.get(varNum-1).getType().equals("value")){
+            s1+=varList.get(varNum-1).getValue();
+        }
+        else{
+            s1+=varList.get(varNum-1).getOrderUse();
+        }
+        s1+="\n";
+        Out+=s1;
+        varNum++;
+        orderNum++;
+    }
+    public void EqExp(){
+        RelExp();
+        while (word.getWord().equals("==")||word.getWord().equals("!=")){
+            int eqnum=varNum-1;
+            if(word.getWord().equals("==")){
+                word= scanner.scan();
+                RelExp();
+                fillIn(" =  icmp eq i32 ",eqnum);
+            }
+            else{
+                word= scanner.scan();
+                RelExp();
+                fillIn(" =  icmp ne i32 ",eqnum);
+            }
+
+        }
+    }
+    public void LAndExp(){
+        EqExp();
+        while (word.getWord().equals("&&")){
+            int andnum=varNum-1;
+            word= scanner.scan();
+            EqExp();
+            fillIn(" =  and i1 ",andnum);
+
+        }
+    }
+    public void LorExp(){
+       // System.out.println("1");
+
+        LAndExp();
+
+        while(word.getWord().equals("||")){
+            int ornum=varNum-1;
+            word= scanner.scan();
+            LAndExp();
+            fillIn(" =  or i1 ",ornum);
+        }
+    }
+    public void Cond(){
+        LorExp();
+    }
     public void Stmt(){
         if(word.getWord().equals("return")){
             word= scanner.scan();
@@ -514,6 +653,111 @@ public class Main {
                 return;
             }
             error();
+        }
+        else if(word.getWord().equals("{")){
+            Block();
+        }
+        else if(word.getWord().equals("if")){
+            word= scanner.scan();
+            if(word.getWord().equals("(")){
+              //  System.out.println("afdsf");
+                word= scanner.scan();
+                Cond();
+                //这里得到%cond 改跳转了 br %cond %true
+                String block1 = null,block2=null;
+                int from,to1 = 0,to2 = 0,out;
+                String store1=null;
+                //br i1 label t01 label to2
+                        from=orderNum-1;
+                if(word.getWord().equals(")")){
+                    store1=Out;
+                    word= scanner.scan();
+                    String s1="\n";
+                    Var var=new Var();
+                    var.setOrder(orderNum);
+                    to1=orderNum;
+                    var.setType("to1");
+                    varList.add(var);
+                    varNum++;
+                    orderNum++;
+                    s1+=var.getOrder();
+                    s1+=":";
+                    //这里继续生成%cond+1块 定义 from to1 to2 out
+                    Stmt();
+
+                    int temp=Out.indexOf(store1);
+                    if(temp==0){
+                        block1=Out.substring(store1.length());
+                    }
+                    else {
+                        store1=Out.substring(0,temp+store1.length());
+                        block1=Out.substring(temp+store1.length());
+                    }
+                    //这里要加跳转到Out
+
+
+
+                    block1=s1+block1;
+                   // System.out.println(block1);
+                    //System.out.println(word.getWord());
+                    if(word.getWord().equals("else")){
+                        //这里继续
+                        word=scanner.scan();
+                        String store2=Out;
+                        String s2="\n";
+                        Var var2=new Var();
+                        var2.setOrder(orderNum);
+                        to2=orderNum;
+                        System.out.println("to2"+orderNum);
+                        var2.setType("to2");
+                        varList.add(var2);
+                        varNum++;
+                        orderNum++;
+                        s2+=var2.getOrder();
+                        s2+=":\n";
+                        Stmt();
+                        //加跳转
+
+                        temp=Out.indexOf(store2);
+                        if(temp==0){
+                            block2=Out.substring(store2.length());
+                        }
+                        else {
+                            store2=Out.substring(0,temp+store2.length());
+                            block2=Out.substring(temp+store2.length());
+                        }
+
+                        System.out.println("here");
+                        System.out.println(block2);
+                        System.out.println("there" );
+
+                        //System.out.println(block2);
+                        block2=s2+block2;
+
+                    }
+
+                }
+                Var varout=new Var();
+                varout.setOrder(orderNum);
+                varList.add(varout);
+                varNum++;
+                orderNum++;
+                String goout="";
+                goout+="\tbr label "+varout.getOrderUse();
+                goout+="\n\n";
+                String gotos="";
+                gotos+="\tbr i1 %"+from;
+                gotos+=",label %"+to1;
+                gotos+=", label %"+to2;
+                gotos+="\n";
+
+                block1+=goout;
+                block2+=goout;
+                Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
+
+            }
+
+
         }
         else if(word.getType().equals("Ident")){
             word= scanner.scan();
@@ -756,7 +1000,6 @@ public class Main {
 
     public void Block(){
         if (word.getWord().equals("{")){
-            Out+="{";
             Out+="\n";
             word=scanner.scan();
 
@@ -765,16 +1008,14 @@ public class Main {
             }
 
             if(word.getWord().equals("}")){
-                //这里理论上来说是最后的位置
-                //暂时不scan
-                Out+="}";
+                word=scanner.scan();
                 return;
             }
             error();
         }
     }
     public void FuncDef(){
-        Out+="define dso_local i32 @main()";
+        Out+="define dso_local i32 @main(){";
         FuncType();
         String temp="main";
         funcList.add(temp);
@@ -790,6 +1031,8 @@ public class Main {
             if(word.getWord().equals(")")){
                 word= scanner.scan();
                 Block();
+
+                Out+="}";
                 return;
             }
             error();
@@ -804,11 +1047,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        System.out.println("123");
-
-        String path=args[0];
-        String output=args[1];
-
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
@@ -853,8 +1095,8 @@ public class Main {
         main.varNum=0;
         main.orderNum=0;
         main.CompUnit();
-   //     System.out.println(main.Out);
-        pw.print(main.Out);
+        System.out.println(main.Out);
+   //     pw.print(main.Out);
         pw.flush();
         pw.close();
 

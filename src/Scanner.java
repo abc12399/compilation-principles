@@ -304,6 +304,76 @@ public class Scanner {
                 return word;
             }
         }
+        else if(ch=='|'){
+            char ch1=getchar();
+            if(ch1=='|'){
+                word.setType("||");
+                word.setWord("||");
+                return word;
+            }
+            else{
+                pos--;
+                word.setWord("Err");
+                word.setType("Err");
+                return word;
+            }
+        }
+        else if(ch=='&'){
+            char ch1=getchar();
+            if(ch1=='&'){
+                word.setType("&&");
+                word.setWord("&&");
+                return word;
+            }
+            else{
+                pos--;
+                word.setWord("Err");
+                word.setType("Err");
+                return word;
+            }
+        }
+        else if(ch=='<'){
+            char ch1=getchar();
+            if(ch1=='='){
+                word.setType("<=");
+                word.setWord("<=");
+                return word;
+            }
+            else{
+                pos--;
+                word.setWord("<");
+                word.setType("<");
+                return word;
+            }
+        }
+        else if(ch=='>'){
+            char ch1=getchar();
+            if(ch1=='='){
+                word.setType(">=");
+                word.setWord(">=");
+                return word;
+            }
+            else{
+                pos--;
+                word.setWord(">");
+                word.setType(">");
+                return word;
+            }
+        }
+        else if(ch=='!'){
+            char ch1=getchar();
+            if(ch1=='='){
+                word.setType("!=");
+                word.setWord("!=");
+                return word;
+            }
+            else {
+                pos--;
+                word.setWord("!");
+                word.setType("!");
+                return word;
+            }
+        }
         else{
          //   System.out.println(ch);
             switch (ch) {
@@ -342,14 +412,6 @@ public class Scanner {
                 case '/':
                     word.setWord("/");
                     word.setType("Div");
-                    return word;
-                case '<':
-                    word.setWord("<");
-                    word.setType("Lt");
-                    return word;
-                case '>':
-                    word.setWord(">");
-                    word.setType("Gt");
                     return word;
                 case '\n':
                     word.setWord("\n");
