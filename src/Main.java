@@ -215,6 +215,26 @@ public class Main {
                 varNum++;
                 orderNum++;
             }
+
+            if(z!=0){
+                Var var=new Var();
+                var.setOrder(orderNum);
+                varList.add(var);
+                String s1="\t";
+                s1+=var.getOrderUse();
+                s1+=" = icmp eq i32 ";
+                if(varList.get(varNum-1).getType().equals("value")){
+                    s1+=varList.get(varNum-1).getValue();
+                }
+                else{
+                    s1+=varList.get(varNum-1).getOrderUse();
+                }
+                s1+=", 0\n";
+                varNum++;
+                orderNum++;
+                Out+=s1;
+
+            }
         }
         else if(word.getType().equals("Ident")){
             if(!searchFunList(word.getWord())){
@@ -735,6 +755,24 @@ public class Main {
                         block2=s2+block2;
 
                     }
+                    else{
+                        word=scanner.scan();
+                        String store2=Out;
+                        String s2="\n";
+                        Var var2=new Var();
+                        var2.setOrder(orderNum);
+                        to2=orderNum;
+                        System.out.println("to2"+orderNum);
+                        var2.setType("to2");
+                        varList.add(var2);
+                        varNum++;
+                        orderNum++;
+                        s2+=var2.getOrder();
+                        s2+=":\n";
+
+                        block2="" ;
+                        block2=s2+block2;
+                    }
 
                 }
                 Var varout=new Var();
@@ -1047,10 +1085,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+       // String path=args[0];
+      //  String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
