@@ -224,7 +224,7 @@ public class Main {
                 varList.add(var);
                 String s1="\t";
                 s1+=var.getOrderUse();
-                s1+=" = icmp eq i32 ";
+                s1+=" = icmp ne i32 ";
                 if(varList.get(varNum-1).getType().equals("value")){
                     s1+=varList.get(varNum-1).getValue();
                 }
@@ -712,8 +712,9 @@ public class Main {
                         block1=Out.substring(store1.length());
                     }
                     else {
-                        store1=Out.substring(0,temp+store1.length());
                         block1=Out.substring(temp+store1.length());
+                        store1=Out.substring(0,temp+store1.length());
+
                     }
                     //这里要加跳转到Out
 
