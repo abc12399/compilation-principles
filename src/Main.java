@@ -1047,10 +1047,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-//        String path=args[0];
-//        String output=args[1];
-        String path="a.txt";
-        String output="b.txt";
+        String path=args[0];
+        String output=args[1];
+//        String path="a.txt";
+//        String output="b.txt";
 
         String filecontent="";
 
@@ -1097,7 +1097,7 @@ public class Main {
         main.orderNum=0;
         main.CompUnit();
         System.out.println(main.Out);
-   //     pw.print(main.Out);
+        pw.print(main.Out);
         pw.flush();
         pw.close();
 
