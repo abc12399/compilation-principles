@@ -127,6 +127,7 @@ public class Main {
     }
     public void UnaryExp(){
         //System.out.println("tttt");
+        flag=0;
         int z=0;
         if(word.getWord().equals("+")||word.getWord().equals("-")||word.getWord().equals("!")){
             while(word.getWord().equals("+")||word.getWord().equals("-")||word.getWord().equals("!")){
@@ -140,6 +141,7 @@ public class Main {
             }
 
             PrimaryExp();
+            System.out.println("gvgvg"+flag);
             for (int i = 0; i < z; i++) {
                 Var var=new Var();
                 var.setOrder(orderNum);
@@ -235,6 +237,7 @@ public class Main {
                 Out+=s1;
 
             }
+            flag=0;
         }
         else if(word.getType().equals("Ident")){
             if(!searchFunList(word.getWord())){
@@ -704,7 +707,6 @@ public class Main {
                     s1+=":";
                     //这里继续生成%cond+1块 定义 from to1 to2 out
                     Stmt();
-
                     int temp=Out.indexOf(store1);
                     if(temp==0){
                         block1=Out.substring(store1.length());
@@ -756,13 +758,12 @@ public class Main {
 
                     }
                     else{
-                        word=scanner.scan();
+                        String sss=word.getWord();
                         String store2=Out;
                         String s2="\n";
                         Var var2=new Var();
                         var2.setOrder(orderNum);
                         to2=orderNum;
-                        System.out.println("to2"+orderNum);
                         var2.setType("to2");
                         varList.add(var2);
                         varNum++;
@@ -795,9 +796,9 @@ public class Main {
 
             }
 
-
         }
         else if(word.getType().equals("Ident")){
+            System.out.println(word.getWord());
             word= scanner.scan();
             if(word.getWord().equals("=")){
                 scanner.goBack2();
@@ -835,6 +836,7 @@ public class Main {
             else{
                 scanner.goBack2();
                 word= scanner.scan();
+                System.out.println(word.getWord());
                 Exp();
             }
         }
@@ -1031,6 +1033,7 @@ public class Main {
             Decl();
         }
         else{
+            System.out.println(word.getWord());
             Stmt();
         }
         return;
@@ -1042,6 +1045,7 @@ public class Main {
             word=scanner.scan();
 
             while(!word.getWord().equals("}")){
+                System.out.println(word.getWord());
                 BlockItem();
             }
 
