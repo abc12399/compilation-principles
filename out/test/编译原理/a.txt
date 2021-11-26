@@ -1,5 +1,13 @@
 int main() {
-    int a = 1;
-    int a = 2;
+    int a = 2000;
+    {
+        putint(a);
+        int a = 100, b = 500;
+        putint(b);
+    }
+    {
+        int c = a + b;
+        putint(c);
+    }
     return 0;
 }

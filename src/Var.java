@@ -6,6 +6,16 @@ public class Var {
     private int value;
     private int blocknum;
 
+    private int blocklvel;
+
+    public int getBlocklvel() {
+        return blocklvel;
+    }
+
+    public void setBlocklvel(int blocklvel) {
+        this.blocklvel = blocklvel;
+    }
+
     public int getBlocknum() {
         return blocknum;
     }
