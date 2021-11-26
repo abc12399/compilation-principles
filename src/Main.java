@@ -31,8 +31,9 @@ public class Main {
 
     public int blocknum;
 
-    public int blocklvel;
+    public int belong;
 
+    public ArrayList<Var> blocklist;
 
     public int Operate(int m,int n,char x){
         if(x=='+'){
@@ -906,7 +907,7 @@ public class Main {
     public boolean search(String str){
         for (int i = varList.size()-1; i>=0; i--) {
             if(str.equals(varList.get(i).getWord())){
-                if(varList.get(i).getBlocknum()<blocknum||(varList.get(i).getBlocknum()==blocknum&&varList.get(i).getBlocklvel()==blocklvel)){
+                if(varList.get(i).getBlocknum()<=blocknum){
                     Varpos=i;
                     return true;
                 }
@@ -919,18 +920,19 @@ public class Main {
         Exp();
     }
     public void VarDef(){
-        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum||(varList.get(Varpos).getBlocklvel()!=blocklvel&&varList.get(Varpos).getBlocknum()==blocknum))&&word.getType().equals("Ident")){
+        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
             var.setBlocknum(blocknum);
             var.setOrder(orderNum);
-            var.setBlocklvel(blocklvel);
+
             varList.add(var);
             Varpos=varNum;
             varNum++;
             orderNum++;
             String s="\t";
             s+=var.getOrderUse();
+
             s+=" = alloca i32\n";
             Out+=s;
         }
@@ -993,12 +995,11 @@ public class Main {
 
     }
     public void ConstDef(){
-        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum||varList.get(Varpos).getBlocknum()==blocknum&&varList.get(Varpos).getBlocklvel()!=blocklvel)&&word.getType().equals("Ident")){
+        if(!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
             var.setOrder(orderNum);
             var.setBlocknum(blocknum);
-            var.setBlocklvel(blocklvel);
             var.setType("Const");
             varList.add(var);
             Varpos=varNum;
@@ -1078,8 +1079,8 @@ public class Main {
     public void Block(){
 
         if (word.getWord().equals("{")){
+            belong=varNum;
             blocknum++;
-            blocklvel++;
             Out+="\n";
             word=scanner.scan();
 
@@ -1089,6 +1090,14 @@ public class Main {
             }
 
             if(word.getWord().equals("}")){
+                for (int i=varList.size()-1;i>=0;i--){
+                    if(varList.get(i).getBlocknum()==blocknum){
+                        varList.get(i).setBlocknum(100000);
+                    }
+                    if(varList.get(i).getBlocknum()==blocknum){
+                        break;
+                    }
+                }
                 blocknum--;
                 word=scanner.scan();
                 return;
@@ -1178,7 +1187,6 @@ public class Main {
         main.varNum=0;
         main.orderNum=0;
         main.blocknum=0;
-        main.blocklvel=0;
         main.CompUnit();
 
         System.out.println(main.Out);
