@@ -919,7 +919,9 @@ public class Main {
         Exp();
     }
     public void VarDef(){
-        if((!search(word.getWord())||varList.get(Varpos).getBlocklvel()<blocklvel||(varList.get(Varpos).getBlocklvel()==blocklvel&&varList.get(Varpos).getBlocknum()!=blocknum))&&word.getType().equals("Ident")){
+        if((!search(word.getWord()))||varList.get(Varpos).getBlocklvel()<blocklvel||
+                (varList.get(Varpos).getBlocknum()!=blocknum&&
+                        varList.get(Varpos).getBlocklvel()==blocklvel) &&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
             var.setBlocklvel(blocklvel);
@@ -993,11 +995,14 @@ public class Main {
 
     }
     public void ConstDef(){
-        if(!search(word.getWord())||varList.get(Varpos).getBlocklvel()<blocklvel||(varList.get(Varpos).getBlocklvel()==blocklvel&&varList.get(Varpos).getBlocknum()!=blocknum)&&word.getType().equals("Ident")){
+        if((!search(word.getWord()))||varList.get(Varpos).getBlocklvel()<blocklvel||
+                (varList.get(Varpos).getBlocknum()!=blocknum&&
+                        varList.get(Varpos).getBlocklvel()==blocklvel) &&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
             var.setOrder(orderNum);
             var.setBlocklvel(blocklvel);
+            var.setBlocknum(blocknum);
             var.setType("Const");
             varList.add(var);
             Varpos=varNum;
