@@ -28,7 +28,7 @@ define dso_local i32 @main(){
 	br label %31
 
 17:
-%18 = load i32, i32* %2
+	%18 = load i32, i32* %2
 	%19 =  icmp eq i32 %18, 10
 	%20 = load i32, i32* %1
 	%21 = sub i32 0, 5
@@ -42,7 +42,7 @@ define dso_local i32 @main(){
 	br label %30
 
 27:
-%28 = load i32, i32* %1
+	%28 = load i32, i32* %1
 	%29 = sub i32 0, %28
 	store i32 %29, i32* %1
 	br label %30

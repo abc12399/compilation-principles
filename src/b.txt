@@ -14,7 +14,6 @@ define dso_local i32 @main(){
 8:
 	%9 = load i32, i32* %1
 	ret i32 %9
-	br label %32
 
 10:
 	%11 = load i32, i32* %2

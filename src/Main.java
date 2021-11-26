@@ -795,12 +795,20 @@ public class Main {
                 goout+="\n";
                 String gotos="";
                 gotos+="\tbr i1 %"+from;
+
                 gotos+=",label %"+to1;
+
                 gotos+=", label %"+to2;
                 gotos+="\n";
 
-                block1+=goout;
-                block2+=goout;
+                assert block1 != null;
+                if (!block1.contains("ret")){
+                    block1+=goout;
+                }
+                if(!block2.contains("ret")){
+                    block2+=goout;
+                }
+
                 Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
 
             }
@@ -1106,10 +1114,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
