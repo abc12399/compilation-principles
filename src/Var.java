@@ -4,6 +4,15 @@ public class Var {
     private String orderUse="";
     private String word="";
     private int value;
+    private int blocknum;
+
+    public int getBlocknum() {
+        return blocknum;
+    }
+
+    public void setBlocknum(int blocknum) {
+        this.blocknum = blocknum;
+    }
 
     public String getType() {
         return type;

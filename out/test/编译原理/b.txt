@@ -1,57 +1,59 @@
+declare void @putch(i32)
 declare void @putint(i32)
 define dso_local i32 @main(){
 	%1 = alloca i32
-	store i32 5, i32* %1
-	%2 = alloca i32
-	store i32 10, i32* %2
-	%3 = load i32, i32* %1
-	%4 =  icmp eq i32 %3, 6
-	%5 = load i32, i32* %2
-	%6 =  icmp eq i32 %5, 11
-	%7 =  or i1 %4, %6
-	br i1 %7,label %8, label %10
+	%2 = mul i32 10, 5
+	%3 = sdiv i32 %2, 2
+	store i32 %3, i32* %1
+	%4 = alloca i32
+	%5 = load i32, i32* %1
+	%6 = sdiv i32 %5, 2
+	store i32 %6, i32* %4
+	%7 = alloca i32
+	%8 = load i32, i32* %1
+	%9 = mul i32 %8, 2
+	store i32 %9, i32* %7
+	%10 = load i32, i32* %1
+	%11 =  icmp sgt i32 %10, 24
+	br i1 %11,label %12, label %19
 
-8:
-	%9 = load i32, i32* %1
-	ret i32 %9
-	br label %32
+12:
+	%13 = alloca i32
+	store i32 24, i32* %13
+	%14 = load i32, i32* %4
+	%15 = load i32, i32* %13
+	%16 = load i32, i32* %7
+	%17 = mul i32 %15, %16
+	%18 = sub i32 %14, %17
+	call void @putint(i32 %18)
+	call void @putch(i32 10)
+	br label %20
 
-10:
-	%11 = load i32, i32* %2
-	%12 =  icmp eq i32 %11, 10
-	%13 = load i32, i32* %1
-	%14 =  icmp eq i32 %13, 1
-	%15 =  and i1 %12, %14
-	br i1 %15,label %16, label %17
+19:
+	br label %20
+20:
 
-16:	store i32 25, i32* %1
-	br label %31
+	%21 = alloca i32
+	%22 = load i32, i32* %13
+	%23 = sdiv i32 %22, 4
+	store i32 %23, i32* %21
+	%24 = load i32, i32* %7
+	%25 = load i32, i32* %21
+	%26 = sdiv i32 %24, %25
+	call void @putint(i32 %26)
 
-17:
-	%18 = load i32, i32* %2
-	%19 =  icmp eq i32 %18, 10
-	%20 = load i32, i32* %1
-	%21 = sub i32 0, 5
-	%22 =  icmp eq i32 %20, %21
-	%23 =  and i1 %19, %22
-	br i1 %23,label %24, label %27
-
-24:	%25 = load i32, i32* %1
-	%26 = add i32 %25, 15
-	store i32 %26, i32* %1
-	br label %30
-
-27:
-	%28 = load i32, i32* %1
-	%29 = sub i32 0, %28
-	store i32 %29, i32* %1
-	br label %30
-30:
-	br label %31
-31:
-	br label %32
-32:
-	%33 = load i32, i32* %1
-	call void @putint(i32 %33)
+	%27 = alloca i32
+	%28 = load i32, i32* %13
+	%29 = mul i32 %28, 4
+	store i32 %29, i32* %27
+	%30 = load i32, i32* %27
+	%31 = load i32, i32* %21
+	%32 = sdiv i32 %30, %31
+	call void @putint(i32 %32)
+	call void @putch(i32 10)
+	%33 = load i32, i32* %7
+	%34 = load i32, i32* %4
+	%35 = sdiv i32 %33, %34
+	call void @putint(i32 %35)
 	ret i32 0
 }

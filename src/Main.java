@@ -29,6 +29,8 @@ public class Main {
 
     public int searchFuncPos;
 
+    public int blocknum;
+
 
     public int Operate(int m,int n,char x){
         if(x=='+'){
@@ -902,8 +904,11 @@ public class Main {
     public boolean search(String str){
         for (int i = varList.size()-1; i>=0; i--) {
             if(str.equals(varList.get(i).getWord())){
-                Varpos=i;
-                return true;
+                if(varList.get(i).getBlocknum()<=blocknum){
+                    Varpos=i;
+                    return true;
+                }
+
             }
         }
         return false;
@@ -912,9 +917,10 @@ public class Main {
         Exp();
     }
     public void VarDef(){
-        if(!search(word.getWord())&&word.getType().equals("Ident")){
+        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
+            var.setBlocknum(blocknum);
             var.setOrder(orderNum);
             varList.add(var);
             Varpos=varNum;
@@ -984,10 +990,11 @@ public class Main {
 
     }
     public void ConstDef(){
-        if(!search(word.getWord())&&word.getType().equals("Ident")){
+        if(!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
             var.setOrder(orderNum);
+            var.setBlocknum(blocknum);
             var.setType("Const");
             varList.add(var);
             Varpos=varNum;
@@ -1065,7 +1072,9 @@ public class Main {
     }
 
     public void Block(){
+
         if (word.getWord().equals("{")){
+            blocknum++;
             Out+="\n";
             word=scanner.scan();
 
@@ -1075,6 +1084,7 @@ public class Main {
             }
 
             if(word.getWord().equals("}")){
+                blocknum--;
                 word=scanner.scan();
                 return;
             }
@@ -1162,6 +1172,7 @@ public class Main {
 
         main.varNum=0;
         main.orderNum=0;
+        main.blocknum=0;
         main.CompUnit();
 
         System.out.println(main.Out);
