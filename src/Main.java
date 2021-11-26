@@ -760,23 +760,23 @@ public class Main {
 
                     }
                     else{
-                        if(!word.getWord().equals("if")){
-                            String sss=word.getWord();
-                            String store2=Out;
-                            String s2="\n";
-                            Var var2=new Var();
-                            var2.setOrder(orderNum);
-                            to2=orderNum;
-                            var2.setType("to2");
-                            varList.add(var2);
-                            varNum++;
-                            orderNum++;
-                            s2+=var2.getOrder();
-                            s2+=":\n";
 
-                            block2="" ;
-                            block2=s2+block2;
-                        }
+                        String sss=word.getWord();
+                        String store2=Out;
+                        String s2="\n";
+                        Var var2=new Var();
+                        var2.setOrder(orderNum);
+                        to2=orderNum;
+                        var2.setType("to2");
+                        varList.add(var2);
+                        varNum++;
+                        orderNum++;
+                        s2+=var2.getOrder();
+                        s2+=":\n";
+
+                        block2="" ;
+                        block2=s2+block2;
+
                     }
 
                 }
