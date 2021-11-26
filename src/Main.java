@@ -706,6 +706,7 @@ public class Main {
                     s1+=var.getOrder();
                     s1+=":";
                     //这里继续生成%cond+1块 定义 from to1 to2 out
+                    System.out.println(word.getWord()+"fda54444444");
                     Stmt();
                     int temp=Out.indexOf(store1);
                     if(temp==0){
@@ -722,7 +723,7 @@ public class Main {
 
                     block1=s1+block1;
                    // System.out.println(block1);
-                    //System.out.println(word.getWord());
+                    System.out.println(word.getWord());
                     if(word.getWord().equals("else")){
                         //这里继续
                         word=scanner.scan();
@@ -759,21 +760,23 @@ public class Main {
 
                     }
                     else{
-                        String sss=word.getWord();
-                        String store2=Out;
-                        String s2="\n";
-                        Var var2=new Var();
-                        var2.setOrder(orderNum);
-                        to2=orderNum;
-                        var2.setType("to2");
-                        varList.add(var2);
-                        varNum++;
-                        orderNum++;
-                        s2+=var2.getOrder();
-                        s2+=":\n";
+                        if(!word.getWord().equals("if")){
+                            String sss=word.getWord();
+                            String store2=Out;
+                            String s2="\n";
+                            Var var2=new Var();
+                            var2.setOrder(orderNum);
+                            to2=orderNum;
+                            var2.setType("to2");
+                            varList.add(var2);
+                            varNum++;
+                            orderNum++;
+                            s2+=var2.getOrder();
+                            s2+=":\n";
 
-                        block2="" ;
-                        block2=s2+block2;
+                            block2="" ;
+                            block2=s2+block2;
+                        }
                     }
 
                 }
@@ -810,6 +813,7 @@ public class Main {
                 }
                 else {
                     Lval();
+                    System.out.println(word.getWord()+"lval");
                     int waiting=Varpos;
                     if(varList.get(waiting).getType().equals("Const")){
                         error();
@@ -817,6 +821,7 @@ public class Main {
                     if(word.getWord().equals("=")){
                         word= scanner.scan();
                         Exp();
+                        System.out.println("exp "+word.getWord());
                     //    System.out.println(word.getWord());
                         String s1="\t";
                         s1+="store i32 ";
@@ -830,9 +835,15 @@ public class Main {
                         s1+=varList.get(waiting).getOrderUse();
                         s1+="\n";
                         Out+=s1;
+                        if(word.getWord().equals(";")){
+                            word=scanner.scan();
+                            return;
+                        }
+                        error();
                     }
 
                 }
+
             }
             else{
                 scanner.goBack2();
@@ -1090,10 +1101,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
