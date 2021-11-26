@@ -355,9 +355,9 @@ public class Main {
                         System.out.println("2345");
                         System.out.println(word.getWord());
                         Exp();
-                       // System.out.println(word.getWord());
+                        // System.out.println(word.getWord());
                         waitnum.add(varNum-1);
-                      //  System.out.println(waitnum);
+                        //  System.out.println(waitnum);
                         while(word.getWord().equals(",")){
                             word= scanner.scan();
                             Exp();
@@ -647,7 +647,7 @@ public class Main {
         }
     }
     public void LorExp(){
-       // System.out.println("1");
+        // System.out.println("1");
 
         LAndExp();
 
@@ -687,7 +687,7 @@ public class Main {
         else if(word.getWord().equals("if")){
             word= scanner.scan();
             if(word.getWord().equals("(")){
-              //  System.out.println("afdsf");
+                //  System.out.println("afdsf");
                 word= scanner.scan();
                 Cond();
                 //这里得到%cond 改跳转了 br %cond %true
@@ -695,7 +695,7 @@ public class Main {
                 int from,to1 = 0,to2 = 0,out;
                 String store1=null;
                 //br i1 label t01 label to2
-                        from=orderNum-1;
+                from=orderNum-1;
                 if(word.getWord().equals(")")){
                     store1=Out;
                     word= scanner.scan();
@@ -726,7 +726,7 @@ public class Main {
 
 
                     block1=s1+block1;
-                   // System.out.println(block1);
+                    // System.out.println(block1);
                     System.out.println(word.getWord());
                     if(word.getWord().equals("else")){
                         //这里继续
@@ -839,7 +839,7 @@ public class Main {
                         word= scanner.scan();
                         Exp();
                         System.out.println("exp "+word.getWord());
-                    //    System.out.println(word.getWord());
+                        //    System.out.println(word.getWord());
                         String s1="\t";
                         s1+="store i32 ";
                         if(varList.get(varNum-1).getType().equals("value")){
@@ -906,7 +906,7 @@ public class Main {
     public boolean search(String str){
         for (int i = varList.size()-1; i>=0; i--) {
             if(str.equals(varList.get(i).getWord())){
-                if(varList.get(i).getBlocklvel()<blocklvel||(varList.get(i).getBlocklvel()==blocklvel&&varList.get(i).getBlocknum()==blocknum)){
+                if(varList.get(i).getBlocknum()<blocknum||(varList.get(i).getBlocknum()==blocknum&&varList.get(i).getBlocklvel()==blocklvel)){
                     Varpos=i;
                     return true;
                 }
@@ -919,14 +919,12 @@ public class Main {
         Exp();
     }
     public void VarDef(){
-        if((!search(word.getWord()))||varList.get(Varpos).getBlocklvel()<blocklvel||
-                (varList.get(Varpos).getBlocknum()!=blocknum&&
-                        varList.get(Varpos).getBlocklvel()==blocklvel) &&word.getType().equals("Ident")){
+        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum||(varList.get(Varpos).getBlocklvel()!=blocklvel&&varList.get(Varpos).getBlocknum()==blocknum))&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
-            var.setBlocklvel(blocklvel);
             var.setBlocknum(blocknum);
             var.setOrder(orderNum);
+            var.setBlocklvel(blocklvel);
             varList.add(var);
             Varpos=varNum;
             varNum++;
@@ -947,8 +945,8 @@ public class Main {
 
             //这里 定义 int a=1; 把1 存储在a中
             String s1="\tstore i32 ";
-        //    System.out.println(varNum);
-        //    System.out.println(varList.get(varNum-1).getType());
+            //    System.out.println(varNum);
+            //    System.out.println(varList.get(varNum-1).getType());
             if(varList.get(varNum-1).getType().equals("value")){
                 s1+=varList.get(varNum-1).getValue();
             }
@@ -995,14 +993,12 @@ public class Main {
 
     }
     public void ConstDef(){
-        if((!search(word.getWord()))||varList.get(Varpos).getBlocklvel()<blocklvel||
-                (varList.get(Varpos).getBlocknum()!=blocknum&&
-                        varList.get(Varpos).getBlocklvel()==blocklvel) &&word.getType().equals("Ident")){
+        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum||varList.get(Varpos).getBlocknum()==blocknum&&varList.get(Varpos).getBlocklvel()!=blocklvel)&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
             var.setOrder(orderNum);
-            var.setBlocklvel(blocklvel);
             var.setBlocknum(blocknum);
+            var.setBlocklvel(blocklvel);
             var.setType("Const");
             varList.add(var);
             Varpos=varNum;
@@ -1082,8 +1078,8 @@ public class Main {
     public void Block(){
 
         if (word.getWord().equals("{")){
-            blocklvel++;
             blocknum++;
+            blocklvel++;
             Out+="\n";
             word=scanner.scan();
 
@@ -1093,7 +1089,7 @@ public class Main {
             }
 
             if(word.getWord().equals("}")){
-                blocklvel--;
+                blocknum--;
                 word=scanner.scan();
                 return;
             }
@@ -1133,10 +1129,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
