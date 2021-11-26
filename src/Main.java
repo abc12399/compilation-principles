@@ -715,8 +715,8 @@ public class Main {
                     else {
                         block1=Out.substring(temp+store1.length());
                         store1=Out.substring(0,temp+store1.length());
-
                     }
+                    System.out.println(block1);
                     //这里要加跳转到Out
 
 
@@ -744,19 +744,24 @@ public class Main {
 
                         temp=Out.indexOf(store2);
                         if(temp==0){
-                            block2=Out.substring(store2.length());
+                            block2=Out.substring(store2.length()+1);
                         }
                         else {
-                            store2=Out.substring(0,temp+store2.length());
                             block2=Out.substring(temp+store2.length());
+                            store2=Out.substring(0,temp+store2.length());
+
                         }
 
-                        System.out.println("here");
                         System.out.println(block2);
                         System.out.println("there" );
 
                         //System.out.println(block2);
-                        block2=s2+block2;
+                        if(block2.charAt(0) != '\t'){
+                            block2=s2+"\t"+block2;
+                        }
+                        else{
+                            block2=s2+block2;
+                        }
 
                     }
                     else{
@@ -787,7 +792,7 @@ public class Main {
                 orderNum++;
                 String goout="";
                 goout+="\tbr label "+varout.getOrderUse();
-                goout+="\n\n";
+                goout+="\n";
                 String gotos="";
                 gotos+="\tbr i1 %"+from;
                 gotos+=",label %"+to1;
@@ -1101,10 +1106,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
@@ -1150,6 +1155,7 @@ public class Main {
         main.varNum=0;
         main.orderNum=0;
         main.CompUnit();
+
         System.out.println(main.Out);
         pw.print(main.Out);
         pw.flush();
