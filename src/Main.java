@@ -79,16 +79,21 @@ public class Main {
             error();
             return 0;
         }
-        else if(word.getWord().equals("Ident")&&word.getType().equals("Const")){
+        else if(word.getWord().equals("Ident")){
             if(!search(word.getWord())){
                 error();
             }
             else{
-                return varList.get(Varpos).getValue();
+                if(varList.get(Varpos).getType().equals("value")){
+                    return varList.get(Varpos).getValue();
+                }
+                else {
+                    error();
+                }
+
             }
         }
         else{
-
             return constNumber();
         }
         return 0;
