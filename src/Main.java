@@ -1118,23 +1118,17 @@ public class Main {
             if(word.getWord().equals("=")){
                 word= scanner.scan();
                 waiting=Varpos;
-                InitVal();
+                int num=ConstInitVal();
 
                 //这里 定义 int a=1; 把1 存储在a中
-                String s1="\tstore i32 ";
+                String s1="";
+                s1+=varList.get(waiting).getOrderUse();
+                s1+=" = dso_local global i32 ";
+                s1+=num;
+                s1+="\n";
                 //    System.out.println(varNum);
                 //    System.out.println(varList.get(varNum-1).getType());
-                if(varList.get(varNum-1).getType().equals("value")){
-                    s1+=varList.get(varNum-1).getValue();
-                }
-                else{
-                    s1+=varList.get(varNum-1).getOrderUse();
-                }
-                s1+=", i32* ";
-                s1+=varList.get(waiting).getOrderUse();
-                s1+="\n";
-                Out+=s1;
-
+                Out+=s1+Out;
                 return;
             }
         }
@@ -1310,7 +1304,7 @@ public class Main {
         String path=args[0];
         String output=args[1];
 //        String path="a.txt";
-  //      String output="b.txt";
+//        String output="b.txt";
 
         String filecontent="";
 
