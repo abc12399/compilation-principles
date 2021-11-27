@@ -1102,6 +1102,7 @@ public class Main {
         }
         else{
             String s1="";
+            int num=0;
             if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
                 Var var=new Var();
                 var.setWord(word.getWord());
@@ -1122,13 +1123,12 @@ public class Main {
             if(word.getWord().equals("=")){
                 word= scanner.scan();
                 waiting=Varpos;
-                int num=ConstInitVal();
+                num=ConstInitVal();
 
                 //这里 定义 int a=1; 把1 存储在a中
 
-
-                s1+=num;
             }
+            s1+=num;
             s1+="\n";
             Out=s1+Out;
             return;
