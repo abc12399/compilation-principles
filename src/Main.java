@@ -1101,6 +1101,7 @@ public class Main {
             }
         }
         else{
+            String s1="";
             if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
                 Var var=new Var();
                 var.setWord(word.getWord());
@@ -1110,6 +1111,9 @@ public class Main {
                 varList.add(var);
                 Varpos=varNum;
                 varNum++;
+
+                s1+=varList.get(Varpos).getOrderUse();
+                s1+=" = dso_local global i32 ";
             }
             else{
                 error();
@@ -1121,16 +1125,13 @@ public class Main {
                 int num=ConstInitVal();
 
                 //这里 定义 int a=1; 把1 存储在a中
-                String s1="";
-                s1+=varList.get(waiting).getOrderUse();
-                s1+=" = dso_local global i32 ";
+
+
                 s1+=num;
-                s1+="\n";
-                //    System.out.println(varNum);
-                //    System.out.println(varList.get(varNum-1).getType());
-                Out=s1+Out;
-                return;
             }
+            s1+="\n";
+            Out=s1+Out;
+            return;
         }
 
     }
