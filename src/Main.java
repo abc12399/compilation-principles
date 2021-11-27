@@ -33,6 +33,7 @@ public class Main {
 
     public int belong;
 
+    public int check;
     public ArrayList<Var> blocklist;
 
     public int Operate(int m,int n,char x){
@@ -53,7 +54,118 @@ public class Main {
         }
 
     }
+    public int constNumber(){
+        if(word.getType().equals("Number")){
+            number= Integer.valueOf(word.getWord());
+            word= scanner.scan();
+            return number;
+        }
+        error();
+        return 0;
+    }
 
+    public int constPrimaryExp(){
+        if(word.getWord().equals("(")){
+            word= scanner.scan();
+
+            int num=constAddExp();
+            if(word.getWord().equals(")")){
+                System.out.println(")");
+                word= scanner.scan();
+                System.out.println("primary:"+num);
+                System.out.println(word.getWord());
+                return num;
+            }
+            error();
+            return 0;
+        }
+        else if(word.getWord().equals("Ident")&&word.getType().equals("Const")){
+            if(!search(word.getWord())){
+                error();
+            }
+            else{
+                return varList.get(Varpos).getValue();
+            }
+        }
+        else{
+
+            return constNumber();
+        }
+        return 0;
+    }
+
+    public int constUnaryExp(){
+        //System.out.println("tttt");
+        while(word.getWord().equals("+")||word.getWord().equals("-")){
+
+            if(word.getWord().equals("-")){
+                flag+=1;
+            }
+            word= scanner.scan();
+
+        }
+
+        int num=constPrimaryExp();
+
+        System.out.println("flag:"+flag+"num:"+num);
+        if(flag%2==0){
+
+            flag=0;
+            return num;
+        }
+        else{
+            flag=0;
+            return num*(-1);
+        }
+
+    }
+    public int constMulExp(){
+
+        int sum=constUnaryExp();
+
+        while(word.getWord().equals("*")||word.getWord().equals("/")||word.getWord().equals("%")){
+            System.out.println("in *");
+            char[] arr=word.getWord().toCharArray();
+
+            word= scanner.scan();
+
+            int num=constUnaryExp();
+
+            if(sum==0&&arr[0]=='/'){
+                error();
+            }
+            else{
+                sum=Operate(sum,num,arr[0]);
+            }
+
+        }
+        System.out.println("sum"+sum);
+        return sum;
+    }
+    public int constAddExp(){
+
+        int sum=constMulExp();
+
+        while(word.getWord().equals("+")||word.getWord().equals("-")){
+            int temp=0;
+            while (word.getWord().equals("+")||word.getWord().equals("-")){
+                if(word.getWord().equals("-")){
+                    temp++;
+                }
+                word= scanner.scan();
+            }
+
+            int num=constMulExp();
+            if(temp%2==0){
+                sum=Operate(sum,num,'+');
+            }
+            else{
+                sum=Operate(sum,num,'-');
+            }
+
+        }
+        return sum;
+    }
     public int flag=0;
     public void error(){
         System.out.println(word.getWord());
@@ -78,9 +190,13 @@ public class Main {
         if (!search(word.getWord())){
             error();
         }
-        else{
+        else {
+            if(check==0 && ! word.getType().equals("Const")){
+                error();
+            }
             Ident();
         }
+
     }
     public void PrimaryExp(){
         if(word.getWord().equals("(")){
@@ -100,23 +216,32 @@ public class Main {
         else if(word.getType().equals("Ident")){
             Lval();
             int waiting=Varpos;
-            Var var=new Var();
-            var.setOrder(orderNum);
+            if(varList.get(waiting).getType().equals("value")){
+                Var var =new Var();
+                var.setValue(varList.get(waiting).getValue());
+                var.setType("value");
+                varList.add(var);
+                varNum++;
+            }
+            else {
+                Var var=new Var();
+                var.setOrder(orderNum);
 
-            String s1="\t";
-            s1+=var.getOrderUse();
-            s1+=" = load i32, i32* ";
+                String s1="\t";
+                s1+=var.getOrderUse();
+                s1+=" = load i32, i32* ";
 
-            s1+=varList.get(waiting).getOrderUse();
+                s1+=varList.get(waiting).getOrderUse();
 
-            s1+="\n";
-            Out+=s1;
-            varList.add(var);
-            varNum++;
-            orderNum++;
+                s1+="\n";
+                Out+=s1;
+                varList.add(var);
+                varNum++;
+                orderNum++;
+            }
+
         }
         else{
-
             Number();
         }
     }
@@ -920,48 +1045,89 @@ public class Main {
         Exp();
     }
     public void VarDef(){
-        if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
-            Var var=new Var();
-            var.setWord(word.getWord());
-            var.setBlocknum(blocknum);
-            var.setOrder(orderNum);
+        if(check==1){
+            if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
+                Var var=new Var();
+                var.setWord(word.getWord());
+                var.setBlocknum(blocknum);
+                var.setOrder(orderNum);
 
-            varList.add(var);
-            Varpos=varNum;
-            varNum++;
-            orderNum++;
-            String s="\t";
-            s+=var.getOrderUse();
+                varList.add(var);
+                Varpos=varNum;
+                varNum++;
+                orderNum++;
+                String s="\t";
+                s+=var.getOrderUse();
 
-            s+=" = alloca i32\n";
-            Out+=s;
-        }
-        else{
-            error();
-        }
-        Ident();
-        if(word.getWord().equals("=")){
-            word= scanner.scan();
-            waiting=Varpos;
-            InitVal();
-
-            //这里 定义 int a=1; 把1 存储在a中
-            String s1="\tstore i32 ";
-            //    System.out.println(varNum);
-            //    System.out.println(varList.get(varNum-1).getType());
-            if(varList.get(varNum-1).getType().equals("value")){
-                s1+=varList.get(varNum-1).getValue();
+                s+=" = alloca i32\n";
+                Out+=s;
             }
             else{
-                s1+=varList.get(varNum-1).getOrderUse();
+                error();
             }
-            s1+=", i32* ";
-            s1+=varList.get(waiting).getOrderUse();
-            s1+="\n";
-            Out+=s1;
+            Ident();
+            if(word.getWord().equals("=")){
+                word= scanner.scan();
+                waiting=Varpos;
+                InitVal();
 
-            return;
+                //这里 定义 int a=1; 把1 存储在a中
+                String s1="\tstore i32 ";
+                //    System.out.println(varNum);
+                //    System.out.println(varList.get(varNum-1).getType());
+                if(varList.get(varNum-1).getType().equals("value")){
+                    s1+=varList.get(varNum-1).getValue();
+                }
+                else{
+                    s1+=varList.get(varNum-1).getOrderUse();
+                }
+                s1+=", i32* ";
+                s1+=varList.get(waiting).getOrderUse();
+                s1+="\n";
+                Out+=s1;
+
+                return;
+            }
         }
+        else{
+            if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
+                Var var=new Var();
+                var.setWord(word.getWord());
+                var.setBlocknum(blocknum);
+                var.setOrderUse("@"+word.getWord());
+
+                varList.add(var);
+                Varpos=varNum;
+                varNum++;
+            }
+            else{
+                error();
+            }
+            Ident();
+            if(word.getWord().equals("=")){
+                word= scanner.scan();
+                waiting=Varpos;
+                InitVal();
+
+                //这里 定义 int a=1; 把1 存储在a中
+                String s1="\tstore i32 ";
+                //    System.out.println(varNum);
+                //    System.out.println(varList.get(varNum-1).getType());
+                if(varList.get(varNum-1).getType().equals("value")){
+                    s1+=varList.get(varNum-1).getValue();
+                }
+                else{
+                    s1+=varList.get(varNum-1).getOrderUse();
+                }
+                s1+=", i32* ";
+                s1+=varList.get(waiting).getOrderUse();
+                s1+="\n";
+                Out+=s1;
+
+                return;
+            }
+        }
+
     }
     public void Btype(){
         if (word.getWord().equals("int")){
@@ -987,49 +1153,33 @@ public class Main {
         word=scanner.scan();
         return;
     }
-    public void ConstExp(){
-        AddExp();
-    }
-    public void ConstInitVal(){
-        ConstExp();
 
+    public int ConstExp(){
+        return constAddExp();
+    }
+
+    public int ConstInitVal(){
+        return ConstExp();
     }
     public void ConstDef(){
         if(!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum&&word.getType().equals("Ident")){
             Var var=new Var();
             var.setWord(word.getWord());
-            var.setOrder(orderNum);
             var.setBlocknum(blocknum);
-            var.setType("Const");
-            varList.add(var);
+            var.setType("value");
+
             Varpos=varNum;
             varNum++;
-            orderNum++;
-            String s="\t";
-            s+=var.getOrderUse();
-            s+=" = alloca i32\n";
-            Out+=s;
+
 
             Ident();
             if(word.getWord().equals("=")){
                 word= scanner.scan();
                 waiting=Varpos;
-                ConstInitVal();
+                int value=ConstInitVal();
 
-                //这里 定义 int a=1; 把1 存储在a中
-                String s1="\tstore i32 ";
-                System.out.println(varList);
-                System.out.println(varList.get(varNum-1).getType());
-                if(varList.get(varNum-1).getType().equals("value")){
-                    s1+=varList.get(varNum-1).getValue();
-                }
-                else{
-                    s1+=varList.get(varNum-1).getOrderUse();
-                }
-                s1+=", i32* ";
-                s1+=varList.get(waiting).getOrderUse();
-                s1+="\n";
-                Out+=s1;
+                var.setValue(value);
+                varList.add(var);
 
                 return;
             }
@@ -1134,14 +1284,24 @@ public class Main {
 
     }
     public void CompUnit(){
+        word= scanner.scan();
+        while(!word.getWord().equals("main")){
+            scanner.goBack2();
+            word= scanner.scan();
+            Decl();
+            word= scanner.scan();
+        }
+        scanner.goBack2();
+        word=scanner.scan();
+        check=1;
         FuncDef();
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
@@ -1187,6 +1347,7 @@ public class Main {
         main.varNum=0;
         main.orderNum=0;
         main.blocknum=0;
+        main.check=0;
         main.CompUnit();
 
         System.out.println(main.Out);
