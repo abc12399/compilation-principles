@@ -955,6 +955,77 @@ public class Main {
             }
 
         }
+        else if(word.getWord().equals("while")){
+            word= scanner.scan();
+            int skiptowhile=orderNum;
+            if(word.getWord().equals("(")){
+                //  System.out.println("afdsf");
+                word= scanner.scan();
+                Out+=orderNum;
+                Out+=":\n";
+                Cond();
+                //这里得到%cond 改跳转了 br %cond %true
+                String block1 = null,block2=null;
+                int from,to1 = 0,to2 = 0;
+                String store1=null;
+                //br i1 label t01 label to2
+                from=orderNum-1;
+                if(word.getWord().equals(")")){
+                    store1=Out;
+                    word= scanner.scan();
+                    String s1="\n";
+                    Var var=new Var();
+                    var.setOrder(orderNum);
+                    to1=orderNum;
+                    var.setType("to1");
+                    varList.add(var);
+                    varNum++;
+                    orderNum++;
+                    s1+=var.getOrder();
+                    s1+=":";
+                    //这里继续生成%cond+1块 定义 from to1 to2 out
+                    System.out.println(word.getWord()+"fda54444444");
+                    Stmt();
+                    int temp=Out.indexOf(store1);
+                    if(temp==0){
+                        block1=Out.substring(store1.length());
+                    }
+                    else {
+                        block1=Out.substring(temp+store1.length());
+                        store1=Out.substring(0,temp+store1.length());
+                    }
+                    System.out.println(block1);
+                    //这里要加跳转到Out
+                    block1=s1+block1;
+                    // System.out.println(block1);
+                    System.out.println(word.getWord());
+
+                }
+                Var varout=new Var();
+                varout.setOrder(orderNum);
+                varList.add(varout);
+                varNum++;
+                orderNum++;
+                String goToWhile="";
+                goToWhile+="\tbr label "+skiptowhile;
+                goToWhile+="\n";
+                String gotos="";
+                gotos+="\tbr i1 %"+from;
+
+                gotos+=",label %"+to1;
+
+                gotos+=", label %"+varout.getOrder();
+                gotos+="\n";
+
+                assert block1 != null;
+                if (!block1.contains("ret")){
+                    block1+=goToWhile;
+                }
+                Out=store1+gotos+block1+varout.getOrder()+":\n";
+
+            }
+
+        }
         else if(word.getType().equals("Ident")){
             System.out.println(word.getWord());
             word= scanner.scan();
@@ -1302,10 +1373,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
