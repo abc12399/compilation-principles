@@ -1128,7 +1128,7 @@ public class Main {
                 s1+="\n";
                 //    System.out.println(varNum);
                 //    System.out.println(varList.get(varNum-1).getType());
-                Out+=s1+Out;
+                Out=s1+Out;
                 return;
             }
         }

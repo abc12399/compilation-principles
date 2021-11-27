@@ -1,8 +1,11 @@
-int a = 6;
-int b = a + 1;
+int t = 4, b = 3;
 int main() {
-    int c = b;
-    int b = 8;
-    putint(b + c);
+    int a = 5;
+    int b = a;
+    a = t;
+    t = b;
+    putint(a);
+    putint(b);
+    putint(t);
     return 0;
 }
