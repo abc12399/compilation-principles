@@ -65,6 +65,7 @@ public class Main {
     }
 
     public int constPrimaryExp(){
+
         if(word.getWord().equals("(")){
             word= scanner.scan();
 
@@ -79,12 +80,14 @@ public class Main {
             error();
             return 0;
         }
-        else if(word.getWord().equals("Ident")){
+        else if(word.getType().equals("Ident")){
             if(!search(word.getWord())){
                 error();
             }
             else{
                 if(varList.get(Varpos).getType().equals("value")){
+                    word=scanner.scan();
+                    System.out.println("aaaaaaaaaaaaaaaaa"+varList.get(Varpos).getValue());
                     return varList.get(Varpos).getValue();
                 }
                 else {
@@ -101,6 +104,7 @@ public class Main {
 
     public int constUnaryExp(){
         //System.out.println("tttt");
+        System.out.println("xzxxx"+word.getWord());
         while(word.getWord().equals("+")||word.getWord().equals("-")){
 
             if(word.getWord().equals("-")){
@@ -127,7 +131,8 @@ public class Main {
     public int constMulExp(){
 
         int sum=constUnaryExp();
-
+        System.out.println("xzx"+sum);
+        System.out.println(word.getWord());
         while(word.getWord().equals("*")||word.getWord().equals("/")||word.getWord().equals("%")){
             System.out.println("in *");
             char[] arr=word.getWord().toCharArray();
@@ -136,11 +141,12 @@ public class Main {
 
             int num=constUnaryExp();
 
-            if(sum==0&&arr[0]=='/'){
+            if(num==0&&arr[0]=='/'){
                 error();
             }
             else{
                 sum=Operate(sum,num,arr[0]);
+                System.out.println(sum);
             }
 
         }
@@ -151,7 +157,7 @@ public class Main {
 
         int sum=constMulExp();
 
-        while(word.getWord().equals("+")||word.getWord().equals("-")){
+        if (word.getWord().equals("+")||word.getWord().equals("-")){
             int temp=0;
             while (word.getWord().equals("+")||word.getWord().equals("-")){
                 if(word.getWord().equals("-")){
@@ -1175,8 +1181,6 @@ public class Main {
 
             Varpos=varNum;
             varNum++;
-
-
             Ident();
             if(word.getWord().equals("=")){
                 word= scanner.scan();
@@ -1306,7 +1310,7 @@ public class Main {
         String path=args[0];
         String output=args[1];
 //        String path="a.txt";
-//        String output="b.txt";
+  //      String output="b.txt";
 
         String filecontent="";
 
