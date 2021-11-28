@@ -945,10 +945,10 @@ public class Main {
                 gotos+="\n";
 
                 assert block1 != null;
-                if (!block1.contains("ret")){
+                if (!block1.contains("ret")&&(!block1.contains("br label")||(block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
                     block1+=goout;
                 }
-                if(!block2.contains("ret")){
+                if(!block2.contains("ret")&&(!block2.contains("br label")||(block2.contains("br label")&&block2.lastIndexOf("br label")<block2.length()-15))){
                     block2+=goout;
                 }
 
@@ -1034,7 +1034,7 @@ public class Main {
                 gotos+="\n";
 
                 assert block1 != null;
-                if (!block1.contains("ret")){
+                if (!block1.contains("ret")&&(!block1.contains("br label")||(block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
                     block1+=goToWhile;
                 }
                 Out=store1+gotos+block1+varout.getOrder()+":\n";
@@ -1402,10 +1402,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-//        String path=args[0];
-//        String output=args[1];
-        String path="a.txt";
-        String output="b.txt";
+        String path=args[0];
+        String output=args[1];
+//        String path="a.txt";
+//        String output="b.txt";
 
         String filecontent="";
 
