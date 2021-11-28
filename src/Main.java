@@ -384,7 +384,9 @@ public class Main {
             flag=0;
         }
         else if(word.getType().equals("Ident")){
+            System.out.println(funcList);
             if(!searchFunList(word.getWord())){
+                System.out.println("search "+word.getWord());
                 Ident();
                 if(word.getWord().equals("(")){
                     scanner.goBack2();
@@ -417,6 +419,7 @@ public class Main {
 
                     }
                     else{
+                        System.out.println("ater puth");
                         if(funcList.get(funcList.size()-1).equals("getint")||funcList.get(funcList.size()-1).equals("getch")||funcList.get(funcList.size()-1).equals("getarray")){
                             error();
                         }
@@ -424,6 +427,7 @@ public class Main {
                         s1+="declare void @";
                         s1+=funcList.get(funcList.size()-1);
                         s1+="(i32)\n";
+                        System.out.println(s1);
                         Out=s1+Out;
                         ArrayList<Integer> waitnum=new ArrayList<>();
                         Exp();
@@ -856,7 +860,6 @@ public class Main {
                     }
                     else {
                         block1=Out.substring(temp+store1.length());
-                        store1=Out.substring(0,temp+store1.length());
                     }
                     System.out.println(block1);
                     //这里要加跳转到Out
@@ -890,8 +893,6 @@ public class Main {
                         }
                         else {
                             block2=Out.substring(temp+store2.length());
-                            store2=Out.substring(0,temp+store2.length());
-
                         }
 
                         System.out.println(block2);
@@ -954,7 +955,11 @@ public class Main {
                                 (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-15))){
                     block2+=goout;
                 }
-
+                int declare=Out.indexOf("define dso_local i32 @main");
+                String declares=Out.substring(0,declare);
+                int s_declare=store1.indexOf("define dso_local i32 @main");
+                String s_main=store1.substring(s_declare);
+                store1=declares+s_main;
                 Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
 
             }
@@ -1443,10 +1448,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
