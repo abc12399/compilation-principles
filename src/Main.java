@@ -34,6 +34,8 @@ public class Main {
     public int belong;
 
     public int check;
+
+    public Stack<Var> continueStack;
     public ArrayList<Var> blocklist;
 
     public int Operate(int m,int n,char x){
@@ -956,13 +958,21 @@ public class Main {
 
         }
         else if(word.getWord().equals("while")){
+            int tag=0;
             word= scanner.scan();
-            int skiptowhile=orderNum;
+
             if(word.getWord().equals("(")){
                 //  System.out.println("afdsf");
+                int skiptowhile=orderNum;
                 word= scanner.scan();
+                Var var=new Var();
+                var.setOrder(orderNum);
+                varList.add(var);
+                continueStack.push(var);
                 Out+=orderNum;
                 Out+=":\n";
+                orderNum++;
+                varNum++;
                 Cond();
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
@@ -974,18 +984,24 @@ public class Main {
                     store1=Out;
                     word= scanner.scan();
                     String s1="\n";
-                    Var var=new Var();
-                    var.setOrder(orderNum);
+                    Var wvar=new Var();
+                    wvar.setOrder(orderNum);
                     to1=orderNum;
-                    var.setType("to1");
-                    varList.add(var);
+                    wvar.setType("to1");
+                    varList.add(wvar);
                     varNum++;
                     orderNum++;
-                    s1+=var.getOrder();
+                    s1+=wvar.getOrder();
                     s1+=":";
-                    //这里继续生成%cond+1块 定义 from to1 to2 out
-                    System.out.println(word.getWord()+"fda54444444");
+                    if(word.getWord().equals("continue")){
+                        tag=1;
+                    }
+                    if(word.getWord().equals("break")){
+                        tag=2;
+                    }
                     Stmt();
+
+                    continueStack.pop();
                     int temp=Out.indexOf(store1);
                     if(temp==0){
                         block1=Out.substring(store1.length());
@@ -1007,7 +1023,7 @@ public class Main {
                 varNum++;
                 orderNum++;
                 String goToWhile="";
-                goToWhile+="\tbr label "+skiptowhile;
+                goToWhile+="\tbr label %"+skiptowhile;
                 goToWhile+="\n";
                 String gotos="";
                 gotos+="\tbr i1 %"+from;
@@ -1025,6 +1041,19 @@ public class Main {
 
             }
 
+        }
+        else if(word.getWord().equals("break")){
+
+        }
+        else if(word.getWord().equals("continue")){
+            word=scanner.scan();
+            if(continueStack.empty()){
+                error();
+            }
+            String s1="";
+            s1+="\tbr label ";
+            s1+=continueStack.peek().getOrderUse();
+            Out+=s1;
         }
         else if(word.getType().equals("Ident")){
             System.out.println(word.getWord());
@@ -1423,6 +1452,7 @@ public class Main {
         main.orderNum=0;
         main.blocknum=0;
         main.check=0;
+        main.continueStack=new Stack<>();
         main.CompUnit();
 
         System.out.println(main.Out);
