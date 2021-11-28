@@ -1023,7 +1023,7 @@ public class Main {
 
                     while(block1.indexOf("break")!=-1){
                         int pos=block1.indexOf("break");
-                        String front=block1.substring(0,pos-1);
+                        String front=block1.substring(0,pos);
                         String behind=block1.substring(pos+5);
                         block1=front+"%"+orderNum+behind;
                     }
