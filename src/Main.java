@@ -964,6 +964,7 @@ public class Main {
             if(word.getWord().equals("(")){
                 //  System.out.println("afdsf");
                 int skiptowhile=orderNum;
+                Out+="\tbr label %"+skiptowhile+"\n";
                 word= scanner.scan();
                 Var var=new Var();
                 var.setOrder(orderNum);
