@@ -1,4 +1,5 @@
 declare void @putint(i32)
+declare void @putch(i32)
 declare i32 @getint()
 define dso_local i32 @main(){
 	%1 = alloca i32
