@@ -36,6 +36,7 @@ public class Main {
     public int check;
 
     public Stack<Var> continueStack;
+    public Stack<Var> breakStack;
     public ArrayList<Var> blocklist;
 
     public int Operate(int m,int n,char x){
@@ -945,10 +946,14 @@ public class Main {
                 gotos+="\n";
 
                 assert block1 != null;
-                if (!block1.contains("ret")&&(!block1.contains("br label")||(block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
+                if (!block1.contains("ret")&&
+                        (!block1.contains("br label")||
+                        (block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
                     block1+=goout;
                 }
-                if(!block2.contains("ret")&&(!block2.contains("br label")||(block2.contains("br label")&&block2.lastIndexOf("br label")<block2.length()-15))){
+                if(!block2.contains("ret")&&
+                        (!block2.contains("br label")||
+                                (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-15))){
                     block2+=goout;
                 }
 
@@ -1002,6 +1007,7 @@ public class Main {
                     }
                     Stmt();
 
+
                     continueStack.pop();
                     int temp=Out.indexOf(store1);
                     if(temp==0){
@@ -1014,6 +1020,13 @@ public class Main {
                     System.out.println(block1);
                     //这里要加跳转到Out
                     block1=s1+block1;
+
+                    while(block1.indexOf("break")!=-1){
+                        int pos=block1.indexOf("break");
+                        String front=block1.substring(0,pos-1);
+                        String behind=block1.substring(pos+5);
+                        block1=front+"%"+orderNum+behind;
+                    }
                     // System.out.println(block1);
                     System.out.println(word.getWord());
 
@@ -1044,7 +1057,11 @@ public class Main {
 
         }
         else if(word.getWord().equals("break")){
-
+            word=scanner.scan();
+            String s1="";
+            s1+="\tbr label ";
+            s1+="break\n";
+            Out+=s1;
         }
         else if(word.getWord().equals("continue")){
             word=scanner.scan();
@@ -1054,6 +1071,7 @@ public class Main {
             String s1="";
             s1+="\tbr label ";
             s1+=continueStack.peek().getOrderUse();
+            s1+="\n";
             Out+=s1;
         }
         else if(word.getType().equals("Ident")){
@@ -1403,10 +1421,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
@@ -1454,6 +1472,7 @@ public class Main {
         main.blocknum=0;
         main.check=0;
         main.continueStack=new Stack<>();
+        main.breakStack=new Stack<>();
         main.CompUnit();
 
         System.out.println(main.Out);
