@@ -707,8 +707,51 @@ public class Main {
         AddExp();
     }
     public void RelExp(){
-        System.out.println("dfs");
+        if(word.getType().equals("Number")){
+            int v=constNumber();
+            if(word.getWord().equals(")")){
+                Var var=new Var();
+                var.setOrder(orderNum);
+                varList.add(var);
+                String s1="\t";
+                s1+=var.getOrderUse();
+                s1+=" icmp ne i32 "+v;
 
+                s1+=", 0";
+                s1+="\n";
+                Out+=s1;
+                varNum++;
+                orderNum++;
+            }
+            else{
+                scanner.goBack2();
+                word=scanner.scan();
+                AddExp();
+                while (word.getWord().equals("<")||word.getWord().equals(">")||word.getWord().equals(">=")||word.getWord().equals("<=")){
+                    int relnum=varNum-1;
+                    if(word.getWord().equals("<")){
+                        word= scanner.scan();
+                        AddExp();
+                        fillIn(" =  icmp slt i32 ",relnum);
+                    }
+                    else if(word.getWord().equals(">")){
+                        word= scanner.scan();
+                        AddExp();
+                        fillIn(" =  icmp sgt i32 ",relnum);
+                    }
+                    else if(word.getWord().equals(">=")){
+                        word= scanner.scan();
+                        AddExp();
+                        fillIn(" =  icmp sge i32 ",relnum);
+                    }
+                    else{
+                        word= scanner.scan();
+                        AddExp();
+                        fillIn(" =  icmp sle i32 ",relnum);
+                    }
+                }
+            }
+        }
         AddExp();
         while (word.getWord().equals("<")||word.getWord().equals(">")||word.getWord().equals(">=")||word.getWord().equals("<=")){
             int relnum=varNum-1;
