@@ -298,35 +298,47 @@ public class Main {
                     varNum++;
                     orderNum++;
                 }
-
+                int waiting=varNum-1;
                 {
-                    var=new Var();
-                    var.setOrder(orderNum);
+
                     if(arrays.get(arrays.size()-1).getFlag()!=1){
                         arrays.get(arrays.size()-1).setFlag(1);
                         x=arrays.get(arrays.size()-1).getX();
                         y=arrays.get(arrays.size()-1).getY();
+                        var=new Var();
+                        var.setOrder(orderNum);
+                        var.setBlocknum(blocknum);
+                        varList.add(var);
+                        varNum++;
+                        orderNum++;
                         String s="\t";
+
                         s+=var.getOrderUse();
                         s+=" = getelementptr [";
                         s+=x*y;
                         s+=" x i32], [";
                         s+=x*y;
                         s+=" x i32]* %";
-                        s+=orderNum-2;
+                        s+=arrays.get(arrays.size()-1).getBaseptr();
                         s+=", i32 0, i32 0\n";
                         Out+=s;
                     }
+                    var=new Var();
+                    var.setOrder(orderNum);
+                    var.setBlocknum(blocknum);
+                    varNum++;
+                    orderNum++;
+                    varList.add(var);
                     s1="\t";
                     s1+=var.getOrderUse();
                     s1+=" = getelementptr i32, i32* ";
                     s1+=arrays.get(t).getBaseptr();
                     s1+=", i32 ";
-                    if(varList.get(varNum-1).getType().equals("value")){
-                        s1+=varList.get(varNum-1).getValue();
+                    if(varList.get(waiting).getType().equals("value")){
+                        s1+=varList.get(waiting).getValue();
                     }
                     else{
-                        s1+=varList.get(varNum-1).getOrderUse();
+                        s1+=varList.get(waiting).getOrderUse();
                     }
                     s1+="\n";
                     Out+=s1;
@@ -1429,27 +1441,35 @@ public class Main {
             System.out.println(i+" "+j);
             if(arrtag==1){
                 Var var=new Var();
-                var.setBlocknum(blocknum);
-                var.setOrder(orderNum);
-                varList.add(var);
-                Varpos=varNum;
-                varNum++;
-                orderNum++;
                 if(arrays.get(arrays.size()-1).getFlag()!=1){
                     arrays.get(arrays.size()-1).setFlag(1);
                     int x=arrays.get(arrays.size()-1).getX();
                     int y=arrays.get(arrays.size()-1).getY();
+                    var=new Var();
+                    var.setOrder(orderNum);
+                    var.setBlocknum(blocknum);
+                    varList.add(var);
+                    varNum++;
+                    orderNum++;
+
                     String s="\t";
                     s+=var.getOrderUse();
                     s+=" = getelementptr [";
                     s+=x*y;
                     s+=" x i32], [";
                     s+=x*y;
-                    s+=" x i32]* %";
-                    s+=orderNum-2;
+                    s+=" x i32]* ";
+                    s+=arrays.get(arrays.size()-1).getBaseptr();
                     s+=", i32 0, i32 0\n";
                     Out+=s;
                 }
+                var=new Var();
+                var.setBlocknum(blocknum);
+                var.setOrder(orderNum);
+                varList.add(var);
+                Varpos=varNum;
+                varNum++;
+                orderNum++;
                 String s="\t";
                 s+=var.getOrderUse();
                 s+=" = getelementptr i32, i32* ";
@@ -1548,8 +1568,8 @@ public class Main {
                         s+=x*y;
                         s+=" x i32], [";
                         s+=x*y;
-                        s+=" x i32]* %";
-                        s+=orderNum-2;
+                        s+=" x i32]* ";
+                        s+=arrays.get(arrays.size()-1).getBaseptr();
                         s+=", i32 0, i32 0\n";
 
                         s+="\tcall void @memset(i32* %";
