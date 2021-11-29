@@ -92,6 +92,7 @@ public class Main {
                 error();
             }
             else{
+                System.out.println(varList.get(Varpos).getType());
                 if(varList.get(Varpos).getType().equals("value")){
                     word=scanner.scan();
                     return varList.get(Varpos).getValue();
@@ -149,13 +150,14 @@ public class Main {
             }
 
         }
+        System.out.println(sum);
         return sum;
     }
     public int constAddExp(){
 
         int sum=constMulExp();
-
-        if (word.getWord().equals("+")||word.getWord().equals("-")){
+        System.out.println(word.getWord()+"Safa");
+        while(word.getWord().equals("+")||word.getWord().equals("-")){
             int temp=0;
             while (word.getWord().equals("+")||word.getWord().equals("-")){
                 if(word.getWord().equals("-")){
@@ -1169,6 +1171,9 @@ public class Main {
                         varNum++;
                         orderNum++;
                     }
+                    else{
+                        Out+="\n";
+                    }
                 }
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
@@ -1991,6 +1996,7 @@ public class Main {
                     word=scanner.scan();
                     var=new Var();
                     var.setWord(word.getWord());
+                    var.setType("value");
                     var.setBlocknum(blocknum);
                     var.setOrderUse("@"+word.getWord());
 
@@ -2127,10 +2133,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
