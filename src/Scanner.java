@@ -425,6 +425,14 @@ public class Scanner {
                     word.setWord(",");
                     word.setType(",");
                     return word;
+                case '[':
+                    word.setWord("[");
+                    word.setType("[");
+                    return word;
+                case ']':
+                    word.setWord("]");
+                    word.setType("]");
+                    return word;
                 default:
                     catToken();
                  //   System.out.println(token);
