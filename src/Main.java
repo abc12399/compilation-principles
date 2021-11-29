@@ -304,21 +304,15 @@ public class Main {
                     var.setOrder(orderNum);
                     s1="\t";
                     s1+=var.getOrderUse();
-                    s1+=" = getelementptr [";
-                    int temp=0;
-                    if(count==2){
-                        temp=arrays.get(t).getX()*arrays.get(t).getY();
+                    s1+=" = getelementptr i32, i32* ";
+                    s1+=arrays.get(t).getBaseptr();
+                    s1+=", i32 ";
+                    if(varList.get(varNum-1).getType().equals("value")){
+                        s1+=varList.get(varNum-1).getValue();
                     }
                     else{
-                        temp=arrays.get(t).getX();
+                        s1+=varList.get(varNum-1).getOrderUse();
                     }
-                    s1+=temp;
-                    s1+=" x i32], [";
-                    s1+=temp;
-                    s1+=" x i32]* ";
-                    s1+=arrays.get(t).getBaseptr();
-                    s1+=", i32 0, i32 ";
-                    s1+=varList.get(varNum-1).getOrderUse();
                     s1+="\n";
                     Out+=s1;
                     varList.add(var);
