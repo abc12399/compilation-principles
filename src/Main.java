@@ -302,6 +302,21 @@ public class Main {
                 {
                     var=new Var();
                     var.setOrder(orderNum);
+                    if(arrays.get(arrays.size()-1).getFlag()!=1){
+                        arrays.get(arrays.size()-1).setFlag(1);
+                        x=arrays.get(arrays.size()-1).getX();
+                        y=arrays.get(arrays.size()-1).getY();
+                        String s="\t";
+                        s+=var.getOrderUse();
+                        s+=" = getelementptr [";
+                        s+=x*y;
+                        s+=" x i32], [";
+                        s+=x*y;
+                        s+=" x i32]* %";
+                        s+=orderNum-2;
+                        s+=", i32 0, i32 0\n";
+                        Out+=s;
+                    }
                     s1="\t";
                     s1+=var.getOrderUse();
                     s1+=" = getelementptr i32, i32* ";
@@ -1420,6 +1435,21 @@ public class Main {
                 Varpos=varNum;
                 varNum++;
                 orderNum++;
+                if(arrays.get(arrays.size()-1).getFlag()!=1){
+                    arrays.get(arrays.size()-1).setFlag(1);
+                    int x=arrays.get(arrays.size()-1).getX();
+                    int y=arrays.get(arrays.size()-1).getY();
+                    String s="\t";
+                    s+=var.getOrderUse();
+                    s+=" = getelementptr [";
+                    s+=x*y;
+                    s+=" x i32], [";
+                    s+=x*y;
+                    s+=" x i32]* %";
+                    s+=orderNum-2;
+                    s+=", i32 0, i32 0\n";
+                    Out+=s;
+                }
                 String s="\t";
                 s+=var.getOrderUse();
                 s+=" = getelementptr i32, i32* ";
@@ -1505,6 +1535,7 @@ public class Main {
                         nowarr=varNum;
                         arr.setBaseptr(varList.get(nowarr).getOrderUse());
                         arr.setBlocknum(blocknum);
+                        arr.setFlag(1);
                         arrays.add(arr);
 
 

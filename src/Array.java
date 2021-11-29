@@ -6,6 +6,17 @@ public class Array {
     private String type;
     private int blocknum;
 
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    //标志是否初始化
+    private int flag;
+
     public int getBlocknum() {
         return blocknum;
     }

@@ -11,14 +11,14 @@ define dso_local i32 @main(){
 2:
 	%3 = load i32, i32* %1
 	%4 = mul i32 %3, 1
-	%5 = getelementptr [100 x i32], [100 x i32]* @__HELLO, i32 0, i32 %4
+	%5 = getelementptr i32, i32* @__HELLO, i32 %4
 	%6 = load i32, i32* %5
 	br i1 %6,label %7, label %14
 
 7:
 	%8 = load i32, i32* %1
 	%9 = mul i32 %8, 1
-	%10 = getelementptr [100 x i32], [100 x i32]* @__HELLO, i32 0, i32 %9
+	%10 = getelementptr i32, i32* @__HELLO, i32 %9
 	%11 = load i32, i32* %10
 	call void @putch(i32 %11)
 	%12 = load i32, i32* %1
@@ -55,7 +55,7 @@ define dso_local i32 @main(){
 	%31 = load i32, i32* %1
 	%32 = mul i32 %30, 50
 	%33 = add i32 %31, %32
-	%34 = getelementptr [300 x i32], [300 x i32]* @N4__mE___, i32 0, i32 %33
+	%34 = getelementptr i32, i32* @N4__mE___, i32 %33
 	%35 = load i32, i32* %34
 	br i1 %35,label %36, label %45
 
@@ -64,7 +64,7 @@ define dso_local i32 @main(){
 	%38 = load i32, i32* %1
 	%39 = mul i32 %37, 50
 	%40 = add i32 %38, %39
-	%41 = getelementptr [300 x i32], [300 x i32]* @N4__mE___, i32 0, i32 %40
+	%41 = getelementptr i32, i32* @N4__mE___, i32 %40
 	%42 = load i32, i32* %41
 	call void @putch(i32 %42)
 	%43 = load i32, i32* %1
@@ -77,14 +77,14 @@ define dso_local i32 @main(){
 46:
 	%47 = load i32, i32* %1
 	%48 = mul i32 %47, 1
-	%49 = getelementptr [40 x i32], [40 x i32]* @saY_HeI10_To, i32 0, i32 %48
+	%49 = getelementptr i32, i32* @saY_HeI10_To, i32 %48
 	%50 = load i32, i32* %49
 	br i1 %50,label %51, label %58
 
 51:
 	%52 = load i32, i32* %1
 	%53 = mul i32 %52, 1
-	%54 = getelementptr [40 x i32], [40 x i32]* @saY_HeI10_To, i32 0, i32 %53
+	%54 = getelementptr i32, i32* @saY_HeI10_To, i32 %53
 	%55 = load i32, i32* %54
 	call void @putch(i32 %55)
 	%56 = load i32, i32* %1
@@ -99,7 +99,7 @@ define dso_local i32 @main(){
 	%61 = load i32, i32* %1
 	%62 = mul i32 %60, 50
 	%63 = add i32 %61, %62
-	%64 = getelementptr [300 x i32], [300 x i32]* @N4__mE___, i32 0, i32 %63
+	%64 = getelementptr i32, i32* @N4__mE___, i32 %63
 	%65 = load i32, i32* %64
 	br i1 %65,label %66, label %75
 
@@ -108,7 +108,7 @@ define dso_local i32 @main(){
 	%68 = load i32, i32* %1
 	%69 = mul i32 %67, 50
 	%70 = add i32 %68, %69
-	%71 = getelementptr [300 x i32], [300 x i32]* @N4__mE___, i32 0, i32 %70
+	%71 = getelementptr i32, i32* @N4__mE___, i32 %70
 	%72 = load i32, i32* %71
 	call void @putch(i32 %72)
 	%73 = load i32, i32* %1
@@ -121,14 +121,14 @@ define dso_local i32 @main(){
 76:
 	%77 = load i32, i32* %1
 	%78 = mul i32 %77, 1
-	%79 = getelementptr [5 x i32], [5 x i32]* @RET, i32 0, i32 %78
+	%79 = getelementptr i32, i32* @RET, i32 %78
 	%80 = load i32, i32* %79
 	br i1 %80,label %81, label %88
 
 81:
 	%82 = load i32, i32* %1
 	%83 = mul i32 %82, 1
-	%84 = getelementptr [5 x i32], [5 x i32]* @RET, i32 0, i32 %83
+	%84 = getelementptr i32, i32* @RET, i32 %83
 	%85 = load i32, i32* %84
 	call void @putch(i32 %85)
 	%86 = load i32, i32* %1
