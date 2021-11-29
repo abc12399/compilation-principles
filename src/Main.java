@@ -196,9 +196,11 @@ public class Main {
         return ;
     }
     public int searchArr(String str){
-        for (int k = 0; k < arrays.size(); k++) {
+        for (int k = arrays.size()-1; k >=0; k--) {
             if(str.equals(arrays.get(k).getWord())){
-                return k;
+                if(arrays.get(k).getBlocknum()<=blocknum){
+                    return k;
+                }
             }
         }
         return -1;
@@ -1368,6 +1370,10 @@ public class Main {
                     j=0;
                 }
             }
+            else{
+                word=scanner.scan();
+                return;
+            }
         }
         else{
             Exp();
@@ -1386,6 +1392,7 @@ public class Main {
         }
     }
     public void InitVal(){
+        System.out.println("ccccccccccc"+word.getWord());
         if (word.getWord().equals("{")){
             word=scanner.scan();
             if(!word.getWord().equals("}")){
@@ -1400,6 +1407,10 @@ public class Main {
                     i++;
                     j=0;
                 }
+            }
+            else{
+                word= scanner.scan();
+                return;
             }
         }
         else{
@@ -1469,17 +1480,12 @@ public class Main {
                         }
                     }
 
+                    System.out.println("22222222222222222");
                     Array arr=new Array();
                     arr.setDimension(arrnum);
                     arr.setWord(str);
-                    if(arrnum==2){
-                        arr.setX(x);
-                        arr.setY(y);
-                    }
-                    else {
-                        arr.setX(x);
-                        arr.setY(y);
-                    }
+                    arr.setX(x);
+                    arr.setY(y);
                     {
                         Var var=new Var();
                         var.setWord(str);
@@ -1504,6 +1510,7 @@ public class Main {
                         //baseptr
                         nowarr=varNum;
                         arr.setBaseptr(varList.get(nowarr).getOrderUse());
+                        arr.setBlocknum(blocknum);
                         arrays.add(arr);
 
 
@@ -1557,7 +1564,6 @@ public class Main {
                 word= scanner.scan();
                 waiting=Varpos;
                 InitVal();
-
                 //这里 定义 int a=1; 把1 存储在a中
                 if(arrtag==0){
                     String s1="\tstore i32 ";
@@ -1572,6 +1578,7 @@ public class Main {
                     s1+="\n";
                     Out+=s1;
                 }
+
             }
             i=0;
             j=0;
@@ -1627,6 +1634,7 @@ public class Main {
                         //baseptr
                         nowarr=varNum;
                         arr.setBaseptr(varList.get(nowarr).getOrderUse());
+                        arr.setBlocknum(blocknum);
                         arrays.add(arr);
 
                         Varpos=varNum;
@@ -1879,6 +1887,7 @@ public class Main {
                         //baseptr
                         nowarr=varNum;
                         arr.setBaseptr(varList.get(nowarr).getOrderUse());
+                        arr.setBlocknum(blocknum);
                         arrays.add(arr);
 
                         Varpos=varNum;

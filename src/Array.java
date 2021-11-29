@@ -4,6 +4,15 @@ public class Array {
     private int x;
     private int y;
     private String type;
+    private int blocknum;
+
+    public int getBlocknum() {
+        return blocknum;
+    }
+
+    public void setBlocknum(int blocknum) {
+        this.blocknum = blocknum;
+    }
 
     public String getType() {
         return type;

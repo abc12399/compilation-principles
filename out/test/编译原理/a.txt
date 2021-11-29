@@ -1,24 +1,18 @@
-
+int field[2];
 int main() {
-    int a;
-    int b;
-    int c;
-    int d;
-    int result[5];
-    a         = 5;
-    b         = 5;
-    c         = 1;
-    d         = -2;
-    result[0] = 1;
-    result[1] = 2;
-    result[2] = 3;
-    result[3] = 4;
-    result[4] = 5;
-    int t;
-    t = result[((d * 1 / 2) + 4 + (a - b) - -(c + 3) % 2) % 5];
-    putint(t);
-    putch(10);
-    t = result[(((c % 2 + 67) + a - b) - -((c + 2) % 2)) % 5];
-    putint(t);
+    int i[1];
+    int j[3];
+    int k;
+
+    field[0] = getint();
+    field[1] = getint();
+
+    j[0 + 0] = -1;
+    j[1]     = j[0] - 2;
+    k        = j[1];
+    j[2]     = 16;
+
+    putint(j[3 - field[0]] + 2 + k);
+
     return 0;
 }
