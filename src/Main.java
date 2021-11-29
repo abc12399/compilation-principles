@@ -310,6 +310,9 @@ public class Main {
                     if(count==2){
                         temp=arrays.get(t).getX()*arrays.get(t).getY();
                     }
+                    else{
+                        temp=arrays.get(t).getX();
+                    }
                     s1+=temp;
                     s1+=" x i32], [";
                     s1+=temp;
@@ -1372,7 +1375,7 @@ public class Main {
             System.out.println(nowarr);
             System.out.println(i+" "+j);
             if(arrtag==1){
-                
+
                 int p=i*arrays.get(arrays.size()-1).getY()+j;
                 a[p]= varList.get(nownum).getValue();
 
@@ -1520,7 +1523,7 @@ public class Main {
                         s+="\tcall void @memset(i32* %";
                         s+=orderNum-1;
                         s+=", i32 0, i32 ";
-                        s+=x*y;
+                        s+=x*y*4;
                         s+=")\n";
                         Out+=s;
                     }
@@ -1747,49 +1750,204 @@ public class Main {
 
     }
     public void ConstDef(){
-        if(!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum&&word.getType().equals("Ident")){
-            Var var=new Var();
-            var.setWord(word.getWord());
-            var.setBlocknum(blocknum);
-            var.setType("value");
+        if(check==1){
+            if(!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum&&word.getType().equals("Ident")){
+                Var var=new Var();
+                var.setWord(word.getWord());
+                var.setBlocknum(blocknum);
+                var.setType("value");
+                varList.add(var);
+                Varpos=varNum;
+                varNum++;
+                Ident();
 
-            Varpos=varNum;
-            varNum++;
-            Ident();
+                int x = 0,y = 1;
+                int arrnum=0;
+                int waiting=Varpos;
+                if(word.getWord().equals("[")){
+                    arrtag=1;
+                    while(word.getWord().equals("[")){
+                        arrnum++;
+                        word=scanner.scan();
+                        if(arrnum==1){
+                            x=ConstExp();
+                        }
+                        else {
+                            y=ConstExp();
+                        }
+                        if(word.getWord().equals("]")){
+                            word= scanner.scan();
+                        }
+                        else {
+                            error();
+                        }
+                    }
 
-            int arr=0;
-            while(word.getWord().equals("[")){
-                arr++;
-                word=scanner.scan();
-                ConstExp();
-                if(word.getWord().equals("]")){
-                    word=scanner.scan();
+                    Array arr=new Array();
+                    arr.setDimension(arrnum);
+                    arr.setWord(var.getWord());
+                    arr.setType("Const");
+                    if(arrnum==2){
+                        arr.setX(x);
+                        arr.setY(y);
+                    }
+                    else {
+                        arr.setX(x);
+                        arr.setY(y);
+                    }
+                    {
+
+
+                    }
+                    if(word.getWord().equals("=")){
+                        word= scanner.scan();
+                        a=new int[arr.getY()*arr.getX()];
+                        globalInitVal();
+                        for (int k = 0; k < a.length-1; k++) {
+
+                            varList.get(waiting).arr_value[k]=a[k];
+                        }
+                        //这里 定义 int a=1; 把1 存储在a中
+                    }
+
                 }
                 else{
+                    if(word.getWord().equals("=")){
+                        word= scanner.scan();
+                        int value=ConstInitVal();
+                        var.setValue(value);
+                        varList.add(var);
+
+                        return;
+
+                    }
                     error();
                 }
             }
-
-            if(word.getWord().equals("=")){
-                word= scanner.scan();
-                waiting=Varpos;
-                if(word.getWord().equals("{")){
-                    int value=ConstInitVal();
-                    var.setValue(value);
-                    varList.add(var);
-
-                    return;
-                }
-                else{
-                    ConstInitVal();
-                }
+            else{
+                error();
             }
-            error();
         }
         else{
-            error();
-        }
+            Var var=new Var();
+            String s1="";
+            int num=0;
+            int arrnum=0;
+            if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
+                String str=word.getWord();
+                word= scanner.scan();
+                int x = 0,y = 1;
+                if(word.getWord().equals("[")){
+                    arrtag=1;
+                    while(word.getWord().equals("[")){
+                        arrnum++;
+                        word=scanner.scan();
+                        if(arrnum==1){
+                            x=ConstExp();
+                        }
+                        else {
+                            y=ConstExp();
+                        }
+                        if(word.getWord().equals("]")){
+                            word= scanner.scan();
+                        }
+                        else {
+                            error();
+                        }
+                    }
 
+                    Array arr=new Array();
+                    arr.setDimension(arrnum);
+                    arr.setWord(str);
+                    if(arrnum==2){
+                        arr.setX(x);
+                        arr.setY(y);
+                    }
+                    else {
+                        arr.setX(x);
+                        arr.setY(y);
+                    }
+                    String s="";
+                    {
+
+                        var.setWord(str);
+                        var.setBlocknum(blocknum);
+                        var.setOrderUse("@"+str);
+
+                        varList.add(var);
+
+                        //baseptr
+                        nowarr=varNum;
+                        arr.setBaseptr(varList.get(nowarr).getOrderUse());
+                        arrays.add(arr);
+
+                        Varpos=varNum;
+                        varNum++;
+                        s="";
+                        s+=var.getOrderUse();
+                        s+=" =  dso_local const [";
+                        s+=x*y;
+                        s+=" x i32] ";
+
+                    }
+                    if(word.getWord().equals("=")){
+                        word= scanner.scan();
+                        waiting=Varpos;
+                        s+="[";
+                        a=new int[arr.getY()*arr.getX()];
+                        globalInitVal();
+                        for (int k = 0; k < a.length-1; k++) {
+                            s+="i32 ";
+                            s+=a[k];
+                            s+=",";
+                        }
+                        var.arr_value=a;
+                        s+="i32 ";
+                        s+=a[a.length-1];
+                        s+="]\n";
+
+                        //这里 定义 int a=1; 把1 存储在a中
+                    }
+                    else {
+                        s+="zeroinitializer\n";
+                    }
+                    Out+=s;
+
+                }
+                else{
+                    scanner.goBack2();
+                    word=scanner.scan();
+                    var=new Var();
+                    var.setWord(word.getWord());
+                    var.setBlocknum(blocknum);
+                    var.setOrderUse("@"+word.getWord());
+
+                    varList.add(var);
+                    Varpos=varNum;
+                    varNum++;
+
+
+                    Ident();
+                    if(word.getWord().equals("=")){
+                        word= scanner.scan();
+                        waiting=Varpos;
+                        num=ConstInitVal();
+                        varList.get(waiting).setValue(num);
+                        //这里 定义 int a=1; 把1 存储在a中
+                    }
+
+                }
+
+            }
+            else{
+                error();
+            }
+
+
+        }
+        arrtag=0;
+
+        i=0;j=0;
     }
     public void ConstDecl(){
         if(word.getWord().equals("const")){

@@ -8,6 +8,7 @@ public class Var {
 
     private int blocklvel;
 
+    public int[] arr_value;
     public int getBlocklvel() {
         return blocklvel;
     }
