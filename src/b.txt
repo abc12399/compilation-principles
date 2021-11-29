@@ -1,7 +1,7 @@
 declare void @memset(i32*  ,i32 ,i32 )
 declare void @putch(i32)
 declare void @putint(i32)
-@n = dso_local global i32
+@n = dso_local global i320
 define dso_local i32 @main(){
 	store i32 10, i32* @n
 	%1 = alloca [10 x i32]

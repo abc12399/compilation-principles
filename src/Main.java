@@ -1753,7 +1753,7 @@ public class Main {
                     varNum++;
 
                     s1+=varList.get(Varpos).getOrderUse();
-                    s1+=" = dso_local global i32";
+                    s1+=" = dso_local global i32 ";
 
                     Ident();
                     if(word.getWord().equals("=")){
@@ -1761,10 +1761,11 @@ public class Main {
                         waiting=Varpos;
                         num=ConstInitVal();
                         //这里 定义 int a=1; 把1 存储在a中
-                        s1+=num;
+
 
 
                     }
+                    s1+=num;
                     s1+="\n";
                     Out=s1+Out;
                 }
