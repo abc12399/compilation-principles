@@ -322,6 +322,7 @@ public class Main {
                         s+=arrays.get(arrays.size()-1).getBaseptr();
                         s+=", i32 0, i32 0\n";
                         Out+=s;
+                        arrays.get(arrays.size()-1).setBaseptr(var.getOrderUse());
                     }
                     var=new Var();
                     var.setOrder(orderNum);
@@ -1462,6 +1463,7 @@ public class Main {
                     s+=arrays.get(arrays.size()-1).getBaseptr();
                     s+=", i32 0, i32 0\n";
                     Out+=s;
+                    arrays.get(arrays.size()-1).setBaseptr(var.getOrderUse());
                 }
                 var=new Var();
                 var.setBlocknum(blocknum);
@@ -1473,7 +1475,7 @@ public class Main {
                 String s="\t";
                 s+=var.getOrderUse();
                 s+=" = getelementptr i32, i32* ";
-                s+=varList.get(nowarr).getOrderUse();
+                s+=arrays.get(arrays.size()-1).getBaseptr();
                 s+=", i32 ";
                 s+=i*arrays.get(arrays.size()-1).getY()+j;
                 s+="\n";

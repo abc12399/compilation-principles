@@ -9,21 +9,21 @@ define dso_local i32 @main(){
 	%1 = mul i32 2, 2
 	%2 = add i32 1, %1
 	%3 = getelementptr [8 x i32], [8 x i32]* %@e, i32 0, i32 0
-	%4 = getelementptr i32, i32* @e, i32 %4
+	%4 = getelementptr i32, i32* @e, i32 %2
 	%6 = load i32, i32* %4
 	%7 = mul i32 0, 2
 	%8 = add i32 1, %7
-	%9 = getelementptr i32, i32* @e, i32 %9
+	%9 = getelementptr i32, i32* @e, i32 %8
 	%11 = load i32, i32* %9
 	%12 = add i32 %6, %11
 	%13 = mul i32 0, 2
 	%14 = add i32 0, %13
-	%15 = getelementptr i32, i32* @e, i32 %15
+	%15 = getelementptr i32, i32* @e, i32 %14
 	%17 = load i32, i32* %15
 	%18 = sub i32 %12, %17
 	%19 = mul i32 2, 2
 	%20 = add i32 0, %19
-	%21 = getelementptr i32, i32* @a, i32 %21
+	%21 = getelementptr i32, i32* @a, i32 %20
 	%23 = load i32, i32* %21
 	%24 = add i32 %18, %23
 	call void @putint(i32 %24)
@@ -73,12 +73,12 @@ define dso_local i32 @main(){
 	%48 = getelementptr [8 x i32], [8 x i32]* %48, i32 0, i32 0
 	call void @memset(i32* %48, i32 0, i32 32)
 	%49 = mul i32 6, 1
-	%50 = getelementptr i32, i32* %28, i32 %50
+	%50 = getelementptr i32, i32* %28, i32 %49
 	%52 = load i32, i32* %50
 	%53 = getelementptr i32, i32* %48, i32 0
 	store i32 %52, i32* %53
 	%54 = mul i32 7, 1
-	%55 = getelementptr i32, i32* %28, i32 %55
+	%55 = getelementptr i32, i32* %28, i32 %54
 	%57 = load i32, i32* %55
 	%58 = getelementptr i32, i32* %48, i32 1
 	store i32 %57, i32* %58
@@ -96,21 +96,21 @@ define dso_local i32 @main(){
 	store i32 8, i32* %64
 	%65 = mul i32 3, 2
 	%66 = add i32 1, %65
-	%67 = getelementptr i32, i32* %48, i32 %67
+	%67 = getelementptr i32, i32* %48, i32 %66
 	%69 = load i32, i32* %67
 	%70 = mul i32 0, 2
 	%71 = add i32 0, %70
-	%72 = getelementptr i32, i32* %48, i32 %72
+	%72 = getelementptr i32, i32* %48, i32 %71
 	%74 = load i32, i32* %72
 	%75 = add i32 %69, %74
 	%76 = mul i32 0, 2
 	%77 = add i32 1, %76
-	%78 = getelementptr i32, i32* %48, i32 %78
+	%78 = getelementptr i32, i32* %48, i32 %77
 	%80 = load i32, i32* %78
 	%81 = add i32 %75, %80
 	%82 = mul i32 2, 2
 	%83 = add i32 0, %82
-	%84 = getelementptr i32, i32* %26, i32 %84
+	%84 = getelementptr i32, i32* %26, i32 %83
 	%86 = load i32, i32* %84
 	%87 = add i32 %81, %86
 	call void @putint(i32 %87)
