@@ -327,7 +327,7 @@ public class Main {
                         s+=arrays.get(t).getBaseptr();
                         s+=", i32 0, i32 0\n";
                         Out+=s;
-                       // arrays.get(t).setBaseptr(var.getOrderUse());
+                     //   arrays.get(t).setBaseptr(var.getOrderUse());
                     }
                     var=new Var();
                     var.setOrder(orderNum);
@@ -338,7 +338,13 @@ public class Main {
                     s1="\t";
                     s1+=var.getOrderUse();
                     s1+=" = getelementptr i32, i32* ";
-                    s1+=arrays.get(t).getBaseptr();
+                    if(arrays.get(t).getBaseptr().contains("@")){
+                        s1+=("%"+(orderNum-2));
+                    }
+                    else{
+                        s1+=arrays.get(t).getBaseptr();
+                    }
+
                     s1+=", i32 ";
                     if(varList.get(waiting).getType().equals("value")){
                         s1+=varList.get(waiting).getValue();
@@ -1503,7 +1509,13 @@ public class Main {
                 String s="\t";
                 s+=var.getOrderUse();
                 s+=" = getelementptr i32, i32* ";
-                s+=arrays.get(arrays.size()-1).getBaseptr();
+                if(arrays.get(arrays.size()-1).getBaseptr().contains("@")){
+                    s+=("%"+(orderNum-2));
+                }
+                else{
+                    s+=arrays.get(arrays.size()-1).getBaseptr();
+                }
+
                 s+=", i32 ";
                 s+=i*arrays.get(arrays.size()-1).getY()+j;
                 s+="\n";
