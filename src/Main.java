@@ -307,7 +307,7 @@ public class Main {
                 {
 
                     if(arrays.get(t).getFlag()!=1){
-
+                    //    arrays.get(t).setFlag(1);
                         x=arrays.get(t).getX();
                         y=arrays.get(t).getY();
                         var=new Var();
@@ -327,7 +327,7 @@ public class Main {
                         s+=arrays.get(t).getBaseptr();
                         s+=", i32 0, i32 0\n";
                         Out+=s;
-                        arrays.get(t).setBaseptr(var.getOrderUse());
+                       // arrays.get(t).setBaseptr(var.getOrderUse());
                     }
                     var=new Var();
                     var.setOrder(orderNum);
@@ -1491,7 +1491,7 @@ public class Main {
                     s+=arrays.get(arrays.size()-1).getBaseptr();
                     s+=", i32 0, i32 0\n";
                     Out+=s;
-                    arrays.get(arrays.size()-1).setBaseptr(var.getOrderUse());
+                   // arrays.get(arrays.size()-1).setBaseptr(var.getOrderUse());
                 }
                 var=new Var();
                 var.setBlocknum(blocknum);
