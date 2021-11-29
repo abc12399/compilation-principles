@@ -307,7 +307,7 @@ public class Main {
                 {
 
                     if(arrays.get(t).getFlag()!=1){
-                        arrays.get(t).setFlag(1);
+
                         x=arrays.get(t).getX();
                         y=arrays.get(t).getY();
                         var=new Var();
@@ -1471,7 +1471,7 @@ public class Main {
             if(arrtag==1){
                 Var var=new Var();
                 if(arrays.get(arrays.size()-1).getFlag()!=1){
-                    arrays.get(arrays.size()-1).setFlag(1);
+                 //   arrays.get(arrays.size()-1).setFlag(1);
                     int x=arrays.get(arrays.size()-1).getX();
                     int y=arrays.get(arrays.size()-1).getY();
                     var=new Var();
