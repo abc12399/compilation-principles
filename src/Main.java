@@ -1557,7 +1557,6 @@ public class Main {
                         arr.setFlag(1);
                         arrays.add(arr);
 
-
                         Varpos=varNum;
                         varNum++;
                         orderNum++;
@@ -1568,7 +1567,7 @@ public class Main {
                         s+=" x i32], [";
                         s+=x*y;
                         s+=" x i32]* ";
-                        s+=arrays.get(arrays.size()-1).getBaseptr();
+                        s+=orderNum-2;
                         s+=", i32 0, i32 0\n";
 
                         s+="\tcall void @memset(i32* %";
