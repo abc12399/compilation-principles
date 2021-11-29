@@ -243,13 +243,10 @@ public class Main {
                     error();
                 }
                 if(count==1&&arrays.get(t).getDimension()==1){
-                    doFillofArray(x);
                     x=varNum-1;
                 }
                 if(count==2&&arrays.get(t).getDimension()==2){
-                    doFillofArray(x);
-                    x=varNum-1;
-                    doFillofArray(y);
+                  //  doFillofArray(x);
                     y=varNum-1;
                 }
                 Var var=new Var();
@@ -349,6 +346,7 @@ public class Main {
 
             String s1="\t";
             s1+=var.getOrderUse();
+          //  s1+="987654321";
             s1+=" = load i32, i32* ";
             s1+=varList.get(t).getOrderUse();
             s1+="\n";
@@ -386,6 +384,8 @@ public class Main {
 
                 String s1="\t";
                 s1+=var.getOrderUse();
+                System.out.println("12345678910");
+           //     s1+="12345678910";
                 s1+=" = load i32, i32* ";
 
                 s1+=varList.get(waiting).getOrderUse();
@@ -1894,7 +1894,7 @@ public class Main {
                         varNum++;
                         s="";
                         s+=var.getOrderUse();
-                        s+=" =  dso_local const [";
+                        s+=" =  dso_local constant [";
                         s+=x*y;
                         s+=" x i32] ";
 
