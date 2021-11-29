@@ -301,10 +301,10 @@ public class Main {
                 int waiting=varNum-1;
                 {
 
-                    if(arrays.get(arrays.size()-1).getFlag()!=1){
-                        arrays.get(arrays.size()-1).setFlag(1);
-                        x=arrays.get(arrays.size()-1).getX();
-                        y=arrays.get(arrays.size()-1).getY();
+                    if(arrays.get(t).getFlag()!=1){
+                        arrays.get(t).setFlag(1);
+                        x=arrays.get(t).getX();
+                        y=arrays.get(t).getY();
                         var=new Var();
                         var.setOrder(orderNum);
                         var.setBlocknum(blocknum);
@@ -319,10 +319,10 @@ public class Main {
                         s+=" x i32], [";
                         s+=x*y;
                         s+=" x i32]* ";
-                        s+=arrays.get(arrays.size()-1).getBaseptr();
+                        s+=arrays.get(t).getBaseptr();
                         s+=", i32 0, i32 0\n";
                         Out+=s;
-                        arrays.get(arrays.size()-1).setBaseptr(var.getOrderUse());
+                        arrays.get(t).setBaseptr(var.getOrderUse());
                     }
                     var=new Var();
                     var.setOrder(orderNum);
@@ -343,9 +343,6 @@ public class Main {
                     }
                     s1+="\n";
                     Out+=s1;
-                    varList.add(var);
-                    varNum++;
-                    orderNum++;
                 }
                 Varpos=varNum-1;
             }
@@ -2111,10 +2108,10 @@ public class Main {
         return;
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
