@@ -1566,7 +1566,7 @@ public class Main {
                         s+=x*y;
                         s+=" x i32], [";
                         s+=x*y;
-                        s+=" x i32]* ";
+                        s+=" x i32]* %";
                         s+=orderNum-2;
                         s+=", i32 0, i32 0\n";
 
