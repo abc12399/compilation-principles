@@ -318,7 +318,7 @@ public class Main {
                         s+=x*y;
                         s+=" x i32], [";
                         s+=x*y;
-                        s+=" x i32]* %";
+                        s+=" x i32]* ";
                         s+=arrays.get(arrays.size()-1).getBaseptr();
                         s+=", i32 0, i32 0\n";
                         Out+=s;
