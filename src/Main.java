@@ -244,6 +244,9 @@ public class Main {
                 if(t==-1){
                     error();
                 }
+                if(count!=arrays.get(t).getDimension()){
+                    error();
+                }
                 if(count==1&&arrays.get(t).getDimension()==1){
                     x=varNum-1;
                 }
