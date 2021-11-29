@@ -1150,6 +1150,26 @@ public class Main {
                 else{
                     Cond();
                 }
+                {
+                    Out=Out.substring(0,Out.length()-1);
+                    int z=Out.lastIndexOf("\n");
+                    String s_temp=Out.substring(z);
+                    if(!s_temp.contains("icmp") &&!s_temp.contains("or")&&!s_temp.contains("and")){
+                        Out+="\n";
+                        Var temp=new Var();
+                        temp.setOrder(orderNum);
+                        varList.add(temp);
+                        String s1="\t";
+                        s1+=temp.getOrderUse();
+                        s1+=" = icmp ne i32 ";
+                        s1+=varList.get(varNum-1).getOrderUse();
+                        s1+=", 0";
+                        s1+="\n";
+                        Out+=s1;
+                        varNum++;
+                        orderNum++;
+                    }
+                }
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
                 int from,to1 = 0,to2 = 0;
