@@ -938,23 +938,49 @@ public class Main {
     }
     public void LAndExp(){
         EqExp();
+        judge();
         while (word.getWord().equals("&&")){
             int andnum=varNum-1;
             word= scanner.scan();
             EqExp();
+            judge();
             fillIn(" =  and i1 ",andnum);
 
+        }
+    }
+    public void judge(){
+        Out=Out.substring(0,Out.length()-1);
+        int z=Out.lastIndexOf("\n");
+        String s_temp=Out.substring(z);
+        if(!s_temp.contains("icmp") &&!s_temp.contains("or")&&!s_temp.contains("and")){
+            Out+="\n";
+            Var temp=new Var();
+            temp.setOrder(orderNum);
+            varList.add(temp);
+            String s1="\t";
+            s1+=temp.getOrderUse();
+            s1+=" = icmp ne i32 ";
+            s1+=varList.get(varNum-1).getOrderUse();
+            s1+=", 0";
+            s1+="\n";
+            Out+=s1;
+            varNum++;
+            orderNum++;
+        }
+        else{
+            Out+="\n";
         }
     }
     public void LorExp(){
         // System.out.println("1");
 
         LAndExp();
-
+        judge();
         while(word.getWord().equals("||")){
             int ornum=varNum-1;
             word= scanner.scan();
             LAndExp();
+            judge();
             fillIn(" =  or i1 ",ornum);
         }
     }
@@ -1154,29 +1180,6 @@ public class Main {
                 }
                 else{
                     Cond();
-                }
-                {
-                    Out=Out.substring(0,Out.length()-1);
-                    int z=Out.lastIndexOf("\n");
-                    String s_temp=Out.substring(z);
-                    if(!s_temp.contains("icmp") &&!s_temp.contains("or")&&!s_temp.contains("and")){
-                        Out+="\n";
-                        Var temp=new Var();
-                        temp.setOrder(orderNum);
-                        varList.add(temp);
-                        String s1="\t";
-                        s1+=temp.getOrderUse();
-                        s1+=" = icmp ne i32 ";
-                        s1+=varList.get(varNum-1).getOrderUse();
-                        s1+=", 0";
-                        s1+="\n";
-                        Out+=s1;
-                        varNum++;
-                        orderNum++;
-                    }
-                    else{
-                        Out+="\n";
-                    }
                 }
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
