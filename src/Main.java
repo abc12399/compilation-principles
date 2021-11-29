@@ -1372,14 +1372,7 @@ public class Main {
             System.out.println(nowarr);
             System.out.println(i+" "+j);
             if(arrtag==1){
-                Var var=new Var();
-                var.setBlocknum(blocknum);
-                var.setOrder(orderNum);
-                varList.add(var);
-                Varpos=varNum;
-                varNum++;
-                orderNum++;
-
+                
                 int p=i*arrays.get(arrays.size()-1).getY()+j;
                 a[p]= varList.get(nownum).getValue();
 
