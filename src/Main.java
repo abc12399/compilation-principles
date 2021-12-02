@@ -1316,9 +1316,9 @@ public class Main {
                                 (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-15))){
                     block2+=goout;
                 }
-                int declare=Out.indexOf("define dso_local i32 @main");
+                int declare=Out.indexOf("define dso_local");
                 String declares=Out.substring(0,declare);
-                int s_declare=store1.indexOf("define dso_local i32 @main");
+                int s_declare=store1.indexOf("define dso_local");
                 String s_main=store1.substring(s_declare);
                 store1=declares+s_main;
                 Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
