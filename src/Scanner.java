@@ -35,6 +35,8 @@ public class Scanner {
 
     private int before2;
 
+    private int before3;
+
     private char[] token=new char[100000];
 
     private int pos_token;
@@ -146,7 +148,11 @@ public class Scanner {
     public void goBack2(){
         pos=before2;
     }
+    public void goBack3(){
+        pos=before3;
+    }
     public Word scan(){
+        before3=before2;
         before2=before;
         before=pos;
         token=new char[100000];

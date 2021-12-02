@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Var {
     private int order;
     private String type="";
@@ -8,7 +10,18 @@ public class Var {
 
     private int blocklvel;
 
+    private ArrayList<Integer> paramList;
+
+    public ArrayList<Integer> getParamList() {
+        return paramList;
+    }
+
+    public void setParamList(ArrayList<Integer> paramList) {
+        this.paramList = paramList;
+    }
+
     public int[] arr_value;
+
     public int getBlocklvel() {
         return blocklvel;
     }
