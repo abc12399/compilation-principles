@@ -72,6 +72,6 @@ define dso_local i32 @main(){
 	%16 = load i32, i32* %15
 	store i32 %16, i32* %11
 	%17 = load i32, i32* %11
-	call void @_getMaxOfAll(i32 %17)
+	call void @putint(i32 %17)
 	ret i32 0
 }

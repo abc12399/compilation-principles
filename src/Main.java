@@ -772,7 +772,7 @@ public class Main {
 
                             for (int i = 0; i < waitnum.size(); i++) {
                                 String s2="\tcall void @";
-                                s2+=funcList.get(searchFuncPos);
+                                s2+=funcList.get(funcList.size()-1);
                                 s2+="(i32 ";
 
                                 if(varList.get(waitnum.get(i)).getType().equals("value")){
@@ -2614,10 +2614,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
