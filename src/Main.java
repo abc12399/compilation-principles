@@ -412,22 +412,41 @@ public class Main {
                 varNum++;
             }
             else {
-                Var var=new Var();
-                var.setOrder(orderNum);
+                if(searchArr(varList.get(waiting).getWord())!=-1){
+                    Var var=new Var();
+                    var.setOrder(orderNum);
+                    String s1="\t";
+                    s1+=var.getOrderUse();
+                    System.out.println("12345678910");
+                    //     s1+="12345678910";
+                    s1+=" = load i32*, i32* ";
 
-                String s1="\t";
-                s1+=var.getOrderUse();
-                System.out.println("12345678910");
-           //     s1+="12345678910";
-                s1+=" = load i32, i32* ";
+                    s1+=varList.get(waiting).getOrderUse();
 
-                s1+=varList.get(waiting).getOrderUse();
+                    s1+="\n";
+                    Out+=s1;
+                    varList.add(var);
+                    varNum++;
+                    orderNum++;
+                }
+                else{
+                    Var var=new Var();
+                    var.setOrder(orderNum);
+                    String s1="\t";
+                    s1+=var.getOrderUse();
+                    System.out.println("12345678910");
+                    //     s1+="12345678910";
+                    s1+=" = load i32, i32* ";
 
-                s1+="\n";
-                Out+=s1;
-                varList.add(var);
-                varNum++;
-                orderNum++;
+                    s1+=varList.get(waiting).getOrderUse();
+
+                    s1+="\n";
+                    Out+=s1;
+                    varList.add(var);
+                    varNum++;
+                    orderNum++;
+                }
+
             }
 
         }
