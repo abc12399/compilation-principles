@@ -650,7 +650,8 @@ public class Main {
                                 waitnum.add(varNum-1);
                             }
                             String s2="\tcall void @";
-                            s2+=funcList.get(funcList.size()-1);
+                            s2+=funcList.get(searchFuncPos);
+                            s2+="(";
                             for (int i = 0; i < waitnum.size(); i++) {
                                 if(i==0) {
                                     s2 += "i32 ";
@@ -695,10 +696,12 @@ public class Main {
                                 Exp();
                                 waitnum.add(varNum-1);
                             }
+
                             for (int i = 0; i < waitnum.size(); i++) {
                                 String s2="\tcall void @";
-                                s2+=funcList.get(funcList.size()-1);
+                                s2+=funcList.get(searchFuncPos);
                                 s2+="(i32 ";
+
                                 if(varList.get(waitnum.get(i)).getType().equals("value")){
                                     s2+=varList.get(waitnum.get(i)).getValue();
                                 }
@@ -847,14 +850,15 @@ public class Main {
 
                             String s2="\tcall void @";
                             s2+=funcList.get(searchFuncPos);
+                            System.out.println(s2+"23");
                             s2+="(";
                             for (int i = 0; i < waitnum.size(); i++) {
 
                                 if(varList.get(Varpos).getParamList().get(i)==1){
-                                    s2+="i32 ";
+                                    s2+="i32* ";
                                 }
                                 else if(varList.get(Varpos).getParamList().get(i)==2){
-                                    s2+="i32* ";
+                                    s2+="i32 ";
                                 }
                                 if(varList.get(waitnum.get(i)).getType().equals("value")){
                                     s2+=varList.get(waitnum.get(i)).getValue();
