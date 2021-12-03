@@ -1757,7 +1757,7 @@ public class Main {
                     arr.setY(y);
                     {
                         Var var=new Var();
-                        var.setWord(str);
+
                         var.setBlocknum(blocknum);
                         var.setOrder(orderNum);
                         varList.add(var);
@@ -1774,7 +1774,7 @@ public class Main {
                         var=new Var();
                         var.setBlocknum(blocknum);
                         var.setOrder(orderNum);
-
+                        var.setWord(str);
                         varList.add(var);
                         //baseptr
                         nowarr=varNum;
