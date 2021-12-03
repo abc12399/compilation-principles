@@ -2463,14 +2463,19 @@ public class Main {
         varList.get(t).setParamList(paramList);
         Var var=new Var();
         var.setWord("null");
+        var.setOrder(orderNum);
         varList.add(var);
         orderNum++;
         varNum++;
     }
     public int searchOrder(int t){
-        for (int k = 1; k < varList.size(); k++) {
-            if(varList.get(k).getOrder()==t){
-                return k;
+        for (int i = varList.size()-1; i >=0; i--) {
+            if(varList.get(i).getOrder()==0){
+                for (int k = i; k < varList.size(); k++) {
+                    if(varList.get(k).getOrder()==t){
+                        return k;
+                    }
+                }
             }
         }
         return -1;
@@ -2505,10 +2510,11 @@ public class Main {
             if(!word.getWord().equals(")")){
                 FuncFParams(t);
                 int p=varNum-2;
+
                 int l=varList.get(t).getParamList().size();
                 for (int k = 0; k <l; k++) {
                     if(varList.get(t).getParamList().get(k)==1){
-                        int x=searchOrder(p-l+k);
+                        int x=searchOrder(k);
                         String w=varList.get(x).getWord();
                         System.out.println(w+"4444444444444444444");
                         Array array=new Array();
@@ -2520,7 +2526,7 @@ public class Main {
                         varList.add(var1);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
-                        funcValStart+=("\tstore i32* %"+(p-l+k)+", i32* * "+var1.getOrderUse()+"\n");
+                        funcValStart+=("\tstore i32* %"+(k)+", i32* * "+var1.getOrderUse()+"\n");
 
                         Var var2=new Var();
                         var2.setOrder(orderNum);
@@ -2534,7 +2540,7 @@ public class Main {
                         arrays.add(array);
                     }
                     else if(varList.get(t).getParamList().get(k)==2){
-                        int x=searchOrder(p-l+k);
+                        int x=searchOrder(k);
                         String w=varList.get(x).getWord();
 
                         Var var1=new Var();
@@ -2544,10 +2550,10 @@ public class Main {
                         varList.add(var1);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
-                        funcValStart+=("\tstore i32 %"+(p-l+k)+", i32* "+var1.getOrderUse()+"\n");
+                        funcValStart+=("\tstore i32 %"+(k)+", i32* "+var1.getOrderUse()+"\n");
                     }
                     else{
-                        int x=searchOrder(p-l+k);
+                        int x=searchOrder(k);
                         String w=varList.get(x).getWord();
                         Array array=new Array();
                         array.setWord(w);
@@ -2558,7 +2564,7 @@ public class Main {
                         varList.add(var1);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
-                        funcValStart+=("\tstore i32* %"+(p-l+k)+", i32* * "+var1.getOrderUse()+"\n");
+                        funcValStart+=("\tstore i32* %"+(k)+", i32* * "+var1.getOrderUse()+"\n");
 
                         Var var2=new Var();
                         var2.setOrder(orderNum);
