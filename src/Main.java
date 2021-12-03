@@ -2491,6 +2491,7 @@ public class Main {
                 Out+="}\n";
 
                 if(word.getType().equals("Ident")){
+                    orderNum=1;
                     CompUnit();
                 }
                 return;
