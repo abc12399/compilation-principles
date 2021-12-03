@@ -12,6 +12,16 @@ public class Var {
 
     private ArrayList<Integer> paramList;
 
+    private String functype;
+
+    public String getFunctype() {
+        return functype;
+    }
+
+    public void setFunctype(String functype) {
+        this.functype = functype;
+    }
+
     public ArrayList<Integer> getParamList() {
         return paramList;
     }

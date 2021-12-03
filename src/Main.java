@@ -920,8 +920,22 @@ public class Main {
                             if(varList.get(Varpos).getParamList().size()!=waitnum.size()){
                                 error();
                             }
+                            String s2;
+                            if(varList.get(Varpos).getType().equals("void")){
+                                s2="\tcall void @";
+                            }
+                            else{
+                                Var var =new Var();
+                                var.setOrder(orderNum);
+                                var.setBlocknum(blocknum);
+                                orderNum++;
+                                varNum++;
+                                varList.add(var);
+                                s2=("\t"+var.getOrderUse());
+                                s2+=" = ";
+                                s2+="call i32 @";
+                            }
 
-                            String s2="\tcall void @";
                             s2+=funcList.get(searchFuncPos);
                             System.out.println(s2+"23");
                             s2+="(";
@@ -2476,6 +2490,7 @@ public class Main {
 
         Var var=new Var();
         var.setWord(funcname);
+        var.setType(functype);
       //  var.setOrder(orderNum);
         var.setBlocknum(blocknum);
         varList.add(var);
