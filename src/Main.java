@@ -412,6 +412,7 @@ public class Main {
                 varNum++;
             }
             else {
+                int t=searchArr(varList.get(waiting).getWord());
                 if(searchArr(varList.get(waiting).getWord())!=-1){
 //                    Var var=new Var();
 //                    var.setOrder(orderNum);
@@ -428,28 +429,58 @@ public class Main {
 //                    varList.add(var);
 //                    varNum++;
 //                    orderNum++;
-                    int t=searchArr(varList.get(waiting).getWord());
                     int x=0;int y=0;
-                    Var var =new Var();
-                    x=arrays.get(t).getX();
-                    y=arrays.get(t).getY();
+                    Var var;
+                    if(arrays.get(t).getFlag()!=1){
+                        //    arrays.get(t).setFlag(1);
+                        x=arrays.get(t).getX();
+                        y=arrays.get(t).getY();
+                        var=new Var();
+                        var.setOrder(orderNum);
+                        var.setBlocknum(blocknum);
+                        varList.add(var);
+                        varNum++;
+                        orderNum++;
+                        String s="\t";
+
+                        s+=var.getOrderUse();
+                        s+=" = getelementptr [";
+                        s+=x*y;
+                        s+=" x i32], [";
+                        s+=x*y;
+                        s+=" x i32]* ";
+                        s+=arrays.get(t).getBaseptr();
+                        s+=", i32 0, i32 0\n";
+                        Out+=s;
+                        //   arrays.get(t).setBaseptr(var.getOrderUse());
+                    }
+
                     var=new Var();
                     var.setOrder(orderNum);
                     var.setBlocknum(blocknum);
-                    varList.add(var);
                     varNum++;
                     orderNum++;
-                    String s="\t";
+                    varList.add(var);
+                    String s1;
+                    s1="\t";
+                    s1+=var.getOrderUse();
+                    s1+=" = getelementptr i32, i32* ";
+                    if(arrays.get(t).getBaseptr().contains("@")){
+                        s1+=("%"+(orderNum-2));
+                    }
+                    else{
+                        s1+=arrays.get(t).getBaseptr();
+                    }
 
-                    s+=var.getOrderUse();
-                    s+=" = getelementptr [";
-                    s+=x*y;
-                    s+=" x i32], [";
-                    s+=x*y;
-                    s+=" x i32]* ";
-                    s+=arrays.get(t).getBaseptr();
-                    s+=", i32 0, i32 0\n";
-                    Out+=s;
+                    s1+=", i32 ";
+                    if(varList.get(waiting).getType().equals("value")){
+                        s1+=varList.get(waiting).getValue();
+                    }
+                    else{
+                        s1+=varList.get(waiting).getOrderUse();
+                    }
+                    s1+="\n";
+                    Out+=s1;
                 }
                 else{
                     Var var=new Var();
@@ -1811,10 +1842,12 @@ public class Main {
                         orderNum++;
                         String s="\t";
                         s+=var.getOrderUse();
+
                         s+=" = alloca [";
                         s+=x*y;
                         s+=" x i32]\n";
                         Out+=s;
+
 
                         var=new Var();
                         var.setBlocknum(blocknum);
@@ -2479,7 +2512,7 @@ public class Main {
                         varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse()+"\n");
-                        array.setBaseptr(var2.getOrderUse());
+                        array.setBaseptr(var1.getOrderUse());
                         array.setFlag(1);
                         array.setDimension(1);
                         arrays.add(array);
@@ -2517,7 +2550,7 @@ public class Main {
                         varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse());
-                        array.setBaseptr(var2.getOrderUse());
+                        array.setBaseptr(var1.getOrderUse());
                         array.setFlag(1);
                         array.setDimension(2);
                         arrays.add(array);
