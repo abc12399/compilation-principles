@@ -2422,6 +2422,7 @@ public class Main {
                         Var var1=new Var();
                         var1.setOrder(orderNum);
                         var1.setBlocknum(blocknum);
+                        var1.setWord(w);
                         varList.add(var1);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
@@ -2430,7 +2431,7 @@ public class Main {
                         Var var2=new Var();
                         var2.setOrder(orderNum);
                         var2.setBlocknum(blocknum);
-                        varList.add(var);
+                        varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse()+"\n");
                         array.setBaseptr(var2.getOrderUse());
@@ -2439,10 +2440,14 @@ public class Main {
                         arrays.add(array);
                     }
                     else if(varList.get(t).getParamList().get(k)==2){
+                        int x=searchOrder(p-l+k);
+                        String w=varList.get(x).getWord();
+
                         Var var1=new Var();
                         var1.setOrder(orderNum);
+                        var1.setWord(w);
                         var1.setBlocknum(blocknum);
-                        varList.add(var);
+                        varList.add(var1);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
                         funcValStart+=("\tstore i32 %"+(p-l+k)+", i32* "+var1.getOrderUse()+"\n");
@@ -2453,6 +2458,7 @@ public class Main {
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
+                        var1.setWord(w);
                         var1.setOrder(orderNum);
                         var1.setBlocknum(blocknum);
                         varList.add(var1);
@@ -2463,7 +2469,7 @@ public class Main {
                         Var var2=new Var();
                         var2.setOrder(orderNum);
                         var2.setBlocknum(blocknum);
-                        varList.add(var);
+                        varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse());
                         array.setBaseptr(var2.getOrderUse());
