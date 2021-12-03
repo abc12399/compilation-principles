@@ -1199,8 +1199,8 @@ public class Main {
         else if(word.getWord().equals("if")){
             word= scanner.scan();
             if(word.getWord().equals("(")){
-                //  System.out.println("afdsf");
                 word= scanner.scan();
+                System.out.println("hahaha"+word.getWord());
                 Cond();
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
@@ -1329,7 +1329,7 @@ public class Main {
         else if(word.getWord().equals("while")){
             int tag=0;
             word= scanner.scan();
-
+            System.out.println(word.getWord()+"888");
             if(word.getWord().equals("(")){
                 int skiptowhile=orderNum;
                 Out+="\tbr label %"+skiptowhile+"\n";
@@ -1342,6 +1342,7 @@ public class Main {
                 Out+=":\n";
                 orderNum++;
                 varNum++;
+                System.out.println(word.getWord()+"666");
                 if(word.getType().equals("Number")){
                     int v=constNumber();
                     if(word.getWord().equals(")")){
@@ -1365,7 +1366,9 @@ public class Main {
                     }
                 }
                 else{
+                    System.out.println(word.getWord()+"321");
                     Cond();
+
                 }
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
@@ -2298,9 +2301,6 @@ public class Main {
         System.out.println("abcd"+word.getWord());
         if(word.getWord().equals("[")){
 
-            Array array=new Array();
-            array.setWord(w);
-
             Out+="i32* ";
             Var var=new Var();
             var.setOrder(orderNum);
@@ -2311,22 +2311,6 @@ public class Main {
             varNum++;
             Out+=var.getOrderUse();
 
-            Var var1=new Var();
-            var1.setOrder(orderNum);
-            var1.setBlocknum(blocknum);
-            varList.add(var1);
-            orderNum++;varNum++;
-            funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
-            funcValStart+=("\tstore i32* "+var.getOrderUse()+", i32* * "+var1.getOrderUse()+"\n");
-
-            Var var2=new Var();
-            var2.setOrder(orderNum);
-            var2.setBlocknum(blocknum);
-            varList.add(var);
-            orderNum++;varNum++;
-            funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse());
-            array.setBaseptr(var2.getOrderUse());
-            array.setFlag(1);
 
 
             word= scanner.scan();
@@ -2336,7 +2320,7 @@ public class Main {
             if(word.getWord().equals("]")){
                 word= scanner.scan();
 
-                while (word.getWord().equals("[")){
+                if (word.getWord().equals("[")){
                     word= scanner.scan();
                     cou++;
                     int num=constAddExp();
@@ -2347,10 +2331,10 @@ public class Main {
                     else{
                         error();
                     }
+                    return 3;
                 }
 
-                array.setDimension(cou);
-                arrays.add(array);
+
             }
             else {
                 error();
@@ -2368,13 +2352,6 @@ public class Main {
             varNum++;
             Out+=var.getOrderUse();
 
-            Var var1=new Var();
-            var1.setOrder(orderNum);
-            var1.setBlocknum(blocknum);
-            varList.add(var);
-            orderNum++;varNum++;
-            funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
-            funcValStart+=("\tstore i32 "+var.getOrderUse()+", i32* "+var1.getOrderUse()+"\n");
             return 2;
         }
     }
@@ -2391,6 +2368,14 @@ public class Main {
             paramList.add(b);
         }
         varList.get(t).setParamList(paramList);
+    }
+    public int searchOrder(int t){
+        for (int k = 1; k < varList.size(); k++) {
+            if(varList.get(k).getOrder()==t){
+                return k;
+            }
+        }
+        return -1;
     }
     public void FuncDef(){
         Out+="define dso_local ";
@@ -2420,6 +2405,68 @@ public class Main {
             word= scanner.scan();
             if(!word.getWord().equals(")")){
                 FuncFParams(t);
+                int p=varNum-1;
+                int l=varList.get(t).getParamList().size();
+                for (int k = 0; k <l; k++) {
+                    if(varList.get(t).getParamList().get(k)==1){
+                        int x=searchOrder(p-l+k);
+                        String w=varList.get(x).getWord();
+                        System.out.println(w+"4444444444444444444");
+                        Array array=new Array();
+                        array.setWord(w);
+                        Var var1=new Var();
+                        var1.setOrder(orderNum);
+                        var1.setBlocknum(blocknum);
+                        varList.add(var1);
+                        orderNum++;varNum++;
+                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
+                        funcValStart+=("\tstore i32* %"+(p-l+k)+", i32* * "+var1.getOrderUse()+"\n");
+
+                        Var var2=new Var();
+                        var2.setOrder(orderNum);
+                        var2.setBlocknum(blocknum);
+                        varList.add(var);
+                        orderNum++;varNum++;
+                        funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse()+"\n");
+                        array.setBaseptr(var2.getOrderUse());
+                        array.setFlag(1);
+                        array.setDimension(1);
+                        arrays.add(array);
+                    }
+                    else if(varList.get(t).getParamList().get(k)==2){
+                        Var var1=new Var();
+                        var1.setOrder(orderNum);
+                        var1.setBlocknum(blocknum);
+                        varList.add(var);
+                        orderNum++;varNum++;
+                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
+                        funcValStart+=("\tstore i32 %"+(p-l+k)+", i32* "+var1.getOrderUse()+"\n");
+                    }
+                    else{
+                        int x=searchOrder(p-l+k);
+                        String w=varList.get(x).getWord();
+                        Array array=new Array();
+                        array.setWord(w);
+                        Var var1=new Var();
+                        var1.setOrder(orderNum);
+                        var1.setBlocknum(blocknum);
+                        varList.add(var1);
+                        orderNum++;varNum++;
+                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
+                        funcValStart+=("\tstore i32* %"+(p-l+k)+", i32* * "+var1.getOrderUse()+"\n");
+
+                        Var var2=new Var();
+                        var2.setOrder(orderNum);
+                        var2.setBlocknum(blocknum);
+                        varList.add(var);
+                        orderNum++;varNum++;
+                        funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse());
+                        array.setBaseptr(var2.getOrderUse());
+                        array.setFlag(1);
+                        array.setDimension(2);
+                        arrays.add(array);
+                    }
+                }
             }
             if(word.getWord().equals(")")){
                 Out+="){\n";
@@ -2461,10 +2508,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 

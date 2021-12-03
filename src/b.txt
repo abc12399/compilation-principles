@@ -1,37 +1,38 @@
 declare void @memset(i32*  ,i32 ,i32 )
 declare void @putint(i32)
-define dso_local i32 @_getMaxOfAll(i32* %0,i32 %3){
-	%1 = alloca i32*
-	store i32* %0, i32* * %1
-	%2 = load i32* , i32* * %1	%4 = alloca i32
-	store i32 %3, i32* %4
+define dso_local i32 @_getMaxOfAll(i32* %0,i32 %1){
+	%2 = alloca i32*
+	store i32* %0, i32* * %2
+	%3 = load i32* , i32* * %2
+	%4 = alloca i32
+	store i32 %1, i32* %4
 
 	%5 = alloca i32
 	%6 = sub i32 0, 999999
 	store i32 %6, i32* %5
-	%7 = load i32, i32* %3
+	%7 = load i32, i32* %1
 	%8 = sub i32 %7, 1
-	store i32 %8, i32* %3
+	store i32 %8, i32* %1
 	br label %9
 9:
-	%10 = load i32, i32* %3
+	%10 = load i32, i32* %1
 	%11 = sub i32 0, 1
 	%12 =  icmp sgt i32 %10, %11
 	br i1 %12,label %13, label %29
 
 13:
-	%14 = load i32, i32* %3
+	%14 = load i32, i32* %1
 	%15 = mul i32 %14, 0
-	%16 = getelementptr i32, i32* %2, i32 %15
+	%16 = getelementptr i32, i32* %3, i32 %15
 	%17 = load i32, i32* %16
 	%18 = load i32, i32* %5
 	%19 =  icmp sgt i32 %17, %18
 	br i1 %19,label %20, label %25
 
 20:
-	%21 = load i32, i32* %3
+	%21 = load i32, i32* %1
 	%22 = mul i32 %21, 0
-	%23 = getelementptr i32, i32* %2, i32 %22
+	%23 = getelementptr i32, i32* %3, i32 %22
 	%24 = load i32, i32* %23
 	store i32 %24, i32* %5
 	br label %26
@@ -39,9 +40,9 @@ define dso_local i32 @_getMaxOfAll(i32* %0,i32 %3){
 25:
 	br label %26
 26:
-	%27 = load i32, i32* %3
+	%27 = load i32, i32* %1
 	%28 = sub i32 %27, 1
-	store i32 %28, i32* %3
+	store i32 %28, i32* %1
 	br label %9
 29:
 	%30 = load i32, i32* %5
