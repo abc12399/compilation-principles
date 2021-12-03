@@ -472,13 +472,14 @@ public class Main {
                         s1+=arrays.get(t).getBaseptr();
                     }
 
-                    s1+=", i32 ";
-                    if(varList.get(waiting).getType().equals("value")){
-                        s1+=varList.get(waiting).getValue();
-                    }
-                    else{
-                        s1+=varList.get(waiting).getOrderUse();
-                    }
+                    s1+=", i32 0";
+//
+//                    if(varList.get().getType().equals("value")){
+//                        s1+=varList.get().getValue();
+//                    }
+//                    else{
+//                        s1+=varList.get().getOrderUse();
+//                    }
                     s1+="\n";
                     Out+=s1;
                 }
