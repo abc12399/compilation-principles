@@ -2368,6 +2368,11 @@ public class Main {
             paramList.add(b);
         }
         varList.get(t).setParamList(paramList);
+        Var var=new Var();
+        var.setWord("null");
+        varList.add(var);
+        orderNum++;
+        varNum++;
     }
     public int searchOrder(int t){
         for (int k = 1; k < varList.size(); k++) {
@@ -2405,7 +2410,7 @@ public class Main {
             word= scanner.scan();
             if(!word.getWord().equals(")")){
                 FuncFParams(t);
-                int p=varNum-1;
+                int p=varNum-2;
                 int l=varList.get(t).getParamList().size();
                 for (int k = 0; k <l; k++) {
                     if(varList.get(t).getParamList().get(k)==1){
