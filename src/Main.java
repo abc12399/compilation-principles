@@ -413,21 +413,43 @@ public class Main {
             }
             else {
                 if(searchArr(varList.get(waiting).getWord())!=-1){
-                    Var var=new Var();
+//                    Var var=new Var();
+//                    var.setOrder(orderNum);
+//                    String s1="\t";
+//                    s1+=var.getOrderUse();
+//                    System.out.println("12345678910");
+//                    //     s1+="12345678910";
+//                    s1+=" = load i32*, i32* ";
+//
+//                    s1+=varList.get(waiting).getOrderUse();
+//
+//                    s1+="\n";
+//                    Out+=s1;
+//                    varList.add(var);
+//                    varNum++;
+//                    orderNum++;
+                    int t=searchArr(varList.get(waiting).getWord());
+                    int x=0;int y=0;
+                    Var var =new Var();
+                    x=arrays.get(t).getX();
+                    y=arrays.get(t).getY();
+                    var=new Var();
                     var.setOrder(orderNum);
-                    String s1="\t";
-                    s1+=var.getOrderUse();
-                    System.out.println("12345678910");
-                    //     s1+="12345678910";
-                    s1+=" = load i32*, i32* ";
-
-                    s1+=varList.get(waiting).getOrderUse();
-
-                    s1+="\n";
-                    Out+=s1;
+                    var.setBlocknum(blocknum);
                     varList.add(var);
                     varNum++;
                     orderNum++;
+                    String s="\t";
+
+                    s+=var.getOrderUse();
+                    s+=" = getelementptr [";
+                    s+=x*y;
+                    s+=" x i32], [";
+                    s+=x*y;
+                    s+=" x i32]* ";
+                    s+=arrays.get(t).getBaseptr();
+                    s+=", i32 0, i32 0\n";
+                    Out+=s;
                 }
                 else{
                     Var var=new Var();
@@ -2543,10 +2565,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 

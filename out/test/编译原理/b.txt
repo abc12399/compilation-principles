@@ -65,13 +65,12 @@ define dso_local i32 @main(){
 	%10 = sub i32 0, 7
 	store i32 %10, i32* %9
 	%11 = alloca i32
-	%12 = load i32, i32* %2
-	call void @_getMaxOfAll(i32 %12, i32* 3)
-	%13 = mul i32 3, 1
-	%14 = getelementptr i32, i32* %2, i32 %13
-	%15 = load i32, i32* %14
-	store i32 %15, i32* %11
-	%16 = load i32, i32* %11
-	call void @_getMaxOfAll(i32 %16)
+	call void @_getMaxOfAll(i32* %11, i32 3)
+	%12 = mul i32 3, 1
+	%13 = getelementptr i32, i32* %2, i32 %12
+	%14 = load i32, i32* %13
+	store i32 %14, i32* %11
+	%15 = load i32, i32* %11
+	call void @_getMaxOfAll(i32 %15)
 	ret i32 0
 }
