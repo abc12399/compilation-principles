@@ -2512,7 +2512,7 @@ public class Main {
                         varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse()+"\n");
-                        array.setBaseptr(var1.getOrderUse());
+                        array.setBaseptr(var2.getOrderUse());
                         array.setFlag(1);
                         array.setDimension(1);
                         arrays.add(array);
@@ -2550,7 +2550,7 @@ public class Main {
                         varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse());
-                        array.setBaseptr(var1.getOrderUse());
+                        array.setBaseptr(var2.getOrderUse());
                         array.setFlag(1);
                         array.setDimension(2);
                         arrays.add(array);
