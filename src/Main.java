@@ -533,7 +533,7 @@ public class Main {
                 word= scanner.scan();
             }
 
-            PrimaryExp();
+            UnaryExp();
             for (int i = 0; i < z; i++) {
                 Var var=new Var();
                 var.setOrder(orderNum);
@@ -1436,6 +1436,9 @@ public class Main {
                     }
 
                 }
+//                else{
+//                    error();
+//                }
                 Var varout=new Var();
                 varout.setOrder(orderNum);
 
@@ -1478,7 +1481,9 @@ public class Main {
                     String s_main=store1.substring(s_declare);
                     store1=declares+s_main;
                 }
-
+                else{
+                    store1="";
+                }
 
                 if(block1.contains("ret")&&block2.contains("ret")){
                     Out=store1+gotos+block1+block2+"\n";
