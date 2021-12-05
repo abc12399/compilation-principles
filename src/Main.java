@@ -1373,7 +1373,6 @@ public class Main {
                         orderNum++;
                         s2+=var2.getOrder();
                         s2+=":\n";
-
                         block2="" ;
                         block2=s2+block2;
 
@@ -1382,9 +1381,7 @@ public class Main {
                 }
                 Var varout=new Var();
                 varout.setOrder(orderNum);
-                varList.add(varout);
-                varNum++;
-                orderNum++;
+
                 String goout="";
                 goout+="\tbr label "+varout.getOrderUse();
                 goout+="\n";
@@ -1412,7 +1409,17 @@ public class Main {
                 int s_declare=store1.indexOf("define dso_local");
                 String s_main=store1.substring(s_declare);
                 store1=declares+s_main;
-                Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
+
+                if(block1.contains("ret")&&block2.contains("ret")){
+                    Out=store1+gotos+block1+block2+"\n";
+                }
+                else{
+                    varList.add(varout);
+                    varNum++;
+                    orderNum++;
+                    Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
+                }
+
 
             }
 
@@ -1527,6 +1534,9 @@ public class Main {
 
                 assert block1 != null;
                 if (!block1.contains("ret")&&(!block1.contains("br label")||(block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
+                    block1+=goToWhile;
+                }
+                if(!block1.contains(goToWhile)){
                     block1+=goToWhile;
                 }
                 Out=store1+gotos+block1+varout.getOrder()+":\n";
@@ -2627,10 +2637,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
