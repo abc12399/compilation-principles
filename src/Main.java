@@ -816,17 +816,31 @@ public class Main {
                         if(funcList.get(searchFuncPos).equals("putint")||funcList.get(searchFuncPos).equals("putch")||funcList.get(searchFuncPos).equals("putarray")){
                             error();
                         }
-                        Var var=new Var();
-                        var.setOrder(orderNum);
-                        varList.add(var);
-                        orderNum++;
-                        varNum++;
-                        String s2="\t";
-                        s2+=var.getOrderUse();
-                        s2+=" = call i32 @";
-                        s2+=funcList.get(searchFuncPos);
-                        s2+="()\n";
-                        Out+=s2;
+
+
+
+                        search(funcList.get(searchFuncPos));
+                        if(varList.get(Varpos).getType().equals("void")){
+                            String s2="\t";
+                            s2+="call void @";
+                            s2+=funcList.get(searchFuncPos);
+                            s2+="()\n";
+                            Out+=s2;
+                        }
+                        else{
+                            Var var=new Var();
+                            var.setOrder(orderNum);
+                            varList.add(var);
+                            orderNum++;
+                            varNum++;
+                            String s2="\t";
+                            s2+=var.getOrderUse();
+                            s2+=" = call i32 @";
+                            s2+=funcList.get(searchFuncPos);
+                            s2+="()\n";
+                            Out+=s2;
+                        }
+
                         word= scanner.scan();
                         return;
                     }
