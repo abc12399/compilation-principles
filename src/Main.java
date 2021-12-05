@@ -461,10 +461,10 @@ public class Main {
                     s1+=var.getOrderUse();
                     s1+=" = getelementptr i32, i32* ";
                     if(arrays.get(t).getBaseptr().contains("@")){
-                       // s1+=("%"+(orderNum-2));
+                        s1+=("%"+(orderNum-2));
                     }
                     else{
-                        s1+=arrays.get(waiting).getBaseptr();
+                        s1+=arrays.get(t).getBaseptr();
                     }
 
                     s1+=", i32 0";
@@ -2748,10 +2748,10 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
