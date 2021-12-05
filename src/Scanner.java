@@ -17,6 +17,16 @@ public class Scanner {
 
     private int pos=0;
 
+    private int flag;
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
     public int getPos() {
         return pos;
     }
@@ -150,6 +160,12 @@ public class Scanner {
     }
     public void goBack3(){
         pos=before3;
+    }
+    public void setAflag(){
+        flag=pos;
+    }
+    public void fromTheflag(){
+        pos=flag;
     }
     public Word scan(){
         before3=before2;

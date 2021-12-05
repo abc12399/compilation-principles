@@ -34,6 +34,8 @@ public class Main {
 
     public int waiting;
 
+    public int recordarrnum;
+
     public int searchFuncPos;
 
     public int blocknum;
@@ -334,10 +336,10 @@ public class Main {
                     var.setOrder(orderNum);
                     var.setBlocknum(blocknum);
                     if(count==2){
-                        var.setCalDimension(2);
+                        var.setCalDimension(0);
                     }
                     else {
-                        var.setCalDimension(1);
+                        var.setCalDimension(arrays.get(t).getDimension()-1);
                     }
                     varNum++;
                     orderNum++;
@@ -364,9 +366,7 @@ public class Main {
                 }
                 Varpos=varNum-1;
             }
-            else{
 
-            }
         }
 
     }
@@ -421,7 +421,6 @@ public class Main {
             else {
                 int t=searchArr(varList.get(waiting).getWord());
                 if(searchArr(varList.get(waiting).getWord())!=-1){
-
                     int x=0;int y=0;
                     Var var;
                     if(arrays.get(t).getFlag()!=1){
@@ -448,9 +447,11 @@ public class Main {
                         //   arrays.get(t).setBaseptr(var.getOrderUse());
                     }
 
+                    int test=searchArr(testArr);
                     var=new Var();
                     var.setOrder(orderNum);
                     var.setBlocknum(blocknum);
+                    var.setCalDimension(arrays.get(test).getDimension());
                     varNum++;
                     orderNum++;
                     varList.add(var);
@@ -853,6 +854,7 @@ public class Main {
                             return;
                         }
                         else{
+
                             if(funcList.get(searchFuncPos).equals("getint")||funcList.get(searchFuncPos).equals("getch")){
                                 error();
                             }
@@ -980,18 +982,18 @@ public class Main {
                                 for (int i = 0; i < waitnum.size(); i++) {
 
                                     if(varList.get(Varpos).getParamList().get(i)==1){
-//                                    if(varList.get(waitnum.get(i)).getCalDimension()!=1){
-//                                        error();
-//                                    }
+                                        if(varList.get(waitnum.get(i)).getCalDimension()!=1){
+                                            error();
+                                        }
                                         s2+="i32* ";
                                     }
                                     else if(varList.get(Varpos).getParamList().get(i)==2){
                                         s2+="i32 ";
                                     }
                                     else{
-//                                    if(varList.get(waitnum.get(i)).getCalDimension()!=2){
-//                                        error();
-//                                    }
+                                        if(varList.get(waitnum.get(i)).getCalDimension()!=2){
+                                            error();
+                                        }
                                         s2+="i32* ";
                                     }
 
