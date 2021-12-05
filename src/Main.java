@@ -491,7 +491,9 @@ public class Main {
                     s1+=" = load i32, i32* ";
 
                     s1+=varList.get(waiting).getOrderUse();
-                    var.setCalDimension(arrays.get(q).getDimension()-varList.get(waiting).getCalDimension());
+                    if(q!=-1){
+                        var.setCalDimension(arrays.get(q).getDimension()-varList.get(waiting).getCalDimension());
+                    }
                     s1+="\n";
                     Out+=s1;
                     varList.add(var);
