@@ -970,18 +970,18 @@ public class Main {
                             for (int i = 0; i < waitnum.size(); i++) {
 
                                 if(varList.get(Varpos).getParamList().get(i)==1){
-                                    if(varList.get(waitnum.get(i)).getCalDimension()!=1){
-                                        error();
-                                    }
+//                                    if(varList.get(waitnum.get(i)).getCalDimension()!=1){
+//                                        error();
+//                                    }
                                     s2+="i32* ";
                                 }
                                 else if(varList.get(Varpos).getParamList().get(i)==2){
                                     s2+="i32 ";
                                 }
                                 else{
-                                    if(varList.get(waitnum.get(i)).getCalDimension()!=2){
-                                        error();
-                                    }
+//                                    if(varList.get(waitnum.get(i)).getCalDimension()!=2){
+//                                        error();
+//                                    }
                                     s2+="i32* ";
                                 }
 
