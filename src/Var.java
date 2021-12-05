@@ -10,6 +10,18 @@ public class Var {
 
     private int blocklvel;
 
+    public int getCalDimension() {
+        return calDimension;
+    }
+
+    public void setCalDimension(int calDimension) {
+        this.calDimension = calDimension;
+    }
+
+    private int calDimension;
+
+
+
     private ArrayList<Integer> paramList;
 
     private String functype;

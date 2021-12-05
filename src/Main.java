@@ -336,6 +336,12 @@ public class Main {
                     var=new Var();
                     var.setOrder(orderNum);
                     var.setBlocknum(blocknum);
+                    if(count==2){
+                        var.setCalDimension(2);
+                    }
+                    else {
+                        var.setCalDimension(1);
+                    }
                     varNum++;
                     orderNum++;
                     varList.add(var);
@@ -361,7 +367,9 @@ public class Main {
                 }
                 Varpos=varNum-1;
             }
+            else{
 
+            }
         }
 
     }
@@ -403,6 +411,7 @@ public class Main {
             return;
         }
         else if(word.getType().equals("Ident")){
+            String testArr=word.getWord();
             Lval();
             int waiting=Varpos;
             if(varList.get(waiting).getType().equals("value")){
@@ -415,21 +424,7 @@ public class Main {
             else {
                 int t=searchArr(varList.get(waiting).getWord());
                 if(searchArr(varList.get(waiting).getWord())!=-1){
-//                    Var var=new Var();
-//                    var.setOrder(orderNum);
-//                    String s1="\t";
-//                    s1+=var.getOrderUse();
-//                    System.out.println("12345678910");
-//                    //     s1+="12345678910";
-//                    s1+=" = load i32*, i32* ";
-//
-//                    s1+=varList.get(waiting).getOrderUse();
-//
-//                    s1+="\n";
-//                    Out+=s1;
-//                    varList.add(var);
-//                    varNum++;
-//                    orderNum++;
+
                     int x=0;int y=0;
                     Var var;
                     if(arrays.get(t).getFlag()!=1){
@@ -485,6 +480,8 @@ public class Main {
                     Out+=s1;
                 }
                 else{
+                    int q=searchArr(testArr);
+
                     Var var=new Var();
                     var.setOrder(orderNum);
                     String s1="\t";
@@ -494,7 +491,7 @@ public class Main {
                     s1+=" = load i32, i32* ";
 
                     s1+=varList.get(waiting).getOrderUse();
-
+                    var.setCalDimension(arrays.get(q).getDimension()-varList.get(waiting).getCalDimension());
                     s1+="\n";
                     Out+=s1;
                     varList.add(var);
@@ -927,10 +924,13 @@ public class Main {
                             }
                         }
                         else{
+                            String waitingfunc=funcList.get(searchFuncPos);
+                            System.out.println("shit "+funcList.get(searchFuncPos));
                             ArrayList<Integer> waitnum=new ArrayList<>();
                             System.out.println("4"+word.getWord());
 
                             Exp();
+                            System.out.println("ttttt"+word.getWord());
                             waitnum.add(varNum-1);
 
                             while(word.getWord().equals(",")){
@@ -938,8 +938,8 @@ public class Main {
                                 Exp();
                                 waitnum.add(varNum-1);
                             }
-                            System.out.println(waitnum);
-                            search(funcList.get(searchFuncPos));
+                            System.out.println(funcList.get(searchFuncPos));
+                            search(waitingfunc);
                             System.out.println(waitnum.size());
                             System.out.println(varList.get(Varpos).getParamList().size());
 
@@ -968,11 +968,21 @@ public class Main {
                             for (int i = 0; i < waitnum.size(); i++) {
 
                                 if(varList.get(Varpos).getParamList().get(i)==1){
+                                    if(varList.get(waitnum.get(i)).getCalDimension()!=1){
+                                        error();
+                                    }
                                     s2+="i32* ";
                                 }
                                 else if(varList.get(Varpos).getParamList().get(i)==2){
                                     s2+="i32 ";
                                 }
+                                else{
+                                    if(varList.get(waitnum.get(i)).getCalDimension()!=2){
+                                        error();
+                                    }
+                                    s2+="i32* ";
+                                }
+
                                 if(varList.get(waitnum.get(i)).getType().equals("value")){
                                     s2+=varList.get(waitnum.get(i)).getValue();
                                 }
@@ -1352,6 +1362,7 @@ public class Main {
 
 
                     block1=s1+block1;
+                    System.out.println("6666666666666 "+word.getWord());
                     if(word.getWord().equals("else")){
                         //这里继续
                         word=scanner.scan();
@@ -1603,7 +1614,6 @@ public class Main {
         }
         else if(word.getType().equals("Ident")){
             word= scanner.scan();
-
             if(word.getWord().equals("=")){
                 scanner.goBack2();
                 word= scanner.scan();
@@ -1684,11 +1694,22 @@ public class Main {
                 scanner.goBack2();
                 word= scanner.scan();
                 Exp();
+                if(word.getWord().equals(";")){
+                    word= scanner.scan();
+                    System.out.println("88888888"+word.getWord());
+                    return;
+                }
+
+                error();
+
+
 
             }
         }
         else {
-            Exp();
+            if(!word.getWord().equals(";")){
+                Exp();
+            }
             if(word.getWord().equals(";")){
                 word= scanner.scan();
                 return;
@@ -2652,6 +2673,9 @@ public class Main {
                 word= scanner.scan();
                 Block();
                 System.out.println("end "+word.getWord());
+                if(functype.equals("void")){
+                    Out+="\tret void\n";
+                }
                 Out+="}\n";
 
                 if(word.getType().equals("Ident")){
