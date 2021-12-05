@@ -508,14 +508,14 @@ public class Main {
             Number();
         }
     }
-    public boolean searchFunList(String s){
+    public int searchFunList(String s){
         for (int i=0;i<funcList.size();i++){
             if(s.equals(funcList.get(i))){
                 searchFuncPos=i;
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
 
     }
     public void UnaryExp(){
@@ -633,7 +633,7 @@ public class Main {
         else if(word.getType().equals("Ident")){
             System.out.println(funcList);
             System.out.println(word.getWord());
-            if(!searchFunList(word.getWord())){
+            if(searchFunList(word.getWord())==-1){
                 Ident();
                 if(word.getWord().equals("(")){
                     scanner.goBack2();
@@ -669,7 +669,6 @@ public class Main {
 
                     }
                     else{
-
                         if(funcList.get(funcList.size()-1).equals("getint")||funcList.get(funcList.size()-1).equals("getch")){
                             error();
                         }
@@ -684,7 +683,6 @@ public class Main {
                             if(t==-1){
                                 error();
                             }
-
 
                             Var var=new Var();
                             var.setOrder(orderNum);
@@ -808,6 +806,7 @@ public class Main {
 
             }
             else{
+                int using=searchFunList(word.getWord());
                 Ident();
                 System.out.println("1"+word.getWord());
                 if(word.getWord().equals("(")){
@@ -908,7 +907,7 @@ public class Main {
                             Exp();
                             int p=varNum-1;
                             String s2="\tcall void @";
-                            s2+=funcList.get(funcList.size()-1);
+                            s2+=funcList.get(using);
                             s2+="(i32 ";
 
                             if(varList.get(p).getType().equals("value")){
@@ -964,7 +963,7 @@ public class Main {
                                 s2+="call i32 @";
                             }
 
-                            s2+=funcList.get(searchFuncPos);
+                            s2+=funcList.get(using);
                             System.out.println(s2+"23");
                             s2+="(";
                             for (int i = 0; i < waitnum.size(); i++) {
@@ -1305,22 +1304,27 @@ public class Main {
     public void Stmt(){
         if(word.getWord().equals("return")){
             word= scanner.scan();
-            Exp();
-            String s="\tret ";
-            s+="i32 ";
-            if(varList.get(varNum-1).getType().equals("value")){
-                s+=varList.get(varNum-1).getValue();
-            }
-            else {
-                s+=varList.get(varNum-1).getOrderUse();
-            }
-            s+="\n";
-            Out+=s;
             if(word.getWord().equals(";")){
-                word= scanner.scan();
-                return;
+                Out+="\tret void\n";
             }
-            error();
+            else{
+                Exp();
+                String s="\tret ";
+                s+="i32 ";
+                if(varList.get(varNum-1).getType().equals("value")){
+                    s+=varList.get(varNum-1).getValue();
+                }
+                else {
+                    s+=varList.get(varNum-1).getOrderUse();
+                }
+                s+="\n";
+                Out+=s;
+                if(word.getWord().equals(";")){
+                    word= scanner.scan();
+                    return;
+                }
+                error();
+            }
         }
         else if(word.getWord().equals("{")){
             Block();
