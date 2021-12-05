@@ -49,6 +49,7 @@ public class Main {
     public Stack<Var> breakStack;
     public ArrayList<Var> blocklist;
 
+    public int pass;
     public int Operate(int m,int n,char x){
         if(x=='+'){
             return m+n;
@@ -1418,22 +1419,35 @@ public class Main {
                 gotos+=", label %"+to2;
                 gotos+="\n";
 
-                assert block1 != null;
+              //  assert block1 != null;
+              //  System.out.println(block1);
+                if(block1==null){
+                    block1="";
+                    block1+=goout;
+                }
+                System.out.println(block1);
                 if (!block1.contains("ret")&&
                         (!block1.contains("br label")||
                         (block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
                     block1+=goout;
+                }
+                if(block2==null){
+                    block2="";
+                    block2+=goout;
                 }
                 if(!block2.contains("ret")&&
                         (!block2.contains("br label")||
                                 (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-15))){
                     block2+=goout;
                 }
-                int declare=Out.indexOf("define dso_local");
-                String declares=Out.substring(0,declare);
-                int s_declare=store1.indexOf("define dso_local");
-                String s_main=store1.substring(s_declare);
-                store1=declares+s_main;
+                if(store1!=null){
+                    int declare=Out.indexOf("define dso_local");
+                    String declares=Out.substring(0,declare);
+                    int s_declare=store1.indexOf("define dso_local");
+                    String s_main=store1.substring(s_declare);
+                    store1=declares+s_main;
+                }
+
 
                 if(block1.contains("ret")&&block2.contains("ret")){
                     Out=store1+gotos+block1+block2+"\n";
@@ -2452,6 +2466,7 @@ public class Main {
                     word= scanner.scan();
                     cou++;
                     int num=constAddExp();
+                    pass=num;
                     System.out.println(word.getWord()+"44444");
                     if (word.getWord().equals("]")){
                         word= scanner.scan();
@@ -2575,6 +2590,7 @@ public class Main {
                         array.setBaseptr(var2.getOrderUse());
                         array.setFlag(1);
                         array.setDimension(1);
+                        array.setY(1);
                         arrays.add(array);
                     }
                     else if(varList.get(t).getParamList().get(k)==2){
@@ -2613,6 +2629,7 @@ public class Main {
                         array.setBaseptr(var2.getOrderUse());
                         array.setFlag(1);
                         array.setDimension(2);
+                        array.setY(pass);
                         arrays.add(array);
                     }
                 }
