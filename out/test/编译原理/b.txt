@@ -109,6 +109,7 @@ define dso_local i32 @heap_ajust(i32* %0,i32 %1,i32 %2){
 	store i32 %57, i32* %10
 	br label %58
 58:
+	br label %14
 59:
 	ret i32 0
 }
