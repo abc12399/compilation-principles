@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.server.ExportException;
 import java.util.ArrayList;
+import java.util.SplittableRandom;
 import java.util.Stack;
 import java.util.concurrent.locks.Condition;
 
@@ -221,6 +222,7 @@ public class Main {
             if(check==0 && ! word.getType().equals("Const")){
                 error();
             }
+            String wo=word.getWord();
             Ident();
 
             if(word.getWord().equals("[")){
@@ -366,6 +368,66 @@ public class Main {
                     Out+=s1;
                 }
                 Varpos=varNum-1;
+            }
+            else{
+                int t=searchArr(wo);
+                if(t!=-1){
+                    {
+                        if(arrays.get(t).getFlag()!=1){
+                            //    arrays.get(t).setFlag(1);
+                            int x=0,y=0;
+                            x=arrays.get(t).getX();
+                            y=arrays.get(t).getY();
+                            Var var=new Var();
+                            var.setOrder(orderNum);
+                            var.setBlocknum(blocknum);
+                            varList.add(var);
+                            varNum++;
+                            orderNum++;
+                            String s="\t";
+
+                            s+=var.getOrderUse();
+                            s+=" = getelementptr [";
+                            s+=x*y;
+                            s+=" x i32], [";
+                            s+=x*y;
+                            s+=" x i32]* ";
+                            s+=arrays.get(t).getBaseptr();
+                            s+=", i32 0, i32 0\n";
+                            Out+=s;
+                            //   arrays.get(t).setBaseptr(var.getOrderUse());
+                        }
+                        Var var=new Var();
+                        var.setOrder(orderNum);
+                        var.setBlocknum(blocknum);
+
+
+                        varNum++;
+                        orderNum++;
+                        varList.add(var);
+                        String s1;
+                        s1="\t";
+                        s1+=var.getOrderUse();
+                        s1+=" = getelementptr i32, i32* ";
+                        if(arrays.get(t).getBaseptr().contains("@")){
+                            s1+=("%"+(orderNum-2));
+                        }
+                        else{
+                            s1+=arrays.get(t).getBaseptr();
+                        }
+
+                        s1+=", i32 ";
+                        if(varList.get(waiting).getType().equals("value")){
+                            s1+=varList.get(waiting).getValue();
+                        }
+                        else{
+                            s1+=varList.get(waiting).getOrderUse();
+                        }
+                        s1+="\n";
+                        Out+=s1;
+                    }
+                    Varpos=varNum-1;
+                }
             }
 
         }
@@ -2748,10 +2810,10 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-//        String path=args[0];
-//        String output=args[1];
-        String path="a.txt";
-        String output="b.txt";
+        String path=args[0];
+        String output=args[1];
+//        String path="a.txt";
+//        String output="b.txt";
 
         String filecontent="";
 
