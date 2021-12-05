@@ -18,16 +18,15 @@ define dso_local i32 @model(i32* %0){
 	%7 = load i32, i32* %6
 	%8 = add i32 0, %7
 	%9 = call i32 @relu_reg(i32 %8)
-	%10 = add i32 0, %9
-	%11 = mul i32 %10, 39
-	%12 =  icmp sgt i32 %11, 0
-	br i1 %12,label %13, label %14
+	%10 = mul i32 %9, 39
+	%11 =  icmp sgt i32 %10, 0
+	br i1 %11,label %12, label %13
 
-13:	ret i32 1
+12:	ret i32 1
 
+13:
+	br label %14
 14:
-	br label %15
-15:
 	ret i32 0
 }
 define dso_local i32 @main(){
