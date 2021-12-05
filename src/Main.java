@@ -2580,6 +2580,13 @@ public class Main {
                 }
             }
             if(word.getWord().equals(")")){
+
+                var=new Var();
+                var.setWord("null");
+                var.setOrder(orderNum);
+                varList.add(var);
+                orderNum++;
+                varNum++;
                 Out+="){\n";
 
                 Out+=funcValStart;
@@ -2591,7 +2598,7 @@ public class Main {
                 Out+="}\n";
 
                 if(word.getType().equals("Ident")){
-                    orderNum=1;
+                    orderNum=0;
                     CompUnit();
                 }
                 return;
@@ -2622,8 +2629,8 @@ public class Main {
     public static void main(String[] args) {
         String path=args[0];
         String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+        //String path="a.txt";
+        //String output="b.txt";
 
         String filecontent="";
 
