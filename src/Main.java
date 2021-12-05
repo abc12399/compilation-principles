@@ -643,7 +643,9 @@ public class Main {
                     Ident();
                     word= scanner.scan();
                     if(word.getWord().equals(")")){
-                        if(funcList.get(funcList.size()-1).equals("putint")||funcList.get(funcList.size()-1).equals("putch")||funcList.get(funcList.size()-1).equals("putarray")){
+                        if(funcList.get(funcList.size()-1).equals("putint")||
+                                funcList.get(funcList.size()-1).equals("putch")||
+                                funcList.get(funcList.size()-1).equals("putarray")){
                             error();
                         }
                         String s1="";
@@ -706,7 +708,7 @@ public class Main {
                         else if(funcList.get(funcList.size()-1).equals("putarray")){
                             String s1="";
                             s1+="declare void @";
-                            s1+=funcList.get(funcList.size()-1);
+                            s1+="putarray";
                             s1+="(i32, i32*)\n";
                             Out=s1+Out;
                             //Lval();
@@ -723,7 +725,7 @@ public class Main {
                                 waitnum.add(varNum-1);
                             }
                             String s2="\tcall void @";
-                            s2+=funcList.get(searchFuncPos);
+                            s2+="putarray";
                             s2+="(";
                             for (int i = 0; i < waitnum.size(); i++) {
                                 if(i==0) {
