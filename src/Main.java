@@ -367,9 +367,7 @@ public class Main {
                 }
                 Varpos=varNum-1;
             }
-            else{
 
-            }
         }
 
     }
@@ -414,6 +412,7 @@ public class Main {
             String testArr=word.getWord();
             Lval();
             int waiting=Varpos;
+
             if(varList.get(waiting).getType().equals("value")){
                 Var var =new Var();
                 var.setValue(varList.get(waiting).getValue());
@@ -462,10 +461,10 @@ public class Main {
                     s1+=var.getOrderUse();
                     s1+=" = getelementptr i32, i32* ";
                     if(arrays.get(t).getBaseptr().contains("@")){
-                        s1+=("%"+(orderNum-2));
+                       // s1+=("%"+(orderNum-2));
                     }
                     else{
-                        s1+=arrays.get(t).getBaseptr();
+                        s1+=arrays.get(waiting).getBaseptr();
                     }
 
                     s1+=", i32 0";
@@ -636,56 +635,30 @@ public class Main {
         else if(word.getType().equals("Ident")){
             System.out.println(funcList);
             System.out.println(word.getWord());
-            if(searchFunList(word.getWord())==-1){
-                Ident();
-                if(word.getWord().equals("(")){
-                    scanner.goBack2();
-                    word= scanner.scan();
-                    funcList.add(word.getWord());
-                    System.out.println(funcList);
+            Ident();
+            if(word.getWord().equals("(")){
+                scanner.goBack2();
+                word= scanner.scan();
+                if(searchFunList(word.getWord())==-1){
                     Ident();
-                    word= scanner.scan();
-                    if(word.getWord().equals(")")){
-                        if(funcList.get(funcList.size()-1).equals("putint")||
-                                funcList.get(funcList.size()-1).equals("putch")||
-                                funcList.get(funcList.size()-1).equals("putarray")){
-                            error();
-                        }
-                        String s1="";
-                        s1+="declare i32 @";
-                        s1+=funcList.get(funcList.size()-1);
-                        s1+="()\n";
-                        Out=s1+Out;
-
-                        Var var=new Var();
-                        var.setOrder(orderNum);
-                        varList.add(var);
-                        orderNum++;
-                        varNum++;
-                        String s2="\t";
-                        s2+=var.getOrderUse();
-                        s2+=" = call i32 @";
-                        s2+=funcList.get(funcList.size()-1);
-                        s2+="()\n";
-                        Out+=s2;
+                    if(word.getWord().equals("(")){
+                        scanner.goBack2();
                         word= scanner.scan();
-
-                    }
-                    else{
-                        if(funcList.get(funcList.size()-1).equals("getint")||funcList.get(funcList.size()-1).equals("getch")){
-                            error();
-                        }
-                        if(funcList.get(funcList.size()-1).equals("getarray")){
+                        funcList.add(word.getWord());
+                        System.out.println(funcList);
+                        Ident();
+                        word= scanner.scan();
+                        if(word.getWord().equals(")")){
+                            if(funcList.get(funcList.size()-1).equals("putint")||
+                                    funcList.get(funcList.size()-1).equals("putch")||
+                                    funcList.get(funcList.size()-1).equals("putarray")){
+                                error();
+                            }
                             String s1="";
                             s1+="declare i32 @";
                             s1+=funcList.get(funcList.size()-1);
-                            s1+="(i32*)\n";
+                            s1+="()\n";
                             Out=s1+Out;
-                            Lval();
-                            int t=varNum-1;
-                            if(t==-1){
-                                error();
-                            }
 
                             Var var=new Var();
                             var.setOrder(orderNum);
@@ -696,340 +669,372 @@ public class Main {
                             s2+=var.getOrderUse();
                             s2+=" = call i32 @";
                             s2+=funcList.get(funcList.size()-1);
-                            s2+="(i32* ";
-                            s2+=varList.get(t).getOrderUse();
-                            s2+=")\n";
-                            Out+=s2;
-
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
-                        }
-                        else if(funcList.get(funcList.size()-1).equals("putarray")){
-                            String s1="";
-                            s1+="declare void @";
-                            s1+="putarray";
-                            s1+="(i32, i32*)\n";
-                            Out=s1+Out;
-                            //Lval();
-                            int t=varNum-1;
-
-                            ArrayList<Integer> waitnum=new ArrayList<>();
-
-                            Exp();
-
-                            waitnum.add(varNum-1);
-                            while(word.getWord().equals(",")){
-                                word= scanner.scan();
-                                Exp();
-                                waitnum.add(varNum-1);
-                            }
-                            String s2="\tcall void @";
-                            s2+="putarray";
-                            s2+="(";
-                            for (int i = 0; i < waitnum.size(); i++) {
-                                if(i==0) {
-                                    s2 += "i32 ";
-                                }else{
-                                    s2+="i32*";
-                                }
-
-                                if(varList.get(waitnum.get(i)).getType().equals("value")){
-                                    s2+=varList.get(waitnum.get(i)).getValue();
-                                }
-                                else{
-                                    s2+=varList.get(waitnum.get(i)).getOrderUse();
-                                }
-                                if(i==waitnum.size()-1){
-                                    s2+=")\n";
-                                }
-                                else{
-                                    s2+=", ";
-                                }
-
-                            }
-                            Out+=s2;
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
-                            error();
-                        }
-                        else{
-                            String s1="";
-                            s1+="declare void @";
-                            s1+=funcList.get(funcList.size()-1);
-                            s1+="(i32)\n";
-                            Out=s1+Out;
-                            ArrayList<Integer> waitnum=new ArrayList<>();
-
-                            Exp();
-
-                            waitnum.add(varNum-1);
-                            while(word.getWord().equals(",")){
-                                word= scanner.scan();
-                                Exp();
-                                waitnum.add(varNum-1);
-                            }
-
-                            for (int i = 0; i < waitnum.size(); i++) {
-                                String s2="\tcall void @";
-                                s2+=funcList.get(funcList.size()-1);
-                                s2+="(i32 ";
-
-                                if(varList.get(waitnum.get(i)).getType().equals("value")){
-                                    s2+=varList.get(waitnum.get(i)).getValue();
-                                }
-                                else{
-                                    s2+=varList.get(waitnum.get(i)).getOrderUse();
-                                }
-                                if(i==waitnum.size()-1){
-                                    s2+=")\n";
-                                }
-                                else{
-                                    s2+=", ";
-                                }
-                                Out+=s2;
-                            }
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
-                            error();
-                        }
-
-                    }
-                }
-                else{
-                    scanner.goBack2();
-                    word= scanner.scan();
-                    PrimaryExp();
-                }
-
-            }
-            else{
-                int using=searchFunList(word.getWord());
-                Ident();
-                System.out.println("1"+word.getWord());
-                if(word.getWord().equals("(")){
-                    word= scanner.scan();
-                    System.out.println("2"+word.getWord());
-                    if(word.getWord().equals(")")){
-                        if(funcList.get(searchFuncPos).equals("putint")||funcList.get(searchFuncPos).equals("putch")||funcList.get(searchFuncPos).equals("putarray")){
-                            error();
-                        }
-
-
-
-                        search(funcList.get(searchFuncPos));
-                        if(varList.get(Varpos).getType().equals("void")){
-                            String s2="\t";
-                            s2+="call void @";
-                            s2+=funcList.get(searchFuncPos);
                             s2+="()\n";
                             Out+=s2;
+                            word= scanner.scan();
+
                         }
                         else{
-                            Var var=new Var();
-                            var.setOrder(orderNum);
-                            varList.add(var);
-                            orderNum++;
-                            varNum++;
-                            String s2="\t";
-                            s2+=var.getOrderUse();
-                            s2+=" = call i32 @";
-                            s2+=funcList.get(searchFuncPos);
-                            s2+="()\n";
-                            Out+=s2;
-                        }
-
-                        word= scanner.scan();
-                        return;
-                    }
-                    else{
-                        System.out.println("3"+word.getWord());
-                        if(funcList.get(searchFuncPos).equals("getint")||funcList.get(searchFuncPos).equals("getch")){
-                            error();
-                        }
-                        if(funcList.get(searchFuncPos).equals("getarray")){
-                            Lval();
-                            int t=varNum-1;
-                            Var var=new Var();
-                            var.setOrder(orderNum);
-                            varList.add(var);
-                            orderNum++;
-                            varNum++;
-                            String s2="\t";
-                            s2+=var.getOrderUse();
-                            s2+=" = call i32 @";
-                            s2+=funcList.get(funcList.size()-1);
-                            s2+="(i32* ";
-                            s2+=varList.get(t).getOrderUse();
-                            s2+=")\n";
-                            Out+=s2;
-
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
-                        }
-                        else if (funcList.get(searchFuncPos).equals("putarray")){
-                            ArrayList<Integer> waitnum=new ArrayList<>();
-                            System.out.println("4"+word.getWord());
-
-                            Exp();
-                            waitnum.add(varNum-1);
-
-                            while(word.getWord().equals(",")){
-                                word= scanner.scan();
-                                Exp();
-                                waitnum.add(varNum-1);
-                            }
-                            System.out.println(waitnum);
-
-                            String s2="\tcall void @";
-                            s2+=funcList.get(searchFuncPos);
-                            s2+="(";
-                            for (int i = 0; i < waitnum.size(); i++) {
-
-                                if(i==0){
-                                    s2+="i32 ";
-                                }
-                                else{
-                                    s2+="i32* ";
-                                }
-                                if(varList.get(waitnum.get(i)).getType().equals("value")){
-                                    s2+=varList.get(waitnum.get(i)).getValue();
-                                }
-                                else{
-                                    s2+=varList.get(waitnum.get(i)).getOrderUse();
-                                }
-
-                                if(i==waitnum.size()-1){
-                                    s2+=")\n";
-                                }
-                                else{
-                                    s2+=", ";
-                                }
-
-                            }
-                            Out+=s2;
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
-                        }
-                        else if(funcList.get(searchFuncPos).equals("putint")||funcList.get(searchFuncPos).equals("putch")){
-                            Exp();
-                            int p=varNum-1;
-                            String s2="\tcall void @";
-                            s2+=funcList.get(using);
-                            s2+="(i32 ";
-
-                            if(varList.get(p).getType().equals("value")){
-                                s2+=varList.get(p).getValue();
-                            }
-                            else{
-                                s2+=varList.get(p).getOrderUse();
-                            }
-                            s2+=")\n";
-
-                            Out+=s2;
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
-                        }
-                        else{
-                            String waitingfunc=funcList.get(searchFuncPos);
-                            System.out.println("shit "+funcList.get(searchFuncPos));
-                            ArrayList<Integer> waitnum=new ArrayList<>();
-                            System.out.println("4"+word.getWord());
-
-                            Exp();
-                            System.out.println("ttttt"+word.getWord());
-                            waitnum.add(varNum-1);
-
-                            while(word.getWord().equals(",")){
-                                word= scanner.scan();
-                                Exp();
-                                waitnum.add(varNum-1);
-                            }
-                            System.out.println(funcList.get(searchFuncPos));
-                            search(waitingfunc);
-                            System.out.println(waitnum.size());
-                            System.out.println(varList.get(Varpos).getParamList().size());
-
-                            if(varList.get(Varpos).getParamList().size()!=waitnum.size()){
+                            if(funcList.get(funcList.size()-1).equals("getint")||funcList.get(funcList.size()-1).equals("getch")){
                                 error();
                             }
-                            String s2;
-                            if(varList.get(Varpos).getType().equals("void")){
-                                s2="\tcall void @";
-                            }
-                            else{
-                                Var var =new Var();
+                            if(funcList.get(funcList.size()-1).equals("getarray")){
+                                String s1="";
+                                s1+="declare i32 @";
+                                s1+=funcList.get(funcList.size()-1);
+                                s1+="(i32*)\n";
+                                Out=s1+Out;
+                                Lval();
+                                int t=varNum-1;
+                                if(t==-1){
+                                    error();
+                                }
+
+                                Var var=new Var();
                                 var.setOrder(orderNum);
-                                var.setBlocknum(blocknum);
+                                varList.add(var);
                                 orderNum++;
                                 varNum++;
-                                varList.add(var);
-                                s2=("\t"+var.getOrderUse());
-                                s2+=" = ";
-                                s2+="call i32 @";
+                                String s2="\t";
+                                s2+=var.getOrderUse();
+                                s2+=" = call i32 @";
+                                s2+=funcList.get(funcList.size()-1);
+                                s2+="(i32* ";
+                                s2+=varList.get(t).getOrderUse();
+                                s2+=")\n";
+                                Out+=s2;
+
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
+                            }
+                            else if(funcList.get(funcList.size()-1).equals("putarray")){
+                                String s1="";
+                                s1+="declare void @";
+                                s1+="putarray";
+                                s1+="(i32, i32*)\n";
+                                Out=s1+Out;
+                                //Lval();
+                                int t=varNum-1;
+
+                                ArrayList<Integer> waitnum=new ArrayList<>();
+
+                                Exp();
+
+                                waitnum.add(varNum-1);
+                                while(word.getWord().equals(",")){
+                                    word= scanner.scan();
+                                    Exp();
+                                    waitnum.add(varNum-1);
+                                }
+                                String s2="\tcall void @";
+                                s2+="putarray";
+                                s2+="(";
+                                for (int i = 0; i < waitnum.size(); i++) {
+                                    if(i==0) {
+                                        s2 += "i32 ";
+                                    }else{
+                                        s2+="i32*";
+                                    }
+
+                                    if(varList.get(waitnum.get(i)).getType().equals("value")){
+                                        s2+=varList.get(waitnum.get(i)).getValue();
+                                    }
+                                    else{
+                                        s2+=varList.get(waitnum.get(i)).getOrderUse();
+                                    }
+                                    if(i==waitnum.size()-1){
+                                        s2+=")\n";
+                                    }
+                                    else{
+                                        s2+=", ";
+                                    }
+
+                                }
+                                Out+=s2;
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
+                                error();
+                            }
+                            else{
+                                String s1="";
+                                s1+="declare void @";
+                                s1+=funcList.get(funcList.size()-1);
+                                s1+="(i32)\n";
+                                Out=s1+Out;
+                                ArrayList<Integer> waitnum=new ArrayList<>();
+
+                                Exp();
+
+                                waitnum.add(varNum-1);
+                                while(word.getWord().equals(",")){
+                                    word= scanner.scan();
+                                    Exp();
+                                    waitnum.add(varNum-1);
+                                }
+
+                                for (int i = 0; i < waitnum.size(); i++) {
+                                    String s2="\tcall void @";
+                                    s2+=funcList.get(funcList.size()-1);
+                                    s2+="(i32 ";
+
+                                    if(varList.get(waitnum.get(i)).getType().equals("value")){
+                                        s2+=varList.get(waitnum.get(i)).getValue();
+                                    }
+                                    else{
+                                        s2+=varList.get(waitnum.get(i)).getOrderUse();
+                                    }
+                                    if(i==waitnum.size()-1){
+                                        s2+=")\n";
+                                    }
+                                    else{
+                                        s2+=", ";
+                                    }
+                                    Out+=s2;
+                                }
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
+                                error();
                             }
 
-                            s2+=funcList.get(using);
-                            System.out.println(s2+"23");
-                            s2+="(";
-                            for (int i = 0; i < waitnum.size(); i++) {
+                        }
+                    }
+                    else{
+                        scanner.goBack2();
+                        word= scanner.scan();
+                        PrimaryExp();
+                    }
 
-                                if(varList.get(Varpos).getParamList().get(i)==1){
+                }
+                else{
+                    int using=searchFunList(word.getWord());
+                    Ident();
+                    if(word.getWord().equals("(")){
+                        word= scanner.scan();
+
+                        if(word.getWord().equals(")")){
+                            if(funcList.get(searchFuncPos).equals("putint")||funcList.get(searchFuncPos).equals("putch")||funcList.get(searchFuncPos).equals("putarray")){
+                                error();
+                            }
+
+                            search(funcList.get(searchFuncPos));
+                            if(varList.get(Varpos).getType().equals("void")){
+                                String s2="\t";
+                                s2+="call void @";
+                                s2+=funcList.get(searchFuncPos);
+                                s2+="()\n";
+                                Out+=s2;
+                            }
+                            else{
+                                Var var=new Var();
+                                var.setOrder(orderNum);
+                                varList.add(var);
+                                orderNum++;
+                                varNum++;
+                                String s2="\t";
+                                s2+=var.getOrderUse();
+                                s2+=" = call i32 @";
+                                s2+=funcList.get(searchFuncPos);
+                                s2+="()\n";
+                                Out+=s2;
+                            }
+
+                            word= scanner.scan();
+                            return;
+                        }
+                        else{
+                            if(funcList.get(searchFuncPos).equals("getint")||funcList.get(searchFuncPos).equals("getch")){
+                                error();
+                            }
+                            if(funcList.get(searchFuncPos).equals("getarray")){
+                                Lval();
+                                int t=varNum-1;
+                                Var var=new Var();
+                                var.setOrder(orderNum);
+                                varList.add(var);
+                                orderNum++;
+                                varNum++;
+                                String s2="\t";
+                                s2+=var.getOrderUse();
+                                s2+=" = call i32 @";
+                                s2+=funcList.get(funcList.size()-1);
+                                s2+="(i32* ";
+                                s2+=varList.get(t).getOrderUse();
+                                s2+=")\n";
+                                Out+=s2;
+
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
+                            }
+                            else if (funcList.get(searchFuncPos).equals("putarray")){
+                                ArrayList<Integer> waitnum=new ArrayList<>();
+                                System.out.println("4"+word.getWord());
+
+                                Exp();
+                                waitnum.add(varNum-1);
+
+                                while(word.getWord().equals(",")){
+                                    word= scanner.scan();
+                                    Exp();
+                                    waitnum.add(varNum-1);
+                                }
+                                System.out.println(waitnum);
+
+                                String s2="\tcall void @";
+                                s2+=funcList.get(searchFuncPos);
+                                s2+="(";
+                                for (int i = 0; i < waitnum.size(); i++) {
+
+                                    if(i==0){
+                                        s2+="i32 ";
+                                    }
+                                    else{
+                                        s2+="i32* ";
+                                    }
+                                    if(varList.get(waitnum.get(i)).getType().equals("value")){
+                                        s2+=varList.get(waitnum.get(i)).getValue();
+                                    }
+                                    else{
+                                        s2+=varList.get(waitnum.get(i)).getOrderUse();
+                                    }
+
+                                    if(i==waitnum.size()-1){
+                                        s2+=")\n";
+                                    }
+                                    else{
+                                        s2+=", ";
+                                    }
+
+                                }
+                                Out+=s2;
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
+                            }
+                            else if(funcList.get(searchFuncPos).equals("putint")||funcList.get(searchFuncPos).equals("putch")){
+                                Exp();
+                                int p=varNum-1;
+                                String s2="\tcall void @";
+                                s2+=funcList.get(using);
+                                s2+="(i32 ";
+
+                                if(varList.get(p).getType().equals("value")){
+                                    s2+=varList.get(p).getValue();
+                                }
+                                else{
+                                    s2+=varList.get(p).getOrderUse();
+                                }
+                                s2+=")\n";
+
+                                Out+=s2;
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
+                            }
+                            else{
+                                String waitingfunc=funcList.get(searchFuncPos);
+
+                                ArrayList<Integer> waitnum=new ArrayList<>();
+                                System.out.println("4"+word.getWord());
+
+                                Exp();
+                                System.out.println("ttttt"+word.getWord());
+                                waitnum.add(varNum-1);
+
+                                while(word.getWord().equals(",")){
+                                    word= scanner.scan();
+                                    Exp();
+                                    waitnum.add(varNum-1);
+                                }
+                                System.out.println(funcList.get(searchFuncPos));
+                                search(waitingfunc);
+                                System.out.println(waitnum.size());
+                                System.out.println(varList.get(Varpos).getParamList().size());
+
+                                if(varList.get(Varpos).getParamList().size()!=waitnum.size()){
+                                    error();
+                                }
+                                String s2;
+                                if(varList.get(Varpos).getType().equals("void")){
+                                    s2="\tcall void @";
+                                }
+                                else{
+                                    Var var =new Var();
+                                    var.setOrder(orderNum);
+                                    var.setBlocknum(blocknum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var);
+                                    s2=("\t"+var.getOrderUse());
+                                    s2+=" = ";
+                                    s2+="call i32 @";
+                                }
+
+                                s2+=funcList.get(using);
+                                System.out.println(s2+"23");
+                                s2+="(";
+                                for (int i = 0; i < waitnum.size(); i++) {
+
+                                    if(varList.get(Varpos).getParamList().get(i)==1){
 //                                    if(varList.get(waitnum.get(i)).getCalDimension()!=1){
 //                                        error();
 //                                    }
-                                    s2+="i32* ";
-                                }
-                                else if(varList.get(Varpos).getParamList().get(i)==2){
-                                    s2+="i32 ";
-                                }
-                                else{
+                                        s2+="i32* ";
+                                    }
+                                    else if(varList.get(Varpos).getParamList().get(i)==2){
+                                        s2+="i32 ";
+                                    }
+                                    else{
 //                                    if(varList.get(waitnum.get(i)).getCalDimension()!=2){
 //                                        error();
 //                                    }
-                                    s2+="i32* ";
-                                }
+                                        s2+="i32* ";
+                                    }
 
-                                if(varList.get(waitnum.get(i)).getType().equals("value")){
-                                    s2+=varList.get(waitnum.get(i)).getValue();
-                                }
-                                else{
-                                    s2+=varList.get(waitnum.get(i)).getOrderUse();
-                                }
+                                    if(varList.get(waitnum.get(i)).getType().equals("value")){
+                                        s2+=varList.get(waitnum.get(i)).getValue();
+                                    }
+                                    else{
+                                        s2+=varList.get(waitnum.get(i)).getOrderUse();
+                                    }
 
-                                if(i==waitnum.size()-1){
-                                    s2+=")\n";
-                                }
-                                else{
-                                    s2+=", ";
-                                }
+                                    if(i==waitnum.size()-1){
+                                        s2+=")\n";
+                                    }
+                                    else{
+                                        s2+=", ";
+                                    }
 
+                                }
+                                Out+=s2;
+                                if(word.getWord().equals(")")){
+                                    word= scanner.scan();
+                                    return;
+                                }
                             }
-                            Out+=s2;
-                            if(word.getWord().equals(")")){
-                                word= scanner.scan();
-                                return;
-                            }
+
                         }
-
+                    }
+                    else{
+                        scanner.goBack2();
+                        word= scanner.scan();
+                        PrimaryExp();
                     }
                 }
-                else{
-                    scanner.goBack2();
-                    word= scanner.scan();
-                    PrimaryExp();
-                }
+            }
+            else{
+                scanner.goBack2();
+                word= scanner.scan();
+                PrimaryExp();
             }
         }
         else{
@@ -2034,7 +2039,7 @@ public class Main {
                         s1+=varList.get(varNum-1).getOrderUse();
                     }
                     s1+=", i32* ";
-                    s1+=varList.get(waiting).getOrderUse();
+                    s1+=varList.get(Varpos).getOrderUse();
                     s1+="\n";
                     Out+=s1;
                 }
@@ -2608,7 +2613,7 @@ public class Main {
             blocknum++;
             word= scanner.scan();
             if(!word.getWord().equals(")")){
-                blocknum++;
+
                 FuncFParams(t);
 
                 int p=varNum-2;
@@ -2683,7 +2688,7 @@ public class Main {
                     }
                 }
 
-                blocknum--;
+
             }
             else{
                 var=new Var();
@@ -2692,9 +2697,10 @@ public class Main {
                 varList.add(var);
                 orderNum++;
                 varNum++;
+
             }
             if(word.getWord().equals(")")){
-
+                blocknum--;
                 Out+="){\n";
                 Out+=funcValStart;
                 funcValStart="";
@@ -2735,6 +2741,11 @@ public class Main {
         word=scanner.scan();
         check=1;
         FuncDef();
+        for (int i=0;i<varList.size();i++){
+            if (varList.get(i).getWord().equals("get")){
+                System.out.println(varList.get(i).getOrderUse()+" "+varList.get(i).getBlocknum());
+            }
+        }
     }
     public static void main(String[] args) {
         String path=args[0];
