@@ -2579,30 +2579,30 @@ public class Main {
                     }
                 }
             }
-            if(word.getWord().equals(")")){
-
+            else{
                 var=new Var();
                 var.setWord("null");
                 var.setOrder(orderNum);
                 varList.add(var);
                 orderNum++;
                 varNum++;
-                Out+="){\n";
+            }
+            if(word.getWord().equals(")")){
 
+                Out+="){\n";
                 Out+=funcValStart;
                 funcValStart="";
-
                 word= scanner.scan();
                 Block();
                 System.out.println("end "+word.getWord());
                 Out+="}\n";
-
                 if(word.getType().equals("Ident")){
                     orderNum=0;
                     CompUnit();
                 }
                 return;
             }
+
             error();
         }
         else{
@@ -2629,8 +2629,8 @@ public class Main {
     public static void main(String[] args) {
         String path=args[0];
         String output=args[1];
-        //String path="a.txt";
-        //String output="b.txt";
+//        String path="a.txt";
+//        String output="b.txt";
 
         String filecontent="";
 
