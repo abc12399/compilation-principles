@@ -1323,7 +1323,7 @@ public class Main {
             orderNum++;
             varNum++;
             varList.add(var);
-            s+=("br i1 %"+(orderNum-2)+", label %"+(orderNum-1)+", label true\n");
+            s+=("br i1 %"+(orderNum-2)+", label true"+", label %"+(orderNum-1)+"\n");
             s+=(orderNum-1);
             s+=":\n";
             Out+=s;
