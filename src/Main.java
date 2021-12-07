@@ -1286,7 +1286,7 @@ public class Main {
             word= scanner.scan();
             EqExp();
             judge();
-            fillIn(" =  and i1 ",andnum);
+        //    fillIn(" =  and i1 ",andnum);
         }
     }
     public void judge(){
@@ -1331,7 +1331,7 @@ public class Main {
             word= scanner.scan();
             LAndExp();
             judge();
-            fillIn(" =  or i1 ",ornum);
+           // fillIn(" =  or i1 ",ornum);
         }
     }
     public void Cond(){

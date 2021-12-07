@@ -206,7 +206,7 @@ define dso_local i32 @main(){
 	%66 = load i32, i32* %4
 	%67 = load i32, i32* @n
 	%68 =  icmp slt i32 %66, %67
-	br i1 %68, label %69, label 83
+	br i1 %68, label %69, label %83
 69:
 	%70 = load i32, i32* %32
 	%71 = add i32 %70, 1
@@ -231,7 +231,7 @@ define dso_local i32 @main(){
 84:
 	%85 = load i32, i32* %4
 	%86 =  icmp sgt i32 %85, 1
-	br i1 %86, label %87, label 101
+	br i1 %86, label %87, label %101
 87:
 	%88 = load i32, i32* %32
 	%89 = sub i32 %88, 1
@@ -257,7 +257,7 @@ define dso_local i32 @main(){
 	%103 = load i32, i32* %3
 	%104 = load i32, i32* @n
 	%105 =  icmp slt i32 %103, %104
-	br i1 %105, label %106, label 122
+	br i1 %105, label %106, label %122
 106:
 	%107 = load i32, i32* %32
 	%108 = load i32, i32* @n
@@ -284,7 +284,7 @@ define dso_local i32 @main(){
 123:
 	%124 = load i32, i32* %3
 	%125 =  icmp sgt i32 %124, 1
-	br i1 %125, label %126, label 142
+	br i1 %125, label %126, label %142
 126:
 	%127 = load i32, i32* %32
 	%128 = load i32, i32* @n
@@ -315,7 +315,7 @@ define dso_local i32 @main(){
 	%147 = load i32, i32* %146
 	%148 = sub i32 0, 1
 	%149 =  icmp ne i32 %147, %148
-	br i1 %149, label %150, label 170
+	br i1 %149, label %150, label %170
 150:
 	%151 = load i32, i32* %14
 	%152 = mul i32 %151, 1
@@ -325,7 +325,7 @@ define dso_local i32 @main(){
 	%156 = sub i32 0, 1
 	%157 =  icmp ne i32 %155, %156
 	%158 =  and i1 %150, %157
-	br i1 %158, label %159, label 170
+	br i1 %158, label %159, label %170
 159:
 	%160 = call i32 @findfa(i32 0)
 	%161 = load i32, i32* %14
