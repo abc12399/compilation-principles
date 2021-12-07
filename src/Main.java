@@ -1269,13 +1269,24 @@ public class Main {
     public void LAndExp(){
         EqExp();
         judge();
+        // 这里如果是false直接就去else或者外边了
+
         while (word.getWord().equals("&&")){
+            String s="\t";
+            Var var=new Var();
+            var.setOrder(orderNum);
+            orderNum++;
+            varNum++;
+            varList.add(var);
+            s+=("br i1 %"+(orderNum-2)+", label %"+(orderNum-1)+", label false\n");
+            s+=(orderNum-1);
+            s+=":\n";
+            Out+=s;
             int andnum=varNum-1;
             word= scanner.scan();
             EqExp();
             judge();
             fillIn(" =  and i1 ",andnum);
-
         }
     }
     public void judge(){
@@ -1306,6 +1317,16 @@ public class Main {
         LAndExp();
         judge();
         while(word.getWord().equals("||")){
+            String s="\t";
+            Var var=new Var();
+            var.setOrder(orderNum);
+            orderNum++;
+            varNum++;
+            varList.add(var);
+            s+=("br i1 %"+(orderNum-2)+", label %"+(orderNum-1)+", label true\n");
+            s+=(orderNum-1);
+            s+=":\n";
+            Out+=s;
             int ornum=varNum-1;
             word= scanner.scan();
             LAndExp();
@@ -1416,7 +1437,6 @@ public class Main {
 
                     }
                     else{
-
                         String sss=word.getWord();
                         String store2=Out;
                         String s2="\n";
@@ -1492,6 +1512,8 @@ public class Main {
                     orderNum++;
                     Out=store1+gotos+block1+block2+varout.getOrder()+":\n";
                 }
+                Out=Out.replaceAll("false",("%"+to2));
+                Out=Out.replaceAll("true",("%"+to1));
 
 
             }
