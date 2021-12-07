@@ -2791,6 +2791,7 @@ public class Main {
                 }
 
                 Out+=funcValStart;
+                funcValStart="";
 
 
             }
