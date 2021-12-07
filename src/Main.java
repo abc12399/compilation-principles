@@ -1317,6 +1317,8 @@ public class Main {
         LAndExp();
         judge();
         while(word.getWord().equals("||")){
+
+            Out=Out.replaceAll("false",("%"+orderNum));
             String s="\t";
             Var var=new Var();
             var.setOrder(orderNum);
