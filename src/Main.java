@@ -979,6 +979,7 @@ public class Main {
                                 }
 
                                 pass_Array=waitnum;
+                                System.out.println("passarray"+pass_Array);
 
                                 if(present!=-1){
                                     System.out.println("start to tun");
@@ -2697,14 +2698,25 @@ public class Main {
 
         Ident();
         int t=varNum-1;
+        System.out.println(word.getWord()+"555555555555555");
         if(word.getWord().equals("(")){
             word= scanner.scan();
             if(!word.getWord().equals(")")){
-                int l=varList.get(t).getParamList().size();
+                ArrayList<String> str_temp=new ArrayList<>();
+                while(!word.getWord().equals(")")){
+                    if(word.getType().equals("Ident")&&!word.getWord().equals("int")){
+                        str_temp.add(word.getWord());
+                    }
+                    word=scanner.scan();
+                }
+                search(funcname);
+                t=Varpos;
+                int l=varList.get(Varpos).getParamList().size();
+                System.out.println(word.getWord()+".............");
                 for (int k = 0; k <l; k++) {
                     if(varList.get(t).getParamList().get(k)==1){
-                        int x=searchOrder(k);
-                        String w=varList.get(x).getWord();
+                       // int x=searchOrder();
+                        String w=str_temp.get(k);
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
@@ -2730,9 +2742,9 @@ public class Main {
                         arrays.add(array);
                     }
                     else if(varList.get(t).getParamList().get(k)==2){
-                        int x=searchOrder(k);
-                        String w=varList.get(x).getWord();
-
+                        int x=searchOrder(varList.get(pass_Array.get(k)).getOrder());
+                        String w=str_temp.get(k);
+                        System.out.println(w+"6666666666666666");
                         Var var1=new Var();
                         var1.setOrder(orderNum);
                         var1.setWord(w);
@@ -2740,11 +2752,18 @@ public class Main {
                         varList.add(var1);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
-                        funcValStart+=("\tstore i32 "+varList.get(pass_Array.get(k)).getOrderUse()+", i32* "+var1.getOrderUse()+"\n");
+                        if(varList.get(pass_Array.get(k)).getType().equals("value")){
+                            funcValStart+=("\tstore i32 "+varList.get(pass_Array.get(k)).getValue()+", i32* "+var1.getOrderUse()+"\n");
+                        }
+                        else{
+                            funcValStart+=("\tstore i32 "+varList.get(pass_Array.get(k)).getOrderUse()+", i32* "+var1.getOrderUse()+"\n");
+                        }
+
                     }
                     else{
-                        int x=searchOrder(k);
-                        String w=varList.get(x).getWord();
+                        int x=searchOrder(varList.get(pass_Array.get(k)).getOrder());
+                        String w=str_temp.get(k);
+
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
@@ -2771,12 +2790,15 @@ public class Main {
                     }
                 }
 
+                Out+=funcValStart;
+
+
             }
             while(!word.getWord().equals(")")){
                 word= scanner.scan();
             }
             if(word.getWord().equals(")")){
-
+                System.out.println("7878888888"+word.getWord());
                 word= scanner.scan();
              //   if(funcname.equals("main")){
                     flag_of_run=1;
