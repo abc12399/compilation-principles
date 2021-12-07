@@ -534,7 +534,7 @@ public class Main {
                 word= scanner.scan();
             }
 
-            PrimaryExp();
+            UnaryExp();
             for (int i = 0; i < z; i++) {
                 Var var=new Var();
                 var.setOrder(orderNum);
