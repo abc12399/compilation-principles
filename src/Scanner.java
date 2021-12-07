@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 
 public class Scanner {
@@ -18,6 +15,8 @@ public class Scanner {
     private int pos=0;
 
     private int flag;
+
+    private Stack<Integer> recordstack=new Stack<>();
 
     public int getFlag() {
         return flag;
@@ -47,11 +46,21 @@ public class Scanner {
 
     private int before3;
 
+    private int temp;
+
     private char[] token=new char[100000];
 
     private int pos_token;
 
     private char ch;
+
+    public void record(){
+        recordstack.push(pos);
+    }
+
+    public void goBackBaseTemp(){
+        pos=recordstack.pop();
+    }
 
     public Scanner(String content) {
         this.content = content;

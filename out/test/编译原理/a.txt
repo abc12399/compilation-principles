@@ -1,17 +1,13 @@
-int f() {
-  putint(0);
-  return 0;
+int a() {
+    return 1;
 }
-
-int g() {
-  putint(1);
-  return 1;
+int b() {
+    return 2 + a();
 }
-
-int main () {
-    if(f() && g() || !f() && g()){
-        return 0;
-    }else{
-        return 1;
-    }
+int c() {
+    return 3 + b();
+}
+int main() {
+   putint(4+c());
+   return 0;
 }

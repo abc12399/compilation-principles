@@ -4,9 +4,18 @@ public class Func {
     private String word;
     private String type;
     private ArrayList<Integer> paramList;
+    private int pos;
 
     public String getWord() {
         return word;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 
     public void setWord(String word) {
