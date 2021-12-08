@@ -34,6 +34,8 @@ public class Main {
 
     public ArrayList<Integer> pass_Array;
 
+    public Stack<Integer> flag_of_runs=new Stack<>();
+
     public int varNum;
     public int orderNum;
 
@@ -846,8 +848,9 @@ public class Main {
 
                             if(present!=-1){
                                 flag_of_run=1;
+                                flag_of_runs.push(flag_of_run);
                                 FuncRun(present);
-                             //   flag_of_run=0;
+                                flag_of_runs.pop();
                              //   word= scanner.scan();
                                 return;
                             }
@@ -986,8 +989,9 @@ public class Main {
                                 if(present!=-1){
                                     System.out.println("start to tun");
                                     flag_of_run=1;
+                                    flag_of_runs.push(flag_of_run);
                                     FuncRun(present);
-                                    flag_of_run=0;
+                                    flag_of_runs.pop();
                                     System.out.println("return "+word.getWord());
                                     return;
                                 }
@@ -1380,7 +1384,7 @@ public class Main {
     }
     public void Stmt(){
         if(word.getWord().equals("return")){
-            if(flag_of_run==1){
+            if(flag_of_runs.peek()==1){
                 int r=0;
                 for (int k = varList.size()-1; k>=0; k--) {
                     if (varList.get(k).getWord().equals("returnvalue")) {
@@ -1433,6 +1437,8 @@ public class Main {
                     }
                     s+="\n";
                     Out+=s;
+//                    Out+=(orderNum+":\n");
+//                    orderNum++;
                     if(word.getWord().equals(";")){
                         word= scanner.scan();
                         return;
@@ -3096,6 +3102,7 @@ public class Main {
         main.pass_Array=new ArrayList<>();
         main.i=0;main.j=0;
         main.flag_of_run=0;
+        main.flag_of_runs.push(0);
         main.funcValStart="";
         main.CompUnit();
         main.Out="declare void @memset(i32*  ,i32 ,i32 )\n"+main.Out;
