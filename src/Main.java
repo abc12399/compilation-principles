@@ -849,25 +849,27 @@ public class Main {
                             search(funcList.get(searchFuncPos));
 
                             if(present!=-1){
-                                flag_of_run=1;
-                                flag_of_runs.push(flag_of_run);
+                                //flag_of_run=1;
+                                flag_of_runs.push(1);
                                 FuncRun(present);
+                                if (flag_of_run==1){
+                                    Var var=new Var();
+                                    var.setOrder(orderNum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var);
+                                    Out+=((orderNum-1)+":\n");
+                                    Out=Out.replaceAll("ooout",""+(orderNum-1));
 
-                                Var var=new Var();
-                                var.setOrder(orderNum);
-                                orderNum++;
-                                varNum++;
-                                varList.add(var);
-                                Out+=((orderNum-1)+":\n");
-                                Out=Out.replaceAll("ooout",""+(orderNum-1));
+                                    Var var3=new Var();
+                                    var3.setOrder(orderNum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var3);
 
-                                Var var3=new Var();
-                                var3.setOrder(orderNum);
-                                orderNum++;
-                                varNum++;
-                                varList.add(var3);
-                                ;
-                                Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                    Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                }
+                                flag_of_run=0;
 
                                 flag_of_runs.pop();
                              //   word= scanner.scan();
@@ -1007,25 +1009,28 @@ public class Main {
 
                                 if(present!=-1){
                                     System.out.println("start to tun");
-                                    flag_of_run=1;
-                                    flag_of_runs.push(flag_of_run);
+                                  //  flag_of_run=1;
+                                    flag_of_runs.push(1);
                                     FuncRun(present);
 
-                                    Var var=new Var();
-                                    var.setOrder(orderNum);
-                                    orderNum++;
-                                    varNum++;
-                                    varList.add(var);
+                                    if(flag_of_run==1){
+                                        Var var=new Var();
+                                        var.setOrder(orderNum);
+                                        orderNum++;
+                                        varNum++;
+                                        varList.add(var);
 
-                                    Out+=((orderNum-1)+":\n");
-                                    Out=Out.replaceAll("ooout",""+(orderNum-1));
+                                        Out+=((orderNum-1)+":\n");
+                                        Out=Out.replaceAll("ooout",""+(orderNum-1));
 
-                                    Var var3=new Var();
-                                    var3.setOrder(orderNum);
-                                    orderNum++;
-                                    varNum++;
-                                    varList.add(var3);
-                                    Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                        Var var3=new Var();
+                                        var3.setOrder(orderNum);
+                                        orderNum++;
+                                        varNum++;
+                                        varList.add(var3);
+                                        Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                    }
+                                    flag_of_run=0;
                                     flag_of_runs.pop();
                                     System.out.println("return "+word.getWord());
                                     return;
@@ -1429,8 +1434,10 @@ public class Main {
     }
     public void Stmt(){
         if(word.getWord().equals("return")){
+
             if(flag_of_runs.peek()==1){
                 int r=0;
+                flag_of_run=1;
                 for (int k = varList.size()-1; k>=0; k--) {
                     if (varList.get(k).getWord().equals("returnvalue")) {
                         r = k;

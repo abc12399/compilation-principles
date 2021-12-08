@@ -1,14 +1,8 @@
-int foo(int t) {
-    if (t > 0)
-        return foo(t - 1) + t;
+void foo(){
+
+}
+int main(){
+    foo();
+    putint(123);
     return 0;
-}
-
-int bar() {
-    return foo(10) + 123;
-}
-
-int main() {
-   putint(bar());
-   return 0;
 }
