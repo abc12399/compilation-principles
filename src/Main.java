@@ -850,6 +850,23 @@ public class Main {
                                 flag_of_run=1;
                                 flag_of_runs.push(flag_of_run);
                                 FuncRun(present);
+
+                                Var var=new Var();
+                                var.setOrder(orderNum);
+                                orderNum++;
+                                varNum++;
+                                varList.add(var);
+                                Out+=((orderNum-1)+":\n");
+                                Out=Out.replaceAll("ooout",""+(orderNum-1));
+
+                                Var var3=new Var();
+                                var3.setOrder(orderNum);
+                                orderNum++;
+                                varNum++;
+                                varList.add(var);
+                                ;
+                                Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+
                                 flag_of_runs.pop();
                              //   word= scanner.scan();
                                 return;
@@ -991,6 +1008,22 @@ public class Main {
                                     flag_of_run=1;
                                     flag_of_runs.push(flag_of_run);
                                     FuncRun(present);
+
+                                    Var var=new Var();
+                                    var.setOrder(orderNum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var);
+
+                                    Out+=((orderNum-1)+":\n");
+                                    Out=Out.replaceAll("ooout",""+(orderNum-1));
+
+                                    Var var3=new Var();
+                                    var3.setOrder(orderNum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var3);
+                                    Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
                                     flag_of_runs.pop();
                                     System.out.println("return "+word.getWord());
                                     return;
@@ -1082,6 +1115,16 @@ public class Main {
     public void MulExp(){
         UnaryExp();
 
+//        if(flag_of_runs.peek()==1){
+//            Var var1=new Var();
+//            var1.setOrder(orderNum);
+//            orderNum++;
+//            varNum++;
+//            varList.add(var1);
+//            Out+=("\t"+var1.getOrderUse()+" = load i32,i32 * @return\n");
+//        }
+
+        //   System.out.println(Out);
         while(word.getWord().equals("*")||word.getWord().equals("/")||word.getWord().equals("%")){
             int calnum=varNum-1;
             char[] arr=word.getWord().toCharArray();
@@ -1414,7 +1457,7 @@ public class Main {
                     s1+=varList.get(r).getOrderUse();
                     s1+="\n";
                     Out+=s1;
-
+                    Out+="\tbr label %ooout\n";
 //                    Var var1=new Var();
 //                    var1.setOrder(orderNum);
 //                    orderNum++;

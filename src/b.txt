@@ -28,9 +28,11 @@ define dso_local i32  @main(){
 	store i32 %14, i32* %12
 	%15 = load i32, i32* %12
 	store i32 %15, i32* @return
-	%16 = load i32,i32 * @return
-	store i32 %16, i32* %1
-	%17 = load i32, i32* %1
-	call void @putint(i32 %17)
+	br label %16
+16:
+	%17 = load i32 , i32 * @return
+	store i32 %17, i32* %1
+	%18 = load i32, i32* %1
+	call void @putint(i32 %18)
 	ret i32 0
 }
