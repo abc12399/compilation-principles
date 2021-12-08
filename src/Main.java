@@ -2824,22 +2824,6 @@ public class Main {
     }
 
     public void FuncDef(){
-        Var var=new Var();
-        var.setWord("returnvalue");
-        var.setBlocknum(blocknum);
-        var.setOrder(orderNum);
-
-        varList.add(var);
-        Varpos=varNum;
-        varNum++;
-        orderNum++;
-        // Ident();
-        String s="\n\t";
-        s+=var.getOrderUse();
-
-        s+=" = alloca i32\n";
-        Out+=s;
-
         flag_of_run=0;
         Func func=new Func();
         func.setPos(scanner.getPos());
@@ -2859,7 +2843,7 @@ public class Main {
             Out+="void ";
         }
 
-        var=new Var();
+        Var var=new Var();
         var.setWord(funcname);
         var.setType(functype);
         //  var.setOrder(orderNum);
@@ -2970,7 +2954,23 @@ public class Main {
                 Out+=funcValStart;
                 funcValStart="";
                 word= scanner.scan();
+                {
+                    var = new Var();
+                    var.setWord("returnvalue");
+                    var.setBlocknum(blocknum);
+                    var.setOrder(orderNum);
 
+                    varList.add(var);
+                    Varpos = varNum;
+                    varNum++;
+                    orderNum++;
+                    // Ident();
+                    String s = "\n\t";
+                    s += var.getOrderUse();
+
+                    s += " = alloca i32\n";
+                    Out += s;
+                }
                 Block();
 
                 if(functype.equals("void")){
