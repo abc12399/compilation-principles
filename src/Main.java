@@ -1397,7 +1397,7 @@ public class Main {
                     varNum++;
                     orderNum++;
                    // Ident();
-                    String s="\t";
+                    String s="\n\t";
                     s+=var.getOrderUse();
 
                     s+=" = alloca i32\n";
@@ -2805,7 +2805,7 @@ public class Main {
                     flag_of_run=1;
                // }
                 Block();
-                flag_of_run=0;
+                //flag_of_run=0;
                 System.out.println("hereeeeee"+word.getWord());
 
                 scanner.goBackBaseTemp();
@@ -2825,7 +2825,7 @@ public class Main {
     }
 
     public void FuncDef(){
-       // flag_of_run=0;
+        flag_of_run=0;
         Func func=new Func();
         func.setPos(scanner.getPos());
         cutPos=Out.length();
