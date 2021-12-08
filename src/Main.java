@@ -1414,6 +1414,13 @@ public class Main {
                     s1+=varList.get(r).getOrderUse();
                     s1+="\n";
                     Out+=s1;
+
+                    Var var1=new Var();
+                    var1.setOrder(orderNum);
+                    orderNum++;
+                    varNum++;
+                    varList.add(var1);
+                    Out+=("\t"+var1.getOrderUse()+" = load i32,i32 * @return\n");
                  //   System.out.println(Out);
                     if(word.getWord().equals(";")){
                         word= scanner.scan();
@@ -2686,21 +2693,7 @@ public class Main {
 
     public void FuncRun(int p){
 
-        Var var=new Var();
-        var.setWord("returnvalue");
-        var.setBlocknum(blocknum);
-        var.setOrder(orderNum);
 
-        varList.add(var);
-        Varpos=varNum;
-        varNum++;
-        orderNum++;
-        // Ident();
-        String s="\n\t";
-        s+=var.getOrderUse();
-
-        s+=" = alloca i32\n";
-        Out+=s;
 
         String funcname=recordFuncArray.get(p).getWord();
         String functype=recordFuncArray.get(p).getType();
@@ -3107,6 +3100,13 @@ public class Main {
         main.flag_of_run=0;
         main.flag_of_runs.push(0);
         main.funcValStart="";
+        Var var =new Var();
+        var.setWord("returnvalue");
+        var.setOrderUse("@return");
+        var.setBlocknum(0);
+        main.varNum++;
+        main.varList.add(var);
+        main.Out+="@return = dso_local global i32 0\n";
         main.CompUnit();
         main.Out="declare void @memset(i32*  ,i32 ,i32 )\n"+main.Out;
         System.out.println(main.Out);
