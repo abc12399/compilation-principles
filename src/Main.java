@@ -1385,13 +1385,13 @@ public class Main {
     public void Stmt(){
         if(word.getWord().equals("return")){
             if(flag_of_runs.peek()==1){
-
                 int r=0;
                 for (int k = varList.size()-1; k>=0; k--) {
                     if (varList.get(k).getWord().equals("returnvalue")) {
                         r = k;
                     }
                 }
+
 
                 word= scanner.scan();
                 if(word.getWord().equals(";")){
@@ -2686,6 +2686,22 @@ public class Main {
 
     public void FuncRun(int p){
 
+        Var var=new Var();
+        var.setWord("returnvalue");
+        var.setBlocknum(blocknum);
+        var.setOrder(orderNum);
+
+        varList.add(var);
+        Varpos=varNum;
+        varNum++;
+        orderNum++;
+        // Ident();
+        String s="\n\t";
+        s+=var.getOrderUse();
+
+        s+=" = alloca i32\n";
+        Out+=s;
+
         String funcname=recordFuncArray.get(p).getWord();
         String functype=recordFuncArray.get(p).getType();
         int pos=recordFuncArray.get(p).getPos();
@@ -2954,23 +2970,7 @@ public class Main {
                 Out+=funcValStart;
                 funcValStart="";
                 word= scanner.scan();
-                {
-                    var = new Var();
-                    var.setWord("returnvalue");
-                    var.setBlocknum(blocknum);
-                    var.setOrder(orderNum);
 
-                    varList.add(var);
-                    Varpos = varNum;
-                    varNum++;
-                    orderNum++;
-                    // Ident();
-                    String s = "\n\t";
-                    s += var.getOrderUse();
-
-                    s += " = alloca i32\n";
-                    Out += s;
-                }
                 Block();
 
                 if(functype.equals("void")){
