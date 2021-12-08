@@ -1386,11 +1386,27 @@ public class Main {
         if(word.getWord().equals("return")){
             if(flag_of_runs.peek()==1){
                 int r=0;
-                for (int k = varList.size()-1; k>=0; k--) {
-                    if (varList.get(k).getWord().equals("returnvalue")) {
-                        r = k;
-                    }
-                }
+//                for (int k = varList.size()-1; k>=0; k--) {
+//                    if (varList.get(k).getWord().equals("returnvalue")) {
+//                        r = k;
+//                    }
+//                }
+                Var var=new Var();
+                var.setWord("returnvalue");
+                var.setBlocknum(blocknum);
+                var.setOrder(orderNum);
+
+                varList.add(var);
+                Varpos=varNum;
+                varNum++;
+                orderNum++;
+                // Ident();
+                String s="\n\t";
+                s+=var.getOrderUse();
+
+                s+=" = alloca i32\n";
+                Out+=s;
+
                 word= scanner.scan();
                 if(word.getWord().equals(";")){
                     return;
@@ -1409,7 +1425,7 @@ public class Main {
                         s1+=varList.get(varNum-1).getOrderUse();
                     }
                     s1+=", i32* ";
-                    s1+=varList.get(r).getOrderUse();
+                    s1+=var.getOrderUse();
                     s1+="\n";
                     Out+=s1;
                  //   System.out.println(Out);
@@ -2683,21 +2699,6 @@ public class Main {
     }
 
     public void FuncRun(int p){
-        Var var=new Var();
-        var.setWord("returnvalue");
-        var.setBlocknum(blocknum);
-        var.setOrder(orderNum);
-
-        varList.add(var);
-        Varpos=varNum;
-        varNum++;
-        orderNum++;
-        // Ident();
-        String s="\n\t";
-        s+=var.getOrderUse();
-
-        s+=" = alloca i32\n";
-        Out+=s;
 
         String funcname=recordFuncArray.get(p).getWord();
         String functype=recordFuncArray.get(p).getType();
