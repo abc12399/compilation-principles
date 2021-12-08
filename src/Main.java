@@ -845,7 +845,9 @@ public class Main {
                             search(funcList.get(searchFuncPos));
 
                             if(present!=-1){
+                                flag_of_run=1;
                                 FuncRun(present);
+                             //   flag_of_run=0;
                              //   word= scanner.scan();
                                 return;
                             }
@@ -983,7 +985,9 @@ public class Main {
 
                                 if(present!=-1){
                                     System.out.println("start to tun");
+                                    flag_of_run=1;
                                     FuncRun(present);
+                                    flag_of_run=0;
                                     System.out.println("return "+word.getWord());
                                     return;
                                 }
@@ -1073,6 +1077,7 @@ public class Main {
     }
     public void MulExp(){
         UnaryExp();
+
         while(word.getWord().equals("*")||word.getWord().equals("/")||word.getWord().equals("%")){
             int calnum=varNum-1;
             char[] arr=word.getWord().toCharArray();
@@ -1375,34 +1380,21 @@ public class Main {
     }
     public void Stmt(){
         if(word.getWord().equals("return")){
-
             if(flag_of_run==1){
+                int r=0;
+                for (int k = varList.size()-1; k>=0; k--) {
+                    if (varList.get(k).getWord().equals("returnvalue")) {
+                        r = k;
+                    }
+                }
                 word= scanner.scan();
                 if(word.getWord().equals(";")){
                     return;
                 }
                 else{
-
                     scanner.goBack2();
                     word= scanner.scan();
                     word= scanner.scan();
-
-                    Var var=new Var();
-                    var.setWord("returnvalue");
-                    var.setBlocknum(blocknum);
-                    var.setOrder(orderNum);
-
-                    varList.add(var);
-                    Varpos=varNum;
-                    varNum++;
-                    orderNum++;
-                   // Ident();
-                    String s="\n\t";
-                    s+=var.getOrderUse();
-
-                    s+=" = alloca i32\n";
-                    Out+=s;
-
                     Exp();
                     System.out.println("pos");
                     String s1="\tstore i32 ";
@@ -1413,7 +1405,7 @@ public class Main {
                         s1+=varList.get(varNum-1).getOrderUse();
                     }
                     s1+=", i32* ";
-                    s1+=var.getOrderUse();
+                    s1+=varList.get(r).getOrderUse();
                     s1+="\n";
                     Out+=s1;
                  //   System.out.println(Out);
@@ -2685,6 +2677,22 @@ public class Main {
     }
 
     public void FuncRun(int p){
+        Var var=new Var();
+        var.setWord("returnvalue");
+        var.setBlocknum(blocknum);
+        var.setOrder(orderNum);
+
+        varList.add(var);
+        Varpos=varNum;
+        varNum++;
+        orderNum++;
+        // Ident();
+        String s="\n\t";
+        s+=var.getOrderUse();
+
+        s+=" = alloca i32\n";
+        Out+=s;
+
         String funcname=recordFuncArray.get(p).getWord();
         String functype=recordFuncArray.get(p).getType();
         int pos=recordFuncArray.get(p).getPos();
@@ -2801,11 +2809,9 @@ public class Main {
             if(word.getWord().equals(")")){
                 System.out.println("7878888888"+word.getWord());
                 word= scanner.scan();
-             //   if(funcname.equals("main")){
-                    flag_of_run=1;
-               // }
+
                 Block();
-                //flag_of_run=0;
+
                 System.out.println("hereeeeee"+word.getWord());
 
                 scanner.goBackBaseTemp();
@@ -2955,9 +2961,9 @@ public class Main {
                 Out+=funcValStart;
                 funcValStart="";
                 word= scanner.scan();
-               // System.out.println(Out);
+
                 Block();
-            //   System.out.println(Out);
+
                 if(functype.equals("void")){
                     Out+="\tret void\n";
                 }

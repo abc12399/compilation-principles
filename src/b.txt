@@ -16,96 +16,99 @@ define dso_local i32  @main(){
 	%1 = alloca i32
 	%2 = getelementptr [10000 x i32], [10000 x i32]* @get, i32 0, i32 0
 	%3 = getelementptr i32, i32* %2, i32 0
-	%4 = alloca i32*
-	store i32* %3, i32* * %4
-	%5 = load i32* , i32* * %4
-	%6 = alloca i32
-	%7 = call i32 @getch()
-	store i32 %7, i32* %6
-	%8 = alloca i32
-	store i32 0, i32* %8
-	br label %9
-9:
-	%10 = load i32, i32* %6
-	%11 =  icmp ne i32 %10, 13
-	br i1 %11, label %12, label %43
-12:
-	%13 = load i32, i32* %6
-	%14 =  icmp ne i32 %13, 10
-	br i1 %14,label %15, label %23
 
-15:	%16 = load i32, i32* %8
-	%17 = mul i32 %16, 1
-	%18 = getelementptr i32, i32* %5, i32 %17
-	%19 = load i32, i32* %6
-	store i32 %19, i32* %18
-	%20 = load i32, i32* %8
-	%21 = add i32 %20, 1
-	store i32 %21, i32* %8
-	%22 = call i32 @getch()
-	store i32 %22, i32* %6
-	br label %9
-23:
-	%24 = alloca i32
-	%25 = load i32, i32* %8
-	store i32 %25, i32* %24
-	store i32 %25, i32* %8
+	%4 = alloca i32
+	%5 = alloca i32*
+	store i32* %3, i32* * %5
+	%6 = load i32* , i32* * %5
+	%7 = alloca i32
+	%8 = call i32 @getch()
+	store i32 %8, i32* %7
+	%9 = alloca i32
+	store i32 0, i32* %9
+	br label %10
+10:
+	%11 = load i32, i32* %7
+	%12 =  icmp ne i32 %11, 13
+	br i1 %12, label %13, label %43
+13:
+	%14 = load i32, i32* %7
+	%15 =  icmp ne i32 %14, 10
+	br i1 %15,label %16, label %24
+
+16:	%17 = load i32, i32* %9
+	%18 = mul i32 %17, 1
+	%19 = getelementptr i32, i32* %6, i32 %18
+	%20 = load i32, i32* %7
+	store i32 %20, i32* %19
+	%21 = load i32, i32* %9
+	%22 = add i32 %21, 1
+	store i32 %22, i32* %9
+	%23 = call i32 @getch()
+	store i32 %23, i32* %7
+	br label %10
+24:
+	%25 = load i32, i32* %9
+	store i32 %25, i32* %1
+	store i32 %25, i32* %9
 	br label %26
 26:
 	%27 = load i32, i32* @i
 	%28 = load i32, i32* %1
 	%29 =  icmp slt i32 %27, %28
-		br i1 %29,label %30, label %561
+		br i1 %29,label %30, label %562
 
 30:%31 = load i32, i32* @i
 	%32 = mul i32 %31, 1
-	%33 = getelementptr i32, i32* %5, i32 %32
+	%33 = getelementptr i32, i32* %6, i32 %32
 	%34 = load i32, i32* %33
-	%35 = alloca i32
-	store i32 %34, i32* %35
-	%36 = load i32, i32* %35
-	%37 =  icmp sge i32 %36, 48
-	br i1 %37, label %38, label %43
-38:
-	%39 = load i32, i32* %35
-	%40 =  icmp sle i32 %39, 57
-	br i1 %40,label %41, label %43
 
-41:	%42 = alloca i32
-	store i32 1, i32* %42
+	%35 = alloca i32
+	%36 = alloca i32
+	store i32 %34, i32* %36
+	%37 = load i32, i32* %36
+	%38 =  icmp sge i32 %37, 48
+	br i1 %38, label %39, label %43
+39:
+	%40 = load i32, i32* %36
+	%41 =  icmp sle i32 %40, 57
+	br i1 %41,label %42, label %43
+
+42:	store i32 1, i32* %1
 	br label %44
 
 43:
 	br label %44
 44:
-	%45 = alloca i32
-	store i32 0, i32* %45
-	%46 =  icmp eq i32 0, 1
-	br i1 %46,label %47, label %58
+	store i32 0, i32* %1
+	%45 =  icmp eq i32 0, 1
+	br i1 %45,label %46, label %57
 
-47:	%48 = load i32, i32* @ii
-	%49 = mul i32 %48, 1
-	%50 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%51 = getelementptr i32, i32* %50, i32 %49
-	%52 = load i32, i32* @i
-	%53 = mul i32 %52, 1
-	%54 = getelementptr i32, i32* %5, i32 %53
-	%55 = load i32, i32* %54
-	store i32 %55, i32* %51
-	%56 = load i32, i32* @ii
-	%57 = add i32 %56, 1
-	store i32 %57, i32* @ii
-	br label %558
+46:	%47 = load i32, i32* @ii
+	%48 = mul i32 %47, 1
+	%49 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%50 = getelementptr i32, i32* %49, i32 %48
+	%51 = load i32, i32* @i
+	%52 = mul i32 %51, 1
+	%53 = getelementptr i32, i32* %6, i32 %52
+	%54 = load i32, i32* %53
+	store i32 %54, i32* %50
+	%55 = load i32, i32* @ii
+	%56 = add i32 %55, 1
+	store i32 %56, i32* @ii
+	br label %559
 
-58:
-	%59 = load i32, i32* @i
-	%60 = mul i32 %59, 1
-	%61 = getelementptr i32, i32* %5, i32 %60
-	%62 = load i32, i32* %61
-	%63 =  icmp eq i32 %62, 40
-	br i1 %63,label %64, label %73
+57:
+	%58 = load i32, i32* @i
+	%59 = mul i32 %58, 1
+	%60 = getelementptr i32, i32* %6, i32 %59
+	%61 = load i32, i32* %60
+	%62 =  icmp eq i32 %61, 40
+	br i1 %62,label %63, label %73
 
-64:	%65 = alloca i32
+63:
+	%64 = alloca i32
+	%65 = alloca i32
 	store i32 40, i32* %65
 	%66 = load i32, i32* @chat
 	%67 = add i32 %66, 1
@@ -123,183 +126,188 @@ define dso_local i32  @main(){
 74:
 	%75 = load i32, i32* @i
 	%76 = mul i32 %75, 1
-	%77 = getelementptr i32, i32* %5, i32 %76
+	%77 = getelementptr i32, i32* %6, i32 %76
 	%78 = load i32, i32* %77
 	%79 =  icmp eq i32 %78, 94
-	br i1 %79,label %80, label %89
+	br i1 %79,label %80, label %90
 
-80:	%81 = alloca i32
-	store i32 94, i32* %81
-	%82 = load i32, i32* @chat
-	%83 = add i32 %82, 1
-	store i32 %83, i32* @chat
-	%84 = load i32, i32* @chat
-	%85 = mul i32 %84, 1
-	%86 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%87 = getelementptr i32, i32* %86, i32 %85
-	%88 = load i32, i32* %81
-	store i32 %88, i32* %87
-	br label %90
+80:
+	%81 = alloca i32
+	%82 = alloca i32
+	store i32 94, i32* %82
+	%83 = load i32, i32* @chat
+	%84 = add i32 %83, 1
+	store i32 %84, i32* @chat
+	%85 = load i32, i32* @chat
+	%86 = mul i32 %85, 1
+	%87 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%88 = getelementptr i32, i32* %87, i32 %86
+	%89 = load i32, i32* %82
+	store i32 %89, i32* %88
+	br label %91
 
-89:
-	br label %90
 90:
-	%91 = load i32, i32* @i
-	%92 = mul i32 %91, 1
-	%93 = getelementptr i32, i32* %5, i32 %92
-	%94 = load i32, i32* %93
-	%95 =  icmp eq i32 %94, 41
-	br i1 %95,label %96, label %132
+	br label %91
+91:
+	%92 = load i32, i32* @i
+	%93 = mul i32 %92, 1
+	%94 = getelementptr i32, i32* %6, i32 %93
+	%95 = load i32, i32* %94
+	%96 =  icmp eq i32 %95, 41
+	br i1 %96,label %97, label %133
 
-96:	%97 = load i32, i32* @chat
-	%98 = sub i32 %97, 1
-	store i32 %98, i32* @chat
-	%99 = alloca i32
-	%100 = load i32, i32* @chat
-	%101 = add i32 %100, 1
-	%102 = mul i32 %101, 1
-	%103 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%104 = getelementptr i32, i32* %103, i32 %102
-	%105 = load i32, i32* %104
-	store i32 %105, i32* %99
-	store i32 %105, i32* @c
-	br label %106
-106:
-	%107 = load i32, i32* @c
-	%108 =  icmp ne i32 %107, 40
-	br i1 %108,label %109, label %131
+97:
+	%98 = alloca i32
+	%99 = load i32, i32* @chat
+	%100 = sub i32 %99, 1
+	store i32 %100, i32* @chat
+	%101 = load i32, i32* @chat
+	%102 = add i32 %101, 1
+	%103 = mul i32 %102, 1
+	%104 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%105 = getelementptr i32, i32* %104, i32 %103
+	%106 = load i32, i32* %105
+	store i32 %106, i32* %1
+	store i32 %106, i32* @c
+	br label %107
+107:
+	%108 = load i32, i32* @c
+	%109 =  icmp ne i32 %108, 40
+	br i1 %109,label %110, label %132
 
-109:	%110 = load i32, i32* @ii
-	%111 = mul i32 %110, 1
-	%112 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%113 = getelementptr i32, i32* %112, i32 %111
-	store i32 32, i32* %113
-	%114 = load i32, i32* @ii
-	%115 = add i32 %114, 1
-	%116 = mul i32 %115, 1
-	%117 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%118 = getelementptr i32, i32* %117, i32 %116
-	%119 = load i32, i32* @c
-	store i32 %119, i32* %118
-	%120 = load i32, i32* @ii
-	%121 = add i32 %120, 2
-	store i32 %121, i32* @ii
-	%122 = load i32, i32* @chat
-	%123 = sub i32 %122, 1
-	store i32 %123, i32* @chat
-	%124 = alloca i32
-	%125 = load i32, i32* @chat
-	%126 = add i32 %125, 1
-	%127 = mul i32 %126, 1
-	%128 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%129 = getelementptr i32, i32* %128, i32 %127
-	%130 = load i32, i32* %129
-	store i32 %130, i32* %124
-	store i32 %130, i32* @c
-	br label %106
-131:
-	br label %133
+110:	%111 = load i32, i32* @ii
+	%112 = mul i32 %111, 1
+	%113 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%114 = getelementptr i32, i32* %113, i32 %112
+	store i32 32, i32* %114
+	%115 = load i32, i32* @ii
+	%116 = add i32 %115, 1
+	%117 = mul i32 %116, 1
+	%118 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%119 = getelementptr i32, i32* %118, i32 %117
+	%120 = load i32, i32* @c
+	store i32 %120, i32* %119
+	%121 = load i32, i32* @ii
+	%122 = add i32 %121, 2
+	store i32 %122, i32* @ii
 
+	%123 = alloca i32
+	%124 = load i32, i32* @chat
+	%125 = sub i32 %124, 1
+	store i32 %125, i32* @chat
+	%126 = load i32, i32* @chat
+	%127 = add i32 %126, 1
+	%128 = mul i32 %127, 1
+	%129 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%130 = getelementptr i32, i32* %129, i32 %128
+	%131 = load i32, i32* %130
+	store i32 %131, i32* %1
+	store i32 %131, i32* @c
+	br label %107
 132:
-	br label %133
+	br label %134
+
 133:
-	%134 = load i32, i32* @i
-	%135 = mul i32 %134, 1
-	%136 = getelementptr i32, i32* %5, i32 %135
-	%137 = load i32, i32* %136
-	%138 =  icmp eq i32 %137, 43
-	br i1 %138,label %139, label %224
+	br label %134
+134:
+	%135 = load i32, i32* @i
+	%136 = mul i32 %135, 1
+	%137 = getelementptr i32, i32* %6, i32 %136
+	%138 = load i32, i32* %137
+	%139 =  icmp eq i32 %138, 43
+	br i1 %139,label %140, label %225
 
-139:	br label %140
-140:
-	%141 = load i32, i32* @chat
-	%142 = mul i32 %141, 1
-	%143 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%144 = getelementptr i32, i32* %143, i32 %142
-	%145 = load i32, i32* %144
-	%146 =  icmp eq i32 %145, 43
-	br i1 %146, label %206, label %147
-147:
-	%148 = load i32, i32* @chat
-	%149 = mul i32 %148, 1
-	%150 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%151 = getelementptr i32, i32* %150, i32 %149
-	%152 = load i32, i32* %151
-	%153 =  icmp eq i32 %152, 45
-	br i1 %153, label %206, label %154
-154:
-	%155 = load i32, i32* @chat
-	%156 = mul i32 %155, 1
-	%157 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%158 = getelementptr i32, i32* %157, i32 %156
-	%159 = load i32, i32* %158
-	%160 =  icmp eq i32 %159, 42
-	br i1 %160, label %206, label %161
-161:
-	%162 = load i32, i32* @chat
-	%163 = mul i32 %162, 1
-	%164 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%165 = getelementptr i32, i32* %164, i32 %163
-	%166 = load i32, i32* %165
-	%167 =  icmp eq i32 %166, 47
-	br i1 %167, label %206, label %168
-168:
-	%169 = load i32, i32* @chat
-	%170 = mul i32 %169, 1
-	%171 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%172 = getelementptr i32, i32* %171, i32 %170
-	%173 = load i32, i32* %172
-	%174 =  icmp eq i32 %173, 37
-	br i1 %174, label %206, label %175
-175:
-	%176 = load i32, i32* @chat
-	%177 = mul i32 %176, 1
-	%178 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%179 = getelementptr i32, i32* %178, i32 %177
-	%180 = load i32, i32* %179
-	%181 =  icmp eq i32 %180, 94	br i1 %181,label %182, label %215
+140:	br label %141
+141:
+	%142 = load i32, i32* @chat
+	%143 = mul i32 %142, 1
+	%144 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%145 = getelementptr i32, i32* %144, i32 %143
+	%146 = load i32, i32* %145
+	%147 =  icmp eq i32 %146, 43
+	br i1 %147, label %208, label %148
+148:
+	%149 = load i32, i32* @chat
+	%150 = mul i32 %149, 1
+	%151 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%152 = getelementptr i32, i32* %151, i32 %150
+	%153 = load i32, i32* %152
+	%154 =  icmp eq i32 %153, 45
+	br i1 %154, label %208, label %155
+155:
+	%156 = load i32, i32* @chat
+	%157 = mul i32 %156, 1
+	%158 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%159 = getelementptr i32, i32* %158, i32 %157
+	%160 = load i32, i32* %159
+	%161 =  icmp eq i32 %160, 42
+	br i1 %161, label %208, label %162
+162:
+	%163 = load i32, i32* @chat
+	%164 = mul i32 %163, 1
+	%165 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%166 = getelementptr i32, i32* %165, i32 %164
+	%167 = load i32, i32* %166
+	%168 =  icmp eq i32 %167, 47
+	br i1 %168, label %208, label %169
+169:
+	%170 = load i32, i32* @chat
+	%171 = mul i32 %170, 1
+	%172 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%173 = getelementptr i32, i32* %172, i32 %171
+	%174 = load i32, i32* %173
+	%175 =  icmp eq i32 %174, 37
+	br i1 %175, label %208, label %176
+176:
+	%177 = load i32, i32* @chat
+	%178 = mul i32 %177, 1
+	%179 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%180 = getelementptr i32, i32* %179, i32 %178
+	%181 = load i32, i32* %180
+	%182 =  icmp eq i32 %181, 94	br i1 %182,label %183, label %215
 
-182:
-	%183 = load i32, i32* @chat
-	%184 = sub i32 %183, 1
-	store i32 %184, i32* @chat
+183:
+
+	%184 = alloca i32
+
 	%185 = alloca i32
 	%186 = load i32, i32* @chat
-	%187 = add i32 %186, 1
-	%188 = mul i32 %187, 1
-	%189 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%190 = getelementptr i32, i32* %189, i32 %188
-	%191 = load i32, i32* %190
-	store i32 %191, i32* %185
-	store i32 %191, i32* @c
-	%192 = load i32, i32* @ii
-	%193 = mul i32 %192, 1
-	%194 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%195 = getelementptr i32, i32* %194, i32 %193
-	store i32 32, i32* %195
-	%196 = load i32, i32* @ii
-	%197 = add i32 %196, 1
-	%198 = mul i32 %197, 1
-	%199 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%200 = getelementptr i32, i32* %199, i32 %198
-	%201 = load i32, i32* @c
-	store i32 %201, i32* %200
-	%202 = load i32, i32* @ii
-	%203 = add i32 %202, 2
-	store i32 %203, i32* @ii
-	%204 = load i32, i32* @chat
-	%205 =  icmp eq i32 %204, 0
-	br i1 %205,label %206, label %208
+	%187 = sub i32 %186, 1
+	store i32 %187, i32* @chat
+	%188 = load i32, i32* @chat
+	%189 = add i32 %188, 1
+	%190 = mul i32 %189, 1
+	%191 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%192 = getelementptr i32, i32* %191, i32 %190
+	%193 = load i32, i32* %192
+	store i32 %193, i32* %1
+	store i32 %193, i32* @c
+	%194 = load i32, i32* @ii
+	%195 = mul i32 %194, 1
+	%196 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%197 = getelementptr i32, i32* %196, i32 %195
+	store i32 32, i32* %197
+	%198 = load i32, i32* @ii
+	%199 = add i32 %198, 1
+	%200 = mul i32 %199, 1
+	%201 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%202 = getelementptr i32, i32* %201, i32 %200
+	%203 = load i32, i32* @c
+	store i32 %203, i32* %202
+	%204 = load i32, i32* @ii
+	%205 = add i32 %204, 2
+	store i32 %205, i32* @ii
+	%206 = load i32, i32* @chat
+	%207 =  icmp eq i32 %206, 0
+	br i1 %207,label %208, label %209
 
-206:	%207 = alloca i32
-	store i32 0, i32* %207
-	br label %209
+208:	store i32 0, i32* %1
+	br label %210
 
-208:
-	br label %209
 209:
-	%210 = alloca i32
-	store i32 1, i32* %210
+	br label %210
+210:
+	store i32 1, i32* %1
 	%211 =  icmp eq i32 1, 0
 	br i1 %211,label %212, label %213
 
@@ -308,121 +316,124 @@ define dso_local i32  @main(){
 213:
 	br label %214
 214:
-	br label %140
+	br label %141
 215:
+
 	%216 = alloca i32
-	store i32 43, i32* %216
-	%217 = load i32, i32* @chat
-	%218 = add i32 %217, 1
-	store i32 %218, i32* @chat
-	%219 = load i32, i32* @chat
-	%220 = mul i32 %219, 1
-	%221 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%222 = getelementptr i32, i32* %221, i32 %220
-	%223 = load i32, i32* %216
-	store i32 %223, i32* %222
-	br label %225
+	%217 = alloca i32
+	store i32 43, i32* %217
+	%218 = load i32, i32* @chat
+	%219 = add i32 %218, 1
+	store i32 %219, i32* @chat
+	%220 = load i32, i32* @chat
+	%221 = mul i32 %220, 1
+	%222 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%223 = getelementptr i32, i32* %222, i32 %221
+	%224 = load i32, i32* %217
+	store i32 %224, i32* %223
+	br label %226
 
-224:
-	br label %225
 225:
-	%226 = load i32, i32* @i
-	%227 = mul i32 %226, 1
-	%228 = getelementptr i32, i32* %5, i32 %227
-	%229 = load i32, i32* %228
-	%230 =  icmp eq i32 %229, 45
-	br i1 %230,label %231, label %316
+	br label %226
+226:
+	%227 = load i32, i32* @i
+	%228 = mul i32 %227, 1
+	%229 = getelementptr i32, i32* %6, i32 %228
+	%230 = load i32, i32* %229
+	%231 =  icmp eq i32 %230, 45
+	br i1 %231,label %232, label %317
 
-231:	br label %232
-232:
-	%233 = load i32, i32* @chat
-	%234 = mul i32 %233, 1
-	%235 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%236 = getelementptr i32, i32* %235, i32 %234
-	%237 = load i32, i32* %236
-	%238 =  icmp eq i32 %237, 43
-	br i1 %238, label %298, label %239
-239:
-	%240 = load i32, i32* @chat
-	%241 = mul i32 %240, 1
-	%242 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%243 = getelementptr i32, i32* %242, i32 %241
-	%244 = load i32, i32* %243
-	%245 =  icmp eq i32 %244, 45
-	br i1 %245, label %298, label %246
-246:
-	%247 = load i32, i32* @chat
-	%248 = mul i32 %247, 1
-	%249 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%250 = getelementptr i32, i32* %249, i32 %248
-	%251 = load i32, i32* %250
-	%252 =  icmp eq i32 %251, 42
-	br i1 %252, label %298, label %253
-253:
-	%254 = load i32, i32* @chat
-	%255 = mul i32 %254, 1
-	%256 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%257 = getelementptr i32, i32* %256, i32 %255
-	%258 = load i32, i32* %257
-	%259 =  icmp eq i32 %258, 47
-	br i1 %259, label %298, label %260
-260:
-	%261 = load i32, i32* @chat
-	%262 = mul i32 %261, 1
-	%263 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%264 = getelementptr i32, i32* %263, i32 %262
-	%265 = load i32, i32* %264
-	%266 =  icmp eq i32 %265, 37
-	br i1 %266, label %298, label %267
-267:
-	%268 = load i32, i32* @chat
-	%269 = mul i32 %268, 1
-	%270 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%271 = getelementptr i32, i32* %270, i32 %269
-	%272 = load i32, i32* %271
-	%273 =  icmp eq i32 %272, 94	br i1 %273,label %274, label %307
+232:	br label %233
+233:
+	%234 = load i32, i32* @chat
+	%235 = mul i32 %234, 1
+	%236 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%237 = getelementptr i32, i32* %236, i32 %235
+	%238 = load i32, i32* %237
+	%239 =  icmp eq i32 %238, 43
+	br i1 %239, label %300, label %240
+240:
+	%241 = load i32, i32* @chat
+	%242 = mul i32 %241, 1
+	%243 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%244 = getelementptr i32, i32* %243, i32 %242
+	%245 = load i32, i32* %244
+	%246 =  icmp eq i32 %245, 45
+	br i1 %246, label %300, label %247
+247:
+	%248 = load i32, i32* @chat
+	%249 = mul i32 %248, 1
+	%250 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%251 = getelementptr i32, i32* %250, i32 %249
+	%252 = load i32, i32* %251
+	%253 =  icmp eq i32 %252, 42
+	br i1 %253, label %300, label %254
+254:
+	%255 = load i32, i32* @chat
+	%256 = mul i32 %255, 1
+	%257 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%258 = getelementptr i32, i32* %257, i32 %256
+	%259 = load i32, i32* %258
+	%260 =  icmp eq i32 %259, 47
+	br i1 %260, label %300, label %261
+261:
+	%262 = load i32, i32* @chat
+	%263 = mul i32 %262, 1
+	%264 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%265 = getelementptr i32, i32* %264, i32 %263
+	%266 = load i32, i32* %265
+	%267 =  icmp eq i32 %266, 37
+	br i1 %267, label %300, label %268
+268:
+	%269 = load i32, i32* @chat
+	%270 = mul i32 %269, 1
+	%271 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%272 = getelementptr i32, i32* %271, i32 %270
+	%273 = load i32, i32* %272
+	%274 =  icmp eq i32 %273, 94	br i1 %274,label %275, label %307
 
-274:
-	%275 = load i32, i32* @chat
-	%276 = sub i32 %275, 1
-	store i32 %276, i32* @chat
+275:
+
+	%276 = alloca i32
+
 	%277 = alloca i32
 	%278 = load i32, i32* @chat
-	%279 = add i32 %278, 1
-	%280 = mul i32 %279, 1
-	%281 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%282 = getelementptr i32, i32* %281, i32 %280
-	%283 = load i32, i32* %282
-	store i32 %283, i32* %277
-	store i32 %283, i32* @c
-	%284 = load i32, i32* @ii
-	%285 = mul i32 %284, 1
-	%286 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%287 = getelementptr i32, i32* %286, i32 %285
-	store i32 32, i32* %287
-	%288 = load i32, i32* @ii
-	%289 = add i32 %288, 1
-	%290 = mul i32 %289, 1
-	%291 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%292 = getelementptr i32, i32* %291, i32 %290
-	%293 = load i32, i32* @c
-	store i32 %293, i32* %292
-	%294 = load i32, i32* @ii
-	%295 = add i32 %294, 2
-	store i32 %295, i32* @ii
-	%296 = load i32, i32* @chat
-	%297 =  icmp eq i32 %296, 0
-	br i1 %297,label %298, label %300
+	%279 = sub i32 %278, 1
+	store i32 %279, i32* @chat
+	%280 = load i32, i32* @chat
+	%281 = add i32 %280, 1
+	%282 = mul i32 %281, 1
+	%283 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%284 = getelementptr i32, i32* %283, i32 %282
+	%285 = load i32, i32* %284
+	store i32 %285, i32* %1
+	store i32 %285, i32* @c
+	%286 = load i32, i32* @ii
+	%287 = mul i32 %286, 1
+	%288 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%289 = getelementptr i32, i32* %288, i32 %287
+	store i32 32, i32* %289
+	%290 = load i32, i32* @ii
+	%291 = add i32 %290, 1
+	%292 = mul i32 %291, 1
+	%293 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%294 = getelementptr i32, i32* %293, i32 %292
+	%295 = load i32, i32* @c
+	store i32 %295, i32* %294
+	%296 = load i32, i32* @ii
+	%297 = add i32 %296, 2
+	store i32 %297, i32* @ii
+	%298 = load i32, i32* @chat
+	%299 =  icmp eq i32 %298, 0
+	br i1 %299,label %300, label %301
 
-298:	%299 = alloca i32
-	store i32 0, i32* %299
-	br label %301
+300:	store i32 0, i32* %1
+	br label %302
 
-300:
-	br label %301
 301:
-	%302 = alloca i32
-	store i32 1, i32* %302
+	br label %302
+302:
+	store i32 1, i32* %1
 	%303 =  icmp eq i32 1, 0
 	br i1 %303,label %304, label %305
 
@@ -431,105 +442,108 @@ define dso_local i32  @main(){
 305:
 	br label %306
 306:
-	br label %232
+	br label %233
 307:
+
 	%308 = alloca i32
-	store i32 45, i32* %308
-	%309 = load i32, i32* @chat
-	%310 = add i32 %309, 1
-	store i32 %310, i32* @chat
-	%311 = load i32, i32* @chat
-	%312 = mul i32 %311, 1
-	%313 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%314 = getelementptr i32, i32* %313, i32 %312
-	%315 = load i32, i32* %308
-	store i32 %315, i32* %314
-	br label %317
+	%309 = alloca i32
+	store i32 45, i32* %309
+	%310 = load i32, i32* @chat
+	%311 = add i32 %310, 1
+	store i32 %311, i32* @chat
+	%312 = load i32, i32* @chat
+	%313 = mul i32 %312, 1
+	%314 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%315 = getelementptr i32, i32* %314, i32 %313
+	%316 = load i32, i32* %309
+	store i32 %316, i32* %315
+	br label %318
 
-316:
-	br label %317
 317:
-	%318 = load i32, i32* @i
-	%319 = mul i32 %318, 1
-	%320 = getelementptr i32, i32* %5, i32 %319
-	%321 = load i32, i32* %320
-	%322 =  icmp eq i32 %321, 42
-	br i1 %322,label %323, label %394
+	br label %318
+318:
+	%319 = load i32, i32* @i
+	%320 = mul i32 %319, 1
+	%321 = getelementptr i32, i32* %6, i32 %320
+	%322 = load i32, i32* %321
+	%323 =  icmp eq i32 %322, 42
+	br i1 %323,label %324, label %395
 
-323:	br label %324
-324:
-	%325 = load i32, i32* @chat
-	%326 = mul i32 %325, 1
-	%327 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%328 = getelementptr i32, i32* %327, i32 %326
-	%329 = load i32, i32* %328
-	%330 =  icmp eq i32 %329, 42
-	br i1 %330, label %376, label %331
-331:
-	%332 = load i32, i32* @chat
-	%333 = mul i32 %332, 1
-	%334 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%335 = getelementptr i32, i32* %334, i32 %333
-	%336 = load i32, i32* %335
-	%337 =  icmp eq i32 %336, 47
-	br i1 %337, label %376, label %338
-338:
-	%339 = load i32, i32* @chat
-	%340 = mul i32 %339, 1
-	%341 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%342 = getelementptr i32, i32* %341, i32 %340
-	%343 = load i32, i32* %342
-	%344 =  icmp eq i32 %343, 37
-	br i1 %344, label %376, label %345
-345:
-	%346 = load i32, i32* @chat
-	%347 = mul i32 %346, 1
-	%348 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%349 = getelementptr i32, i32* %348, i32 %347
-	%350 = load i32, i32* %349
-	%351 =  icmp eq i32 %350, 94	br i1 %351,label %352, label %385
+324:	br label %325
+325:
+	%326 = load i32, i32* @chat
+	%327 = mul i32 %326, 1
+	%328 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%329 = getelementptr i32, i32* %328, i32 %327
+	%330 = load i32, i32* %329
+	%331 =  icmp eq i32 %330, 42
+	br i1 %331, label %378, label %332
+332:
+	%333 = load i32, i32* @chat
+	%334 = mul i32 %333, 1
+	%335 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%336 = getelementptr i32, i32* %335, i32 %334
+	%337 = load i32, i32* %336
+	%338 =  icmp eq i32 %337, 47
+	br i1 %338, label %378, label %339
+339:
+	%340 = load i32, i32* @chat
+	%341 = mul i32 %340, 1
+	%342 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%343 = getelementptr i32, i32* %342, i32 %341
+	%344 = load i32, i32* %343
+	%345 =  icmp eq i32 %344, 37
+	br i1 %345, label %378, label %346
+346:
+	%347 = load i32, i32* @chat
+	%348 = mul i32 %347, 1
+	%349 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%350 = getelementptr i32, i32* %349, i32 %348
+	%351 = load i32, i32* %350
+	%352 =  icmp eq i32 %351, 94	br i1 %352,label %353, label %385
 
-352:
-	%353 = load i32, i32* @chat
-	%354 = sub i32 %353, 1
-	store i32 %354, i32* @chat
+353:
+
+	%354 = alloca i32
+
 	%355 = alloca i32
 	%356 = load i32, i32* @chat
-	%357 = add i32 %356, 1
-	%358 = mul i32 %357, 1
-	%359 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%360 = getelementptr i32, i32* %359, i32 %358
-	%361 = load i32, i32* %360
-	store i32 %361, i32* %355
-	store i32 %361, i32* @c
-	%362 = load i32, i32* @ii
-	%363 = mul i32 %362, 1
-	%364 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%365 = getelementptr i32, i32* %364, i32 %363
-	store i32 32, i32* %365
-	%366 = load i32, i32* @ii
-	%367 = add i32 %366, 1
-	%368 = mul i32 %367, 1
-	%369 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%370 = getelementptr i32, i32* %369, i32 %368
-	%371 = load i32, i32* @c
-	store i32 %371, i32* %370
-	%372 = load i32, i32* @ii
-	%373 = add i32 %372, 2
-	store i32 %373, i32* @ii
-	%374 = load i32, i32* @chat
-	%375 =  icmp eq i32 %374, 0
-	br i1 %375,label %376, label %378
+	%357 = sub i32 %356, 1
+	store i32 %357, i32* @chat
+	%358 = load i32, i32* @chat
+	%359 = add i32 %358, 1
+	%360 = mul i32 %359, 1
+	%361 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%362 = getelementptr i32, i32* %361, i32 %360
+	%363 = load i32, i32* %362
+	store i32 %363, i32* %1
+	store i32 %363, i32* @c
+	%364 = load i32, i32* @ii
+	%365 = mul i32 %364, 1
+	%366 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%367 = getelementptr i32, i32* %366, i32 %365
+	store i32 32, i32* %367
+	%368 = load i32, i32* @ii
+	%369 = add i32 %368, 1
+	%370 = mul i32 %369, 1
+	%371 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%372 = getelementptr i32, i32* %371, i32 %370
+	%373 = load i32, i32* @c
+	store i32 %373, i32* %372
+	%374 = load i32, i32* @ii
+	%375 = add i32 %374, 2
+	store i32 %375, i32* @ii
+	%376 = load i32, i32* @chat
+	%377 =  icmp eq i32 %376, 0
+	br i1 %377,label %378, label %379
 
-376:	%377 = alloca i32
-	store i32 0, i32* %377
-	br label %379
+378:	store i32 0, i32* %1
+	br label %380
 
-378:
-	br label %379
 379:
-	%380 = alloca i32
-	store i32 1, i32* %380
+	br label %380
+380:
+	store i32 1, i32* %1
 	%381 =  icmp eq i32 1, 0
 	br i1 %381,label %382, label %383
 
@@ -538,105 +552,108 @@ define dso_local i32  @main(){
 383:
 	br label %384
 384:
-	br label %324
+	br label %325
 385:
+
 	%386 = alloca i32
-	store i32 42, i32* %386
-	%387 = load i32, i32* @chat
-	%388 = add i32 %387, 1
-	store i32 %388, i32* @chat
-	%389 = load i32, i32* @chat
-	%390 = mul i32 %389, 1
-	%391 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%392 = getelementptr i32, i32* %391, i32 %390
-	%393 = load i32, i32* %386
-	store i32 %393, i32* %392
-	br label %395
+	%387 = alloca i32
+	store i32 42, i32* %387
+	%388 = load i32, i32* @chat
+	%389 = add i32 %388, 1
+	store i32 %389, i32* @chat
+	%390 = load i32, i32* @chat
+	%391 = mul i32 %390, 1
+	%392 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%393 = getelementptr i32, i32* %392, i32 %391
+	%394 = load i32, i32* %387
+	store i32 %394, i32* %393
+	br label %396
 
-394:
-	br label %395
 395:
-	%396 = load i32, i32* @i
-	%397 = mul i32 %396, 1
-	%398 = getelementptr i32, i32* %5, i32 %397
-	%399 = load i32, i32* %398
-	%400 =  icmp eq i32 %399, 47
-	br i1 %400,label %401, label %472
+	br label %396
+396:
+	%397 = load i32, i32* @i
+	%398 = mul i32 %397, 1
+	%399 = getelementptr i32, i32* %6, i32 %398
+	%400 = load i32, i32* %399
+	%401 =  icmp eq i32 %400, 47
+	br i1 %401,label %402, label %473
 
-401:	br label %402
-402:
-	%403 = load i32, i32* @chat
-	%404 = mul i32 %403, 1
-	%405 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%406 = getelementptr i32, i32* %405, i32 %404
-	%407 = load i32, i32* %406
-	%408 =  icmp eq i32 %407, 42
-	br i1 %408, label %454, label %409
-409:
-	%410 = load i32, i32* @chat
-	%411 = mul i32 %410, 1
-	%412 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%413 = getelementptr i32, i32* %412, i32 %411
-	%414 = load i32, i32* %413
-	%415 =  icmp eq i32 %414, 47
-	br i1 %415, label %454, label %416
-416:
-	%417 = load i32, i32* @chat
-	%418 = mul i32 %417, 1
-	%419 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%420 = getelementptr i32, i32* %419, i32 %418
-	%421 = load i32, i32* %420
-	%422 =  icmp eq i32 %421, 37
-	br i1 %422, label %454, label %423
-423:
-	%424 = load i32, i32* @chat
-	%425 = mul i32 %424, 1
-	%426 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%427 = getelementptr i32, i32* %426, i32 %425
-	%428 = load i32, i32* %427
-	%429 =  icmp eq i32 %428, 94	br i1 %429,label %430, label %463
+402:	br label %403
+403:
+	%404 = load i32, i32* @chat
+	%405 = mul i32 %404, 1
+	%406 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%407 = getelementptr i32, i32* %406, i32 %405
+	%408 = load i32, i32* %407
+	%409 =  icmp eq i32 %408, 42
+	br i1 %409, label %456, label %410
+410:
+	%411 = load i32, i32* @chat
+	%412 = mul i32 %411, 1
+	%413 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%414 = getelementptr i32, i32* %413, i32 %412
+	%415 = load i32, i32* %414
+	%416 =  icmp eq i32 %415, 47
+	br i1 %416, label %456, label %417
+417:
+	%418 = load i32, i32* @chat
+	%419 = mul i32 %418, 1
+	%420 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%421 = getelementptr i32, i32* %420, i32 %419
+	%422 = load i32, i32* %421
+	%423 =  icmp eq i32 %422, 37
+	br i1 %423, label %456, label %424
+424:
+	%425 = load i32, i32* @chat
+	%426 = mul i32 %425, 1
+	%427 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%428 = getelementptr i32, i32* %427, i32 %426
+	%429 = load i32, i32* %428
+	%430 =  icmp eq i32 %429, 94	br i1 %430,label %431, label %463
 
-430:
-	%431 = load i32, i32* @chat
-	%432 = sub i32 %431, 1
-	store i32 %432, i32* @chat
+431:
+
+	%432 = alloca i32
+
 	%433 = alloca i32
 	%434 = load i32, i32* @chat
-	%435 = add i32 %434, 1
-	%436 = mul i32 %435, 1
-	%437 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%438 = getelementptr i32, i32* %437, i32 %436
-	%439 = load i32, i32* %438
-	store i32 %439, i32* %433
-	store i32 %439, i32* @c
-	%440 = load i32, i32* @ii
-	%441 = mul i32 %440, 1
-	%442 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%443 = getelementptr i32, i32* %442, i32 %441
-	store i32 32, i32* %443
-	%444 = load i32, i32* @ii
-	%445 = add i32 %444, 1
-	%446 = mul i32 %445, 1
-	%447 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%448 = getelementptr i32, i32* %447, i32 %446
-	%449 = load i32, i32* @c
-	store i32 %449, i32* %448
-	%450 = load i32, i32* @ii
-	%451 = add i32 %450, 2
-	store i32 %451, i32* @ii
-	%452 = load i32, i32* @chat
-	%453 =  icmp eq i32 %452, 0
-	br i1 %453,label %454, label %456
+	%435 = sub i32 %434, 1
+	store i32 %435, i32* @chat
+	%436 = load i32, i32* @chat
+	%437 = add i32 %436, 1
+	%438 = mul i32 %437, 1
+	%439 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%440 = getelementptr i32, i32* %439, i32 %438
+	%441 = load i32, i32* %440
+	store i32 %441, i32* %1
+	store i32 %441, i32* @c
+	%442 = load i32, i32* @ii
+	%443 = mul i32 %442, 1
+	%444 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%445 = getelementptr i32, i32* %444, i32 %443
+	store i32 32, i32* %445
+	%446 = load i32, i32* @ii
+	%447 = add i32 %446, 1
+	%448 = mul i32 %447, 1
+	%449 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%450 = getelementptr i32, i32* %449, i32 %448
+	%451 = load i32, i32* @c
+	store i32 %451, i32* %450
+	%452 = load i32, i32* @ii
+	%453 = add i32 %452, 2
+	store i32 %453, i32* @ii
+	%454 = load i32, i32* @chat
+	%455 =  icmp eq i32 %454, 0
+	br i1 %455,label %456, label %457
 
-454:	%455 = alloca i32
-	store i32 0, i32* %455
-	br label %457
+456:	store i32 0, i32* %1
+	br label %458
 
-456:
-	br label %457
 457:
-	%458 = alloca i32
-	store i32 1, i32* %458
+	br label %458
+458:
+	store i32 1, i32* %1
 	%459 =  icmp eq i32 1, 0
 	br i1 %459,label %460, label %461
 
@@ -645,105 +662,108 @@ define dso_local i32  @main(){
 461:
 	br label %462
 462:
-	br label %402
+	br label %403
 463:
+
 	%464 = alloca i32
-	store i32 47, i32* %464
-	%465 = load i32, i32* @chat
-	%466 = add i32 %465, 1
-	store i32 %466, i32* @chat
-	%467 = load i32, i32* @chat
-	%468 = mul i32 %467, 1
-	%469 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%470 = getelementptr i32, i32* %469, i32 %468
-	%471 = load i32, i32* %464
-	store i32 %471, i32* %470
-	br label %473
+	%465 = alloca i32
+	store i32 47, i32* %465
+	%466 = load i32, i32* @chat
+	%467 = add i32 %466, 1
+	store i32 %467, i32* @chat
+	%468 = load i32, i32* @chat
+	%469 = mul i32 %468, 1
+	%470 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%471 = getelementptr i32, i32* %470, i32 %469
+	%472 = load i32, i32* %465
+	store i32 %472, i32* %471
+	br label %474
 
-472:
-	br label %473
 473:
-	%474 = load i32, i32* @i
-	%475 = mul i32 %474, 1
-	%476 = getelementptr i32, i32* %5, i32 %475
-	%477 = load i32, i32* %476
-	%478 =  icmp eq i32 %477, 37
-	br i1 %478,label %479, label %550
+	br label %474
+474:
+	%475 = load i32, i32* @i
+	%476 = mul i32 %475, 1
+	%477 = getelementptr i32, i32* %6, i32 %476
+	%478 = load i32, i32* %477
+	%479 =  icmp eq i32 %478, 37
+	br i1 %479,label %480, label %551
 
-479:	br label %480
-480:
-	%481 = load i32, i32* @chat
-	%482 = mul i32 %481, 1
-	%483 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%484 = getelementptr i32, i32* %483, i32 %482
-	%485 = load i32, i32* %484
-	%486 =  icmp eq i32 %485, 42
-	br i1 %486, label %532, label %487
-487:
-	%488 = load i32, i32* @chat
-	%489 = mul i32 %488, 1
-	%490 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%491 = getelementptr i32, i32* %490, i32 %489
-	%492 = load i32, i32* %491
-	%493 =  icmp eq i32 %492, 47
-	br i1 %493, label %532, label %494
-494:
-	%495 = load i32, i32* @chat
-	%496 = mul i32 %495, 1
-	%497 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%498 = getelementptr i32, i32* %497, i32 %496
-	%499 = load i32, i32* %498
-	%500 =  icmp eq i32 %499, 37
-	br i1 %500, label %532, label %501
-501:
-	%502 = load i32, i32* @chat
-	%503 = mul i32 %502, 1
-	%504 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%505 = getelementptr i32, i32* %504, i32 %503
-	%506 = load i32, i32* %505
-	%507 =  icmp eq i32 %506, 94	br i1 %507,label %508, label %541
+480:	br label %481
+481:
+	%482 = load i32, i32* @chat
+	%483 = mul i32 %482, 1
+	%484 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%485 = getelementptr i32, i32* %484, i32 %483
+	%486 = load i32, i32* %485
+	%487 =  icmp eq i32 %486, 42
+	br i1 %487, label %534, label %488
+488:
+	%489 = load i32, i32* @chat
+	%490 = mul i32 %489, 1
+	%491 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%492 = getelementptr i32, i32* %491, i32 %490
+	%493 = load i32, i32* %492
+	%494 =  icmp eq i32 %493, 47
+	br i1 %494, label %534, label %495
+495:
+	%496 = load i32, i32* @chat
+	%497 = mul i32 %496, 1
+	%498 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%499 = getelementptr i32, i32* %498, i32 %497
+	%500 = load i32, i32* %499
+	%501 =  icmp eq i32 %500, 37
+	br i1 %501, label %534, label %502
+502:
+	%503 = load i32, i32* @chat
+	%504 = mul i32 %503, 1
+	%505 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%506 = getelementptr i32, i32* %505, i32 %504
+	%507 = load i32, i32* %506
+	%508 =  icmp eq i32 %507, 94	br i1 %508,label %509, label %541
 
-508:
-	%509 = load i32, i32* @chat
-	%510 = sub i32 %509, 1
-	store i32 %510, i32* @chat
+509:
+
+	%510 = alloca i32
+
 	%511 = alloca i32
 	%512 = load i32, i32* @chat
-	%513 = add i32 %512, 1
-	%514 = mul i32 %513, 1
-	%515 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%516 = getelementptr i32, i32* %515, i32 %514
-	%517 = load i32, i32* %516
-	store i32 %517, i32* %511
-	store i32 %517, i32* @c
-	%518 = load i32, i32* @ii
-	%519 = mul i32 %518, 1
-	%520 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%521 = getelementptr i32, i32* %520, i32 %519
-	store i32 32, i32* %521
-	%522 = load i32, i32* @ii
-	%523 = add i32 %522, 1
-	%524 = mul i32 %523, 1
-	%525 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%526 = getelementptr i32, i32* %525, i32 %524
-	%527 = load i32, i32* @c
-	store i32 %527, i32* %526
-	%528 = load i32, i32* @ii
-	%529 = add i32 %528, 2
-	store i32 %529, i32* @ii
-	%530 = load i32, i32* @chat
-	%531 =  icmp eq i32 %530, 0
-	br i1 %531,label %532, label %534
+	%513 = sub i32 %512, 1
+	store i32 %513, i32* @chat
+	%514 = load i32, i32* @chat
+	%515 = add i32 %514, 1
+	%516 = mul i32 %515, 1
+	%517 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%518 = getelementptr i32, i32* %517, i32 %516
+	%519 = load i32, i32* %518
+	store i32 %519, i32* %1
+	store i32 %519, i32* @c
+	%520 = load i32, i32* @ii
+	%521 = mul i32 %520, 1
+	%522 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%523 = getelementptr i32, i32* %522, i32 %521
+	store i32 32, i32* %523
+	%524 = load i32, i32* @ii
+	%525 = add i32 %524, 1
+	%526 = mul i32 %525, 1
+	%527 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%528 = getelementptr i32, i32* %527, i32 %526
+	%529 = load i32, i32* @c
+	store i32 %529, i32* %528
+	%530 = load i32, i32* @ii
+	%531 = add i32 %530, 2
+	store i32 %531, i32* @ii
+	%532 = load i32, i32* @chat
+	%533 =  icmp eq i32 %532, 0
+	br i1 %533,label %534, label %535
 
-532:	%533 = alloca i32
-	store i32 0, i32* %533
-	br label %535
+534:	store i32 0, i32* %1
+	br label %536
 
-534:
-	br label %535
 535:
-	%536 = alloca i32
-	store i32 1, i32* %536
+	br label %536
+536:
+	store i32 1, i32* %1
 	%537 =  icmp eq i32 1, 0
 	br i1 %537,label %538, label %539
 
@@ -752,405 +772,416 @@ define dso_local i32  @main(){
 539:
 	br label %540
 540:
-	br label %480
+	br label %481
 541:
+
 	%542 = alloca i32
-	store i32 37, i32* %542
-	%543 = load i32, i32* @chat
-	%544 = add i32 %543, 1
-	store i32 %544, i32* @chat
-	%545 = load i32, i32* @chat
-	%546 = mul i32 %545, 1
-	%547 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%548 = getelementptr i32, i32* %547, i32 %546
-	%549 = load i32, i32* %542
-	store i32 %549, i32* %548
-	br label %551
+	%543 = alloca i32
+	store i32 37, i32* %543
+	%544 = load i32, i32* @chat
+	%545 = add i32 %544, 1
+	store i32 %545, i32* @chat
+	%546 = load i32, i32* @chat
+	%547 = mul i32 %546, 1
+	%548 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%549 = getelementptr i32, i32* %548, i32 %547
+	%550 = load i32, i32* %543
+	store i32 %550, i32* %549
+	br label %552
 
-550:
-	br label %551
 551:
-	%552 = load i32, i32* @ii
-	%553 = mul i32 %552, 1
-	%554 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%555 = getelementptr i32, i32* %554, i32 %553
-	store i32 32, i32* %555
-	%556 = load i32, i32* @ii
-	%557 = add i32 %556, 1
-	store i32 %557, i32* @ii
-	br label %558
-558:
-	%559 = load i32, i32* @i
-	%560 = add i32 %559, 1
-	store i32 %560, i32* @i
+	br label %552
+552:
+	%553 = load i32, i32* @ii
+	%554 = mul i32 %553, 1
+	%555 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%556 = getelementptr i32, i32* %555, i32 %554
+	store i32 32, i32* %556
+	%557 = load i32, i32* @ii
+	%558 = add i32 %557, 1
+	store i32 %558, i32* @ii
+	br label %559
+559:
+	%560 = load i32, i32* @i
+	%561 = add i32 %560, 1
+	store i32 %561, i32* @i
 	br label %26
-561:
-	br label %562
 562:
-	%563 = load i32, i32* @chat
-	%564 =  icmp sgt i32 %563, 0
-	br i1 %564,label %565, label %588
+	br label %563
+563:
+	%564 = load i32, i32* @chat
+	%565 =  icmp sgt i32 %564, 0
+	br i1 %565,label %566, label %589
 
-565:	%566 = alloca i32
-	%567 = load i32, i32* @chat
-	%568 = sub i32 %567, 1
-	store i32 %568, i32* @chat
-	%569 = alloca i32
-	%570 = load i32, i32* @chat
-	%571 = add i32 %570, 1
-	%572 = mul i32 %571, 1
-	%573 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
-	%574 = getelementptr i32, i32* %573, i32 %572
-	%575 = load i32, i32* %574
-	store i32 %575, i32* %569
-	store i32 %575, i32* %566
-	%576 = load i32, i32* @ii
-	%577 = mul i32 %576, 1
-	%578 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%579 = getelementptr i32, i32* %578, i32 %577
-	store i32 32, i32* %579
-	%580 = load i32, i32* @ii
-	%581 = add i32 %580, 1
-	%582 = mul i32 %581, 1
-	%583 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%584 = getelementptr i32, i32* %583, i32 %582
-	%585 = load i32, i32* %566
-	store i32 %585, i32* %584
-	%586 = load i32, i32* @ii
-	%587 = add i32 %586, 2
-	store i32 %587, i32* @ii
-	br label %562
-588:
-	%589 = load i32, i32* @ii
-	%590 = mul i32 %589, 1
-	%591 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%592 = getelementptr i32, i32* %591, i32 %590
-	store i32 64, i32* %592
+566:	%567 = alloca i32
+
+	%568 = alloca i32
+	%569 = load i32, i32* @chat
+	%570 = sub i32 %569, 1
+	store i32 %570, i32* @chat
+	%571 = load i32, i32* @chat
+	%572 = add i32 %571, 1
+	%573 = mul i32 %572, 1
+	%574 = getelementptr [10000 x i32], [10000 x i32]* @chas, i32 0, i32 0
+	%575 = getelementptr i32, i32* %574, i32 %573
+	%576 = load i32, i32* %575
+	store i32 %576, i32* %1
+	store i32 %576, i32* %567
+	%577 = load i32, i32* @ii
+	%578 = mul i32 %577, 1
+	%579 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%580 = getelementptr i32, i32* %579, i32 %578
+	store i32 32, i32* %580
+	%581 = load i32, i32* @ii
+	%582 = add i32 %581, 1
+	%583 = mul i32 %582, 1
+	%584 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%585 = getelementptr i32, i32* %584, i32 %583
+	%586 = load i32, i32* %567
+	store i32 %586, i32* %585
+	%587 = load i32, i32* @ii
+	%588 = add i32 %587, 2
+	store i32 %588, i32* @ii
+	br label %563
+589:
+	%590 = load i32, i32* @ii
+	%591 = mul i32 %590, 1
+	%592 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%593 = getelementptr i32, i32* %592, i32 %591
+	store i32 64, i32* %593
 	store i32 1, i32* @i
-	br label %593
-593:
-	%594 = load i32, i32* @i
-	%595 = mul i32 %594, 1
-	%596 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%597 = getelementptr i32, i32* %596, i32 %595
-	%598 = load i32, i32* %597
-	%599 =  icmp ne i32 %598, 64
-	br i1 %599,label %600, label %833
+	br label %594
+594:
+	%595 = load i32, i32* @i
+	%596 = mul i32 %595, 1
+	%597 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%598 = getelementptr i32, i32* %597, i32 %596
+	%599 = load i32, i32* %598
+	%600 =  icmp ne i32 %599, 64
+	br i1 %600,label %601, label %837
 
-600:	%601 = load i32, i32* @i
-	%602 = mul i32 %601, 1
-	%603 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%604 = getelementptr i32, i32* %603, i32 %602
-	%605 = load i32, i32* %604
-	%606 =  icmp eq i32 %605, 43
-	br i1 %606, label %642, label %607
-607:
-	%608 = load i32, i32* @i
-	%609 = mul i32 %608, 1
-	%610 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%611 = getelementptr i32, i32* %610, i32 %609
-	%612 = load i32, i32* %611
-	%613 =  icmp eq i32 %612, 45
-	br i1 %613, label %642, label %614
-614:
-	%615 = load i32, i32* @i
-	%616 = mul i32 %615, 1
-	%617 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%618 = getelementptr i32, i32* %617, i32 %616
-	%619 = load i32, i32* %618
-	%620 =  icmp eq i32 %619, 42
-	br i1 %620, label %642, label %621
-621:
-	%622 = load i32, i32* @i
-	%623 = mul i32 %622, 1
-	%624 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%625 = getelementptr i32, i32* %624, i32 %623
-	%626 = load i32, i32* %625
-	%627 =  icmp eq i32 %626, 47
-	br i1 %627, label %642, label %628
-628:
-	%629 = load i32, i32* @i
-	%630 = mul i32 %629, 1
-	%631 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%632 = getelementptr i32, i32* %631, i32 %630
-	%633 = load i32, i32* %632
-	%634 =  icmp eq i32 %633, 37
-	br i1 %634, label %642, label %635
-635:
-	%636 = load i32, i32* @i
-	%637 = mul i32 %636, 1
-	%638 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%639 = getelementptr i32, i32* %638, i32 %637
-	%640 = load i32, i32* %639
-	%641 =  icmp eq i32 %640, 94
-	br i1 %641,label %642, label %759
+601:	%602 = load i32, i32* @i
+	%603 = mul i32 %602, 1
+	%604 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%605 = getelementptr i32, i32* %604, i32 %603
+	%606 = load i32, i32* %605
+	%607 =  icmp eq i32 %606, 43
+	br i1 %607, label %643, label %608
+608:
+	%609 = load i32, i32* @i
+	%610 = mul i32 %609, 1
+	%611 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%612 = getelementptr i32, i32* %611, i32 %610
+	%613 = load i32, i32* %612
+	%614 =  icmp eq i32 %613, 45
+	br i1 %614, label %643, label %615
+615:
+	%616 = load i32, i32* @i
+	%617 = mul i32 %616, 1
+	%618 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%619 = getelementptr i32, i32* %618, i32 %617
+	%620 = load i32, i32* %619
+	%621 =  icmp eq i32 %620, 42
+	br i1 %621, label %643, label %622
+622:
+	%623 = load i32, i32* @i
+	%624 = mul i32 %623, 1
+	%625 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%626 = getelementptr i32, i32* %625, i32 %624
+	%627 = load i32, i32* %626
+	%628 =  icmp eq i32 %627, 47
+	br i1 %628, label %643, label %629
+629:
+	%630 = load i32, i32* @i
+	%631 = mul i32 %630, 1
+	%632 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%633 = getelementptr i32, i32* %632, i32 %631
+	%634 = load i32, i32* %633
+	%635 =  icmp eq i32 %634, 37
+	br i1 %635, label %643, label %636
+636:
+	%637 = load i32, i32* @i
+	%638 = mul i32 %637, 1
+	%639 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%640 = getelementptr i32, i32* %639, i32 %638
+	%641 = load i32, i32* %640
+	%642 =  icmp eq i32 %641, 94
+	br i1 %642,label %643, label %761
 
-642:
-	%643 = alloca i32
-	%644 = load i32, i32* @intt
-	%645 = sub i32 %644, 1
-	store i32 %645, i32* @intt
-	%646 = alloca i32
-	%647 = load i32, i32* @intt
-	%648 = add i32 %647, 1
-	%649 = mul i32 %648, 1
-	%650 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%651 = getelementptr i32, i32* %650, i32 %649
-	%652 = load i32, i32* %651
-	store i32 %652, i32* %646
-	store i32 %652, i32* %643
-	%653 = alloca i32
-	%654 = load i32, i32* @intt
-	%655 = sub i32 %654, 1
-	store i32 %655, i32* @intt
-	%656 = alloca i32
-	%657 = load i32, i32* @intt
-	%658 = add i32 %657, 1
-	%659 = mul i32 %658, 1
-	%660 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%661 = getelementptr i32, i32* %660, i32 %659
-	%662 = load i32, i32* %661
-	store i32 %662, i32* %656
-	store i32 %662, i32* %653
-	%663 = alloca i32
-	%664 = load i32, i32* @i
-	%665 = mul i32 %664, 1
-	%666 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%667 = getelementptr i32, i32* %666, i32 %665
-	%668 = load i32, i32* %667
-	%669 =  icmp eq i32 %668, 43
-	br i1 %669,label %670, label %674
+643:
+	%644 = alloca i32
 
-670:	%671 = load i32, i32* %643
-	%672 = load i32, i32* %653
-	%673 = add i32 %671, %672
-	store i32 %673, i32* %663
-	br label %675
+	%645 = alloca i32
+	%646 = load i32, i32* @intt
+	%647 = sub i32 %646, 1
+	store i32 %647, i32* @intt
+	%648 = load i32, i32* @intt
+	%649 = add i32 %648, 1
+	%650 = mul i32 %649, 1
+	%651 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%652 = getelementptr i32, i32* %651, i32 %650
+	%653 = load i32, i32* %652
+	store i32 %653, i32* %1
+	store i32 %653, i32* %644
+	%654 = alloca i32
 
-674:
-	br label %675
+	%655 = alloca i32
+	%656 = load i32, i32* @intt
+	%657 = sub i32 %656, 1
+	store i32 %657, i32* @intt
+	%658 = load i32, i32* @intt
+	%659 = add i32 %658, 1
+	%660 = mul i32 %659, 1
+	%661 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%662 = getelementptr i32, i32* %661, i32 %660
+	%663 = load i32, i32* %662
+	store i32 %663, i32* %1
+	store i32 %663, i32* %654
+	%664 = alloca i32
+	%665 = load i32, i32* @i
+	%666 = mul i32 %665, 1
+	%667 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%668 = getelementptr i32, i32* %667, i32 %666
+	%669 = load i32, i32* %668
+	%670 =  icmp eq i32 %669, 43
+	br i1 %670,label %671, label %675
+
+671:	%672 = load i32, i32* %644
+	%673 = load i32, i32* %654
+	%674 = add i32 %672, %673
+	store i32 %674, i32* %664
+	br label %676
+
 675:
-	%676 = load i32, i32* @i
-	%677 = mul i32 %676, 1
-	%678 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%679 = getelementptr i32, i32* %678, i32 %677
-	%680 = load i32, i32* %679
-	%681 =  icmp eq i32 %680, 45
-	br i1 %681,label %682, label %686
+	br label %676
+676:
+	%677 = load i32, i32* @i
+	%678 = mul i32 %677, 1
+	%679 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%680 = getelementptr i32, i32* %679, i32 %678
+	%681 = load i32, i32* %680
+	%682 =  icmp eq i32 %681, 45
+	br i1 %682,label %683, label %687
 
-682:	%683 = load i32, i32* %653
-	%684 = load i32, i32* %643
-	%685 = sub i32 %683, %684
-	store i32 %685, i32* %663
-	br label %687
+683:	%684 = load i32, i32* %654
+	%685 = load i32, i32* %644
+	%686 = sub i32 %684, %685
+	store i32 %686, i32* %664
+	br label %688
 
-686:
-	br label %687
 687:
-	%688 = load i32, i32* @i
-	%689 = mul i32 %688, 1
-	%690 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%691 = getelementptr i32, i32* %690, i32 %689
-	%692 = load i32, i32* %691
-	%693 =  icmp eq i32 %692, 42
-	br i1 %693,label %694, label %698
+	br label %688
+688:
+	%689 = load i32, i32* @i
+	%690 = mul i32 %689, 1
+	%691 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%692 = getelementptr i32, i32* %691, i32 %690
+	%693 = load i32, i32* %692
+	%694 =  icmp eq i32 %693, 42
+	br i1 %694,label %695, label %699
 
-694:	%695 = load i32, i32* %643
-	%696 = load i32, i32* %653
-	%697 = mul i32 %695, %696
-	store i32 %697, i32* %663
-	br label %699
+695:	%696 = load i32, i32* %644
+	%697 = load i32, i32* %654
+	%698 = mul i32 %696, %697
+	store i32 %698, i32* %664
+	br label %700
 
-698:
-	br label %699
 699:
-	%700 = load i32, i32* @i
-	%701 = mul i32 %700, 1
-	%702 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%703 = getelementptr i32, i32* %702, i32 %701
-	%704 = load i32, i32* %703
-	%705 =  icmp eq i32 %704, 47
-	br i1 %705,label %706, label %710
+	br label %700
+700:
+	%701 = load i32, i32* @i
+	%702 = mul i32 %701, 1
+	%703 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%704 = getelementptr i32, i32* %703, i32 %702
+	%705 = load i32, i32* %704
+	%706 =  icmp eq i32 %705, 47
+	br i1 %706,label %707, label %711
 
-706:	%707 = load i32, i32* %653
-	%708 = load i32, i32* %643
-	%709 = sdiv i32 %707, %708
-	store i32 %709, i32* %663
-	br label %711
+707:	%708 = load i32, i32* %654
+	%709 = load i32, i32* %644
+	%710 = sdiv i32 %708, %709
+	store i32 %710, i32* %664
+	br label %712
 
-710:
-	br label %711
 711:
-	%712 = load i32, i32* @i
-	%713 = mul i32 %712, 1
-	%714 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%715 = getelementptr i32, i32* %714, i32 %713
-	%716 = load i32, i32* %715
-	%717 =  icmp eq i32 %716, 37
-	br i1 %717,label %718, label %722
+	br label %712
+712:
+	%713 = load i32, i32* @i
+	%714 = mul i32 %713, 1
+	%715 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%716 = getelementptr i32, i32* %715, i32 %714
+	%717 = load i32, i32* %716
+	%718 =  icmp eq i32 %717, 37
+	br i1 %718,label %719, label %723
 
-718:	%719 = load i32, i32* %653
-	%720 = load i32, i32* %643
-	%721 = srem i32 %719, %720
-	store i32 %721, i32* %663
-	br label %723
+719:	%720 = load i32, i32* %654
+	%721 = load i32, i32* %644
+	%722 = srem i32 %720, %721
+	store i32 %722, i32* %664
+	br label %724
 
-722:
-	br label %723
 723:
-	%724 = load i32, i32* @i
-	%725 = mul i32 %724, 1
-	%726 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%727 = getelementptr i32, i32* %726, i32 %725
-	%728 = load i32, i32* %727
-	%729 =  icmp eq i32 %728, 94
-	br i1 %729,label %730, label %748
+	br label %724
+724:
+	%725 = load i32, i32* @i
+	%726 = mul i32 %725, 1
+	%727 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%728 = getelementptr i32, i32* %727, i32 %726
+	%729 = load i32, i32* %728
+	%730 =  icmp eq i32 %729, 94
+	br i1 %730,label %731, label %749
 
-730:	%731 = load i32, i32* %653
-	%732 = load i32, i32* %643
-	%733 = alloca i32
-	store i32 %731, i32* %733
+731:	%732 = load i32, i32* %654
+	%733 = load i32, i32* %644
+
 	%734 = alloca i32
-	store i32 %732, i32* %734
 	%735 = alloca i32
-	store i32 1, i32* %735
-	br label %736
-736:
-	%737 = load i32, i32* %734
-	%738 =  icmp ne i32 %737, 0
-	br i1 %738,label %739, label %745
+	store i32 %732, i32* %735
+	%736 = alloca i32
+	store i32 %733, i32* %736
+	%737 = alloca i32
+	store i32 1, i32* %737
+	br label %738
+738:
+	%739 = load i32, i32* %736
+	%740 =  icmp ne i32 %739, 0
+	br i1 %740,label %741, label %747
 
-739:	%740 = load i32, i32* %735
-	%741 = load i32, i32* %733
-	%742 = mul i32 %740, %741
-	store i32 %742, i32* %735
-	%743 = load i32, i32* %734
-	%744 = sub i32 %743, 1
-	store i32 %744, i32* %734
-	br label %736
-745:
-	%746 = alloca i32
-	%747 = load i32, i32* %735
-	store i32 %747, i32* %746
-	store i32 %747, i32* %663
-	br label %749
+741:	%742 = load i32, i32* %737
+	%743 = load i32, i32* %735
+	%744 = mul i32 %742, %743
+	store i32 %744, i32* %737
+	%745 = load i32, i32* %736
+	%746 = sub i32 %745, 1
+	store i32 %746, i32* %736
+	br label %738
+747:
+	%748 = load i32, i32* %737
+	store i32 %748, i32* %1
+	store i32 %748, i32* %664
+	br label %750
 
-748:
-	br label %749
 749:
-	%750 = load i32, i32* %663
-	%751 = alloca i32
-	store i32 %750, i32* %751
-	%752 = load i32, i32* @intt
-	%753 = add i32 %752, 1
-	store i32 %753, i32* @intt
+	br label %750
+750:
+	%751 = load i32, i32* %664
+
+	%752 = alloca i32
+	%753 = alloca i32
+	store i32 %751, i32* %753
 	%754 = load i32, i32* @intt
-	%755 = mul i32 %754, 1
-	%756 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%757 = getelementptr i32, i32* %756, i32 %755
-	%758 = load i32, i32* %751
-	store i32 %758, i32* %757
-	br label %830
+	%755 = add i32 %754, 1
+	store i32 %755, i32* @intt
+	%756 = load i32, i32* @intt
+	%757 = mul i32 %756, 1
+	%758 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%759 = getelementptr i32, i32* %758, i32 %757
+	%760 = load i32, i32* %753
+	store i32 %760, i32* %759
+	br label %834
 
-759:
-	%760 = load i32, i32* @i
-	%761 = mul i32 %760, 1
-	%762 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%763 = getelementptr i32, i32* %762, i32 %761
-	%764 = load i32, i32* %763
-	%765 =  icmp ne i32 %764, 32
-	br i1 %765,label %766, label %828
+761:
+	%762 = load i32, i32* @i
+	%763 = mul i32 %762, 1
+	%764 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%765 = getelementptr i32, i32* %764, i32 %763
+	%766 = load i32, i32* %765
+	%767 =  icmp ne i32 %766, 32
+	br i1 %767,label %768, label %832
 
-766:	%767 = load i32, i32* @i
-	%768 = mul i32 %767, 1
-	%769 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%770 = getelementptr i32, i32* %769, i32 %768
-	%771 = load i32, i32* %770
-	%772 = sub i32 %771, 48
-	%773 = alloca i32
-	store i32 %772, i32* %773
-	%774 = load i32, i32* @intt
-	%775 = add i32 %774, 1
-	store i32 %775, i32* @intt
-	%776 = load i32, i32* @intt
-	%777 = mul i32 %776, 1
-	%778 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%779 = getelementptr i32, i32* %778, i32 %777
-	%780 = load i32, i32* %773
-	store i32 %780, i32* %779
+768:	%769 = load i32, i32* @i
+	%770 = mul i32 %769, 1
+	%771 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%772 = getelementptr i32, i32* %771, i32 %770
+	%773 = load i32, i32* %772
+	%774 = sub i32 %773, 48
+
+	%775 = alloca i32
+	%776 = alloca i32
+	store i32 %774, i32* %776
+	%777 = load i32, i32* @intt
+	%778 = add i32 %777, 1
+	store i32 %778, i32* @intt
+	%779 = load i32, i32* @intt
+	%780 = mul i32 %779, 1
+	%781 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%782 = getelementptr i32, i32* %781, i32 %780
+	%783 = load i32, i32* %776
+	store i32 %783, i32* %782
 	store i32 1, i32* @ii
-	br label %781
-781:
-	%782 = load i32, i32* @i
-	%783 = load i32, i32* @ii
-	%784 = add i32 %782, %783
-	%785 = mul i32 %784, 1
-	%786 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%787 = getelementptr i32, i32* %786, i32 %785
-	%788 = load i32, i32* %787
-	%789 =  icmp ne i32 %788, 32
-	br i1 %789,label %790, label %823
+	br label %784
+784:
+	%785 = load i32, i32* @i
+	%786 = load i32, i32* @ii
+	%787 = add i32 %785, %786
+	%788 = mul i32 %787, 1
+	%789 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%790 = getelementptr i32, i32* %789, i32 %788
+	%791 = load i32, i32* %790
+	%792 =  icmp ne i32 %791, 32
+	br i1 %792,label %793, label %827
 
-790:	%791 = load i32, i32* @i
-	%792 = load i32, i32* @ii
-	%793 = add i32 %791, %792
-	%794 = mul i32 %793, 1
-	%795 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
-	%796 = getelementptr i32, i32* %795, i32 %794
-	%797 = load i32, i32* %796
-	%798 = sub i32 %797, 48
-	%799 = alloca i32
-	store i32 %798, i32* %799
-	%800 = load i32, i32* @intt
-	%801 = mul i32 %800, 1
-	%802 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%803 = getelementptr i32, i32* %802, i32 %801
+793:	%794 = load i32, i32* @i
+	%795 = load i32, i32* @ii
+	%796 = add i32 %794, %795
+	%797 = mul i32 %796, 1
+	%798 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
+	%799 = getelementptr i32, i32* %798, i32 %797
+	%800 = load i32, i32* %799
+	%801 = sub i32 %800, 48
+
+	%802 = alloca i32
+	%803 = alloca i32
+	store i32 %801, i32* %803
 	%804 = load i32, i32* @intt
 	%805 = mul i32 %804, 1
 	%806 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
 	%807 = getelementptr i32, i32* %806, i32 %805
-	%808 = load i32, i32* %807
-	%809 = mul i32 %808, 10
-	store i32 %809, i32* %803
-	%810 = load i32, i32* @intt
-	%811 = mul i32 %810, 1
-	%812 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%813 = getelementptr i32, i32* %812, i32 %811
+	%808 = load i32, i32* @intt
+	%809 = mul i32 %808, 1
+	%810 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%811 = getelementptr i32, i32* %810, i32 %809
+	%812 = load i32, i32* %811
+	%813 = mul i32 %812, 10
+	store i32 %813, i32* %807
 	%814 = load i32, i32* @intt
 	%815 = mul i32 %814, 1
 	%816 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
 	%817 = getelementptr i32, i32* %816, i32 %815
-	%818 = load i32, i32* %817
-	%819 = load i32, i32* %799
-	%820 = add i32 %818, %819
-	store i32 %820, i32* %813
-	%821 = load i32, i32* @ii
-	%822 = add i32 %821, 1
-	store i32 %822, i32* @ii
-	br label %781
-823:
-	%824 = load i32, i32* @i
+	%818 = load i32, i32* @intt
+	%819 = mul i32 %818, 1
+	%820 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%821 = getelementptr i32, i32* %820, i32 %819
+	%822 = load i32, i32* %821
+	%823 = load i32, i32* %803
+	%824 = add i32 %822, %823
+	store i32 %824, i32* %817
 	%825 = load i32, i32* @ii
-	%826 = add i32 %824, %825
-	%827 = sub i32 %826, 1
-	store i32 %827, i32* @i
-	br label %829
+	%826 = add i32 %825, 1
+	store i32 %826, i32* @ii
+	br label %784
+827:
+	%828 = load i32, i32* @i
+	%829 = load i32, i32* @ii
+	%830 = add i32 %828, %829
+	%831 = sub i32 %830, 1
+	store i32 %831, i32* @i
+	br label %833
 
-828:
-	br label %829
-829:
-	br label %830
-830:
-	%831 = load i32, i32* @i
-	%832 = add i32 %831, 1
-	store i32 %832, i32* @i
-	br label %593
+832:
+	br label %833
 833:
-	%834 = mul i32 1, 1
-	%835 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
-	%836 = getelementptr i32, i32* %835, i32 %834
-	%837 = load i32, i32* %836
-	call void @putint(i32 %837)
-	%838 = alloca i32
-	store i32 0, i32* %838
+	br label %834
+834:
+	%835 = load i32, i32* @i
+	%836 = add i32 %835, 1
+	store i32 %836, i32* @i
+	br label %594
+837:
+	%838 = mul i32 1, 1
+	%839 = getelementptr [10000 x i32], [10000 x i32]* @ints, i32 0, i32 0
+	%840 = getelementptr i32, i32* %839, i32 %838
+	%841 = load i32, i32* %840
+	call void @putint(i32 %841)
+	ret i32 0
 }
