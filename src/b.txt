@@ -1,12 +1,32 @@
 declare void @memset(i32*  ,i32 ,i32 )
 declare void @putint(i32)
 @return = dso_local global i32 0
+define dso_local i32  @foo(i32 %0){
+	%2 = alloca i32
+	store i32 %0, i32* %2
+	%3 = load i32, i32* %2
+	%4 =  icmp sgt i32 %3, 0
+	br i1 %4,label %5, label %11
+
+5:	%6 = load i32, i32* %2
+	%7 = sub i32 %6, 1
+	%8 = call i32 @foo(i32 %7)
+	%9 = load i32, i32* %2
+	%10 = add i32 %8, %9
+	ret i32 %10
+
+11:
+	br label %12
+12:
+	ret i32 0
+}
 define dso_local i32  @main(){
-	%1 = alloca i32
-	store i32 10, i32* %1
-	%2 = load i32, i32* %1
-	call void @putint(i32 %2)
-	store i32 33, i32* @return
-	call void @putint(i32 33)
+	%1 = call i32 @foo(i32 10)
+	%2 = add i32 %1, 123
+	store i32 %2, i32* @return
+	br label %3
+3:
+	%4 = load i32 , i32 * @return
+	call void @putint(i32 %4)
 	ret i32 0
 }

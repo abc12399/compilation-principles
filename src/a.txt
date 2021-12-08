@@ -1,9 +1,14 @@
-int foo(){
-    int a =10;
-    putint(a);
-    return 33;
-}
-int main(){
-    putint(foo());
+int foo(int t) {
+    if (t > 0)
+        return foo(t - 1) + t;
     return 0;
+}
+
+int bar() {
+    return foo(10) + 123;
+}
+
+int main() {
+   putint(bar());
+   return 0;
 }

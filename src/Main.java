@@ -21,7 +21,7 @@ public class Main {
     public int j;
     public String Out;
 
-    public int tadd
+
     public ArrayList<Var> varList;
 
     public ArrayList<String> funcList;
