@@ -38,13 +38,15 @@ public class Main {
 
     public Stack<Integer> flag_of_runs=new Stack<>();
 
+
+
     public int varNum;
     public int orderNum;
 
     public int nowPos;
     public int cutPos;
 
-    public int flag_of_run;
+    public Stack<Integer> flag_of_run=new Stack<>();
     public String funcValStart;
     public int[] a;
     public int Varpos;
@@ -852,7 +854,7 @@ public class Main {
                                 //flag_of_run=1;
                                 flag_of_runs.push(1);
                                 FuncRun(present);
-                                if (flag_of_run==1){
+                                if (flag_of_run.peek()==1){
                                     Var var=new Var();
                                     var.setOrder(orderNum);
                                     orderNum++;
@@ -868,8 +870,9 @@ public class Main {
                                     varList.add(var3);
 
                                     Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                    flag_of_run.pop();
                                 }
-                                flag_of_run=0;
+
 
                                 flag_of_runs.pop();
                              //   word= scanner.scan();
@@ -1013,7 +1016,7 @@ public class Main {
                                     flag_of_runs.push(1);
                                     FuncRun(present);
 
-                                    if(flag_of_run==1){
+                                    if(flag_of_run.peek()==1){
                                         Var var=new Var();
                                         var.setOrder(orderNum);
                                         orderNum++;
@@ -1029,8 +1032,9 @@ public class Main {
                                         varNum++;
                                         varList.add(var3);
                                         Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                        flag_of_run.pop();
                                     }
-                                    flag_of_run=0;
+
                                     flag_of_runs.pop();
                                     System.out.println("return "+word.getWord());
                                     return;
@@ -1437,7 +1441,7 @@ public class Main {
 
             if(flag_of_runs.peek()==1){
                 int r=0;
-                flag_of_run=1;
+                flag_of_run.push(1);
                 for (int k = varList.size()-1; k>=0; k--) {
                     if (varList.get(k).getWord().equals("returnvalue")) {
                         r = k;
@@ -1447,6 +1451,7 @@ public class Main {
 
                 word= scanner.scan();
                 if(word.getWord().equals(";")){
+                    Out+="\tbr label %ooout\n";
                     return;
                 }
                 else{
@@ -2885,7 +2890,7 @@ public class Main {
     }
 
     public void FuncDef(){
-        flag_of_run=0;
+
         Func func=new Func();
         func.setPos(scanner.getPos());
         cutPos=Out.length();
@@ -3149,8 +3154,9 @@ public class Main {
         main.recordFuncMap=new HashMap<>();
         main.pass_Array=new ArrayList<>();
         main.i=0;main.j=0;
-        main.flag_of_run=0;
+
         main.flag_of_runs.push(0);
+        main.flag_of_run.push(0);
         main.funcValStart="";
         Var var =new Var();
         var.setWord("returnvalue");
