@@ -1,13 +1,9 @@
-int a;
- int func(int p){
- 	p = p - 1;
- 	return p;
- }
- int main(){
- 	int b;
- 	a = 10;
- 	int c[5] ={1,2,3,4,10};
- 	b = func(c[4]);
- 	putint(b);
- 	return 0;
- }
+int foo(){
+    int a =10;
+    putint(a);
+    return 33;
+}
+int main(){
+    putint(foo());
+    return 0;
+}

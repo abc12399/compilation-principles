@@ -20,6 +20,8 @@ public class Main {
     public int i;
     public int j;
     public String Out;
+
+    public int tag_of_return;
     public ArrayList<Var> varList;
 
     public ArrayList<String> funcList;
@@ -850,22 +852,24 @@ public class Main {
                                 flag_of_run=1;
                                 flag_of_runs.push(flag_of_run);
                                 FuncRun(present);
+                                if(tag_of_return==1){
+                                    Var var=new Var();
+                                    var.setOrder(orderNum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var);
+                                    Out+=((orderNum-1)+":\n");
+                                    Out=Out.replaceAll("ooout",""+(orderNum-1));
 
-                                Var var=new Var();
-                                var.setOrder(orderNum);
-                                orderNum++;
-                                varNum++;
-                                varList.add(var);
-                                Out+=((orderNum-1)+":\n");
-                                Out=Out.replaceAll("ooout",""+(orderNum-1));
-
-                                Var var3=new Var();
-                                var3.setOrder(orderNum);
-                                orderNum++;
-                                varNum++;
-                                varList.add(var);
-                                ;
-                                Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                    Var var3=new Var();
+                                    var3.setOrder(orderNum);
+                                    orderNum++;
+                                    varNum++;
+                                    varList.add(var);
+                                    ;
+                                    Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                }
+                                tag_of_return=0;
 
                                 flag_of_runs.pop();
                              //   word= scanner.scan();
@@ -1009,21 +1013,24 @@ public class Main {
                                     flag_of_runs.push(flag_of_run);
                                     FuncRun(present);
 
-                                    Var var=new Var();
-                                    var.setOrder(orderNum);
-                                    orderNum++;
-                                    varNum++;
-                                    varList.add(var);
+                                    if(tag_of_return==1){
+                                        Var var=new Var();
+                                        var.setOrder(orderNum);
+                                        orderNum++;
+                                        varNum++;
+                                        varList.add(var);
+                                        Out+=((orderNum-1)+":\n");
+                                        Out=Out.replaceAll("ooout",""+(orderNum-1));
 
-                                    Out+=((orderNum-1)+":\n");
-                                    Out=Out.replaceAll("ooout",""+(orderNum-1));
+                                        Var var3=new Var();
+                                        var3.setOrder(orderNum);
+                                        orderNum++;
+                                        varNum++;
+                                        varList.add(var);
 
-                                    Var var3=new Var();
-                                    var3.setOrder(orderNum);
-                                    orderNum++;
-                                    varNum++;
-                                    varList.add(var3);
-                                    Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                        Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
+                                    }
+                                    tag_of_return=0;
                                     flag_of_runs.pop();
                                     System.out.println("return "+word.getWord());
                                     return;
@@ -1441,6 +1448,7 @@ public class Main {
                     return;
                 }
                 else{
+                    tag_of_return=1;
                     scanner.goBack2();
                     word= scanner.scan();
                     word= scanner.scan();
