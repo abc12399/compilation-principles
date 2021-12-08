@@ -1415,12 +1415,12 @@ public class Main {
                     s1+="\n";
                     Out+=s1;
 
-                    Var var1=new Var();
-                    var1.setOrder(orderNum);
-                    orderNum++;
-                    varNum++;
-                    varList.add(var1);
-                    Out+=("\t"+var1.getOrderUse()+" = load i32,i32 * @return\n");
+//                    Var var1=new Var();
+//                    var1.setOrder(orderNum);
+//                    orderNum++;
+//                    varNum++;
+//                    varList.add(var1);
+//                    Out+=("\t"+var1.getOrderUse()+" = load i32,i32 * @return\n");
                  //   System.out.println(Out);
                     if(word.getWord().equals(";")){
                         word= scanner.scan();
