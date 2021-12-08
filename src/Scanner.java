@@ -54,12 +54,21 @@ public class Scanner {
 
     private char ch;
 
+    public int getTemp() {
+        return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
+    }
+
     public void record(){
         recordstack.push(pos);
     }
 
     public void goBackBaseTemp(){
         pos=recordstack.pop();
+        temp=0;
     }
 
     public Scanner(String content) {

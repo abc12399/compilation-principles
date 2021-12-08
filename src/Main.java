@@ -21,6 +21,10 @@ public class Main {
     public int j;
     public String Out;
 
+    public String file;
+
+    public int r_record;
+
 
     public ArrayList<Var> varList;
 
@@ -853,7 +857,7 @@ public class Main {
                             if(present!=-1){
                                 //flag_of_run=1;
                                 flag_of_runs.push(1);
-                                FuncRun(present);
+                                int res=FuncRun(present);
                                 if (flag_of_run.peek()==1){
                                     Var var=new Var();
                                     var.setOrder(orderNum);
@@ -870,7 +874,9 @@ public class Main {
                                     varList.add(var3);
 
                                     Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
-                                    flag_of_run.pop();
+                                    for (int k = 0; k < res; k++) {
+                                        flag_of_run.pop();
+                                    }
                                 }
 
 
@@ -1014,7 +1020,7 @@ public class Main {
                                     System.out.println("start to tun");
                                   //  flag_of_run=1;
                                     flag_of_runs.push(1);
-                                    FuncRun(present);
+                                    int res=FuncRun(present);
 
                                     if(flag_of_run.peek()==1){
                                         Var var=new Var();
@@ -1032,7 +1038,9 @@ public class Main {
                                         varNum++;
                                         varList.add(var3);
                                         Out+=("\t"+var3.getOrderUse()+" = load i32 , i32 * @return\n");
-                                        flag_of_run.pop();
+                                        for (int k = 0; k < res; k++) {
+                                            flag_of_run.pop();
+                                        }
                                     }
 
                                     flag_of_runs.pop();
@@ -1442,6 +1450,7 @@ public class Main {
             if(flag_of_runs.peek()==1){
                 int r=0;
                 flag_of_run.push(1);
+
                 for (int k = varList.size()-1; k>=0; k--) {
                     if (varList.get(k).getWord().equals("returnvalue")) {
                         r = k;
@@ -1551,9 +1560,6 @@ public class Main {
                         block1=Out.substring(temp+store1.length());
                     }
                     //这里要加跳转到Out
-
-
-
                     block1=s1+block1;
                     if(word.getWord().equals("else")){
                         //这里继续
@@ -1625,25 +1631,32 @@ public class Main {
                 gotos+="\n";
 
 
-                if(block1==null){
-                    block1="";
+//                if(block1==null){
+//                    block1="";
+//                    block1+=goout;
+//                }
+//
+//                if (!block1.contains("ret")&&
+//                        (!block1.contains("br label")||
+//                                (block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-10))){
+//                    block1+=goout;
+//                }
+//                if(block2==null){
+//                    block2="";
+//                    block2+=goout;
+//                }
+//                if(!block2.contains("ret")&&
+//                        (!block2.contains("br label")||
+//                                (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-10))){
+//                    block2+=goout;
+//                }
+                if(!block1.contains("br label")||block1.lastIndexOf("br label")<=block1.lastIndexOf(":")){
                     block1+=goout;
+                }
+                if(!block2.contains("br label")||block2.lastIndexOf("br label")<=block2.lastIndexOf(":")){
+                    block2+=goout;
                 }
 
-                if (!block1.contains("ret")&&
-                        (!block1.contains("br label")||
-                                (block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-15))){
-                    block1+=goout;
-                }
-                if(block2==null){
-                    block2="";
-                    block2+=goout;
-                }
-                if(!block2.contains("ret")&&
-                        (!block2.contains("br label")||
-                                (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-15))){
-                    block2+=goout;
-                }
                 if(store1!=null){
                     int declare=Out.indexOf("define dso_local");
                     String declares=Out.substring(0,declare);
@@ -1710,7 +1723,6 @@ public class Main {
                 }
                 else{
                     Cond();
-
                 }
                 //这里得到%cond 改跳转了 br %cond %true
                 String block1 = null,block2=null;
@@ -2748,9 +2760,7 @@ public class Main {
         return -1;
     }
 
-    public void FuncRun(int p){
-
-
+    public int FuncRun(int p){
 
         String funcname=recordFuncArray.get(p).getWord();
         String functype=recordFuncArray.get(p).getType();
@@ -2872,12 +2882,19 @@ public class Main {
                 Block();
 
                 System.out.println("hereeeeee"+word.getWord());
-
+                int end=scanner.getPos();
+                String re_num=file.substring(pos,end);
+                int return_num=0;
+                while(re_num.lastIndexOf("return")!=-1){
+                    int z=re_num.lastIndexOf("return");
+                    return_num++;
+                    re_num=re_num.substring(0,z);
+                }
                 scanner.goBackBaseTemp();
 
                 word= scanner.scan();
                 System.out.println("***********************************"+word.getWord());
-                return;
+                return return_num;
             }
 
             error();
@@ -2886,7 +2903,7 @@ public class Main {
             error();
         }
 
-
+        return 0;
     }
 
     public void FuncDef(){
@@ -3132,6 +3149,7 @@ public class Main {
         Main main=new Main();
         System.out.println(filecontent);
         main.scanner =new Scanner(filecontent);
+        main.file=filecontent;
         main.word= main.scanner.scan();
         main.nowPos=0;
         main.cutPos=0;
@@ -3162,6 +3180,7 @@ public class Main {
         var.setWord("returnvalue");
         var.setOrderUse("@return");
         var.setBlocknum(0);
+        main.r_record=-1;
         main.varNum++;
         main.varList.add(var);
         main.Out+="@return = dso_local global i32 0\n";
