@@ -2879,7 +2879,7 @@ public class Main {
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
-                        var1.setOrderUse("@"+orderNum);
+                        var1.setOrderUse("@x"+orderNum);
                         var1.setBlocknum(blocknum);
                         var1.setWord(w);
                         varList.add(var1);
@@ -2905,7 +2905,7 @@ public class Main {
                         String w=str_temp.get(k);
                         System.out.println(w+"6666666666666666");
                         Var var1=new Var();
-                        var1.setOrderUse("@"+orderNum);
+                        var1.setOrderUse("@x"+orderNum);
                         var1.setWord(w);
                         var1.setBlocknum(blocknum);
                         varList.add(var1) ;
@@ -2928,7 +2928,7 @@ public class Main {
                         array.setWord(w);
                         Var var1=new Var();
                         var1.setWord(w);
-                        var1.setOrderUse("@"+orderNum);
+                        var1.setOrderUse("@x"+orderNum);
                         var1.setBlocknum(blocknum);
                         varList.add(var1);
                         orderNum++;varNum++;
