@@ -968,7 +968,7 @@ define dso_local i32  @main(){
 	br label %692
 692:
 	%693 = load i32 , i32 * @return
-	store i32 %693, i32* %0
+	store i32 %693, i32* %3
 	%694 = load i32, i32* @i
 	%695 = mul i32 %694, 1
 	%696 = getelementptr [10000 x i32], [10000 x i32]* @get2, i32 0, i32 0
@@ -978,7 +978,7 @@ define dso_local i32  @main(){
 	br i1 %699,label %700, label %704
 
 700:	%701 = load i32, i32* %612
-	%702 = load i32, i32* %0
+	%702 = load i32, i32* %3
 	%703 = add i32 %701, %702
 	store i32 %703, i32* %623
 	br label %705
@@ -994,7 +994,7 @@ define dso_local i32  @main(){
 	%711 =  icmp eq i32 %710, 45
 	br i1 %711,label %712, label %716
 
-712:	%713 = load i32, i32* %0
+712:	%713 = load i32, i32* %3
 	%714 = load i32, i32* %612
 	%715 = sub i32 %713, %714
 	store i32 %715, i32* %623
@@ -1012,7 +1012,7 @@ define dso_local i32  @main(){
 	br i1 %723,label %724, label %728
 
 724:	%725 = load i32, i32* %612
-	%726 = load i32, i32* %0
+	%726 = load i32, i32* %3
 	%727 = mul i32 %725, %726
 	store i32 %727, i32* %623
 	br label %729
@@ -1028,7 +1028,7 @@ define dso_local i32  @main(){
 	%735 =  icmp eq i32 %734, 47
 	br i1 %735,label %736, label %740
 
-736:	%737 = load i32, i32* %0
+736:	%737 = load i32, i32* %3
 	%738 = load i32, i32* %612
 	%739 = sdiv i32 %737, %738
 	store i32 %739, i32* %623
@@ -1045,7 +1045,7 @@ define dso_local i32  @main(){
 	%747 =  icmp eq i32 %746, 37
 	br i1 %747,label %748, label %752
 
-748:	%749 = load i32, i32* %0
+748:	%749 = load i32, i32* %3
 	%750 = load i32, i32* %612
 	%751 = srem i32 %749, %750
 	store i32 %751, i32* %623
@@ -1062,7 +1062,7 @@ define dso_local i32  @main(){
 	%759 =  icmp eq i32 %758, 94
 	br i1 %759,label %760, label %778
 
-760:	%761 = load i32, i32* %0
+760:	%761 = load i32, i32* %3
 	%762 = load i32, i32* %612
 	%763 = alloca i32
 	store i32 %761, i32* %763
