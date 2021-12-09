@@ -25,6 +25,7 @@ public class Main {
 
     public int r_record;
 
+    public Stack<Integer> tag_while=new Stack<>();
 
     public ArrayList<Var> varList;
 
@@ -234,7 +235,7 @@ public class Main {
         return -1;
     }
     public void Lval(){
-        if (!search(word.getWord())){
+        if (!search(word.getWord())&&tag_while.peek()!=1){
             error();
         }
         else {
@@ -1444,6 +1445,7 @@ public class Main {
     public void Cond(){
         LorExp();
     }
+
     public void Stmt(){
         if(word.getWord().equals("return")){
 
@@ -1687,7 +1689,29 @@ public class Main {
         }
         else if(word.getWord().equals("while")){
             int tag=0;
-            word= scanner.scan();
+            scanner.record1();
+            int def_num=0;
+
+            while (true){
+                word= scanner.scan();
+                if(word.getWord().equals("{")){
+                    def_num++;
+                }
+                if(word.getWord().equals("}")){
+                    def_num--;
+                }
+                if(word.getWord().equals("int")){
+                    VarDecl();
+                }
+                if(def_num==0){
+                    break;
+                }
+            }
+
+            scanner.goBackFromWhile();
+            word=scanner.scan();
+            System.out.println(word.getWord()+"");
+          //  word= scanner.scan();
             if(word.getWord().equals("(")){
                 int skiptowhile=orderNum;
                 Out+="\tbr label %"+skiptowhile+"\n";
@@ -1732,7 +1756,10 @@ public class Main {
                 //br i1 label t01 label to2
                 from=orderNum-1;
                 if(word.getWord().equals(")")){
+
                     store1=Out;
+
+
                     word= scanner.scan();
                     String s1="\n";
                     Var wvar=new Var();
@@ -1750,8 +1777,10 @@ public class Main {
                     if(word.getWord().equals("break")){
                         tag=2;
                     }
-                    Stmt();
 
+                    tag_while.push(1);
+                    Stmt();
+                    tag_while.pop();
 
                     continueStack.pop();
                     int temp=Out.indexOf(store1);
@@ -1820,15 +1849,18 @@ public class Main {
             Out+=s1;
         }
         else if(word.getType().equals("Ident")){
+            System.out.println(word.getWord());
             word= scanner.scan();
             if(word.getWord().equals("=")){
                 scanner.goBack2();
                 word= scanner.scan();
 
-                if(!search(word.getWord())){
+                if(!search(word.getWord())&&tag_while.peek()!=1){
                     error();
                 }
                 else {
+                    System.out.println();
+
                     Lval();
                     int waiting=Varpos;
                     if(varList.get(waiting).getType().equals("Const")){
@@ -1859,6 +1891,10 @@ public class Main {
 
                 }
 
+            }
+            else if(word.getWord().equals(";")&&tag_while.peek()==1){
+                word=scanner.scan();
+                return;
             }
             else if(word.getWord().equals("[")){
                 scanner.goBack2();
@@ -2617,16 +2653,26 @@ public class Main {
             VarDecl();
         }
     }
+
     public void BlockItem(){
         if(word.getWord().equals("const")||word.getWord().equals("int")){
-            Decl();
+            System.out.println(word.getWord());
+            System.out.println(tag_while.peek());
+            if(tag_while.peek()==1){
+                word=scanner.scan();
+                System.out.println(word.getWord());
+                Stmt();
+            }
+            else {
+                Decl();
+            }
+
         }
         else{
             Stmt();
         }
         return;
     }
-
     public void Block(){
 
         if (word.getWord().equals("{")){
@@ -3110,10 +3156,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
@@ -3172,6 +3218,7 @@ public class Main {
         main.paramList=new ArrayList<>();
         main.recordFuncMap=new HashMap<>();
         main.pass_Array=new ArrayList<>();
+        main.tag_while.push(0);
         main.i=0;main.j=0;
 
         main.flag_of_runs.push(0);

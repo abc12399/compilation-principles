@@ -18,6 +18,8 @@ public class Scanner {
 
     private Stack<Integer> recordstack=new Stack<>();
 
+    private Stack<Integer> record1Stack=new Stack<>();
+
     public int getFlag() {
         return flag;
     }
@@ -46,6 +48,8 @@ public class Scanner {
 
     private int before3;
 
+    private int temp1;
+
     private int temp;
 
     private char[] token=new char[100000];
@@ -60,6 +64,15 @@ public class Scanner {
 
     public void setTemp(int temp) {
         this.temp = temp;
+    }
+
+    public void record1(){
+        record1Stack.push(pos);
+    }
+
+    public void goBackFromWhile(){
+        pos=record1Stack.pop();
+        temp=0;
     }
 
     public void record(){
