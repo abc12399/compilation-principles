@@ -2879,12 +2879,12 @@ public class Main {
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
-                        var1.setOrder(orderNum);
+                        var1.setOrderUse("@"+orderNum);
                         var1.setBlocknum(blocknum);
                         var1.setWord(w);
                         varList.add(var1);
-                        orderNum++;varNum++;
-                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
+                        varNum++;
+                        Out=(var1.getOrderUse()+" = dso_local global i32 0\n")+Out;
                         funcValStart+=("\tstore i32* "+varList.get(pass_Array.get(k)).getOrderUse()+", i32* * "+var1.getOrderUse()+"\n");
 
                         Var var2=new Var();
@@ -2905,12 +2905,13 @@ public class Main {
                         String w=str_temp.get(k);
                         System.out.println(w+"6666666666666666");
                         Var var1=new Var();
-                        var1.setOrder(orderNum);
+                        var1.setOrderUse("@"+orderNum);
                         var1.setWord(w);
                         var1.setBlocknum(blocknum);
-                        varList.add(var1);
-                        orderNum++;varNum++;
-                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
+                        varList.add(var1) ;
+                        varNum++;
+                        //funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32\n");
+                        Out=(var1.getOrderUse()+" = dso_local global i32 0\n")+Out;
                         if(varList.get(pass_Array.get(k)).getType().equals("value")){
                             funcValStart+=("\tstore i32 "+varList.get(pass_Array.get(k)).getValue()+", i32* "+var1.getOrderUse()+"\n");
                         }
@@ -2927,11 +2928,11 @@ public class Main {
                         array.setWord(w);
                         Var var1=new Var();
                         var1.setWord(w);
-                        var1.setOrder(orderNum);
+                        var1.setOrderUse("@"+orderNum);
                         var1.setBlocknum(blocknum);
                         varList.add(var1);
                         orderNum++;varNum++;
-                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
+                        Out=(var1.getOrderUse()+" = dso_local global i32 0\n")+Out;
                         funcValStart+=("\tstore i32* "+varList.get(pass_Array.get(k)).getOrderUse()+", i32* * "+var1.getOrderUse()+"\n");
 
                         Var var2=new Var();
