@@ -1557,7 +1557,7 @@ public class Main {
                     //这里继续生成%cond+1块 定义 from to1 to2 out
                     Stmt();
                     int temp=Out.indexOf(store1);
-                    if(temp==0){
+                    if(temp<=0){
                         block1=Out.substring(store1.length());
                     }
                     else {
@@ -1583,8 +1583,8 @@ public class Main {
                         //加跳转
 
                         temp=Out.indexOf(store2);
-                        if(temp==0){
-                            block2=Out.substring(store2.length()+1);
+                        if(temp<=0){
+                            block2=Out.substring(store2.length());
                         }
                         else {
                             block2=Out.substring(temp+store2.length());
@@ -1762,7 +1762,7 @@ public class Main {
                 //br i1 label t01 label to2
                 from=orderNum-1;
                 if(word.getWord().equals(")")){
-                    Out+="\n";
+
                     store1=Out;
                     word= scanner.scan();
                     String s1="\n";
@@ -1788,15 +1788,15 @@ public class Main {
 
                     continueStack.pop();
                     int temp=Out.indexOf(store1);
-                    if(temp==0){
+                    if(temp<=0){
                         block1=Out.substring(store1.length());
                     }
                     else {
-                        block1=Out.substring(temp+store1.length()+2);
-                        store1=Out.substring(0,temp+store1.length()+2);
+                        block1=Out.substring(temp+store1.length());
+                        store1=Out.substring(0,temp+store1.length());
                     }
                     //这里要加跳转到Out
-                    block1=s1+block1;
+                    block1=s1+"\n"+block1;
 
                     while(block1.indexOf("break")!=-1){
                         int pos=block1.indexOf("break");
@@ -1830,7 +1830,7 @@ public class Main {
                     block1+=goToWhile;
                 }
                 Out=store1+gotos+block1+varout.getOrder()+":\n";
-
+                Out=Out.replaceAll("false",varout.getOrderUse());
             }
 
         }
@@ -2996,7 +2996,6 @@ public class Main {
     }
 
     public void FuncDef(){
-
         Func func=new Func();
         func.setPos(scanner.getPos());
         cutPos=Out.length();
