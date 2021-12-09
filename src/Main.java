@@ -2015,7 +2015,7 @@ public class Main {
             }
         }
         if(tag_while.peek()==1){
-            for (int i = varList.size()-1; i>=mainp; i--) {
+            for (int i = varList.size()-1; i>=0; i--) {
                 if(str.equals(varList.get(i).getWord())){
                     Varpos=i;
                     return true;
