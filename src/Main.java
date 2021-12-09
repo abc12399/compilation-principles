@@ -1696,9 +1696,11 @@ public class Main {
                 word= scanner.scan();
                 if(word.getWord().equals("{")){
                     def_num++;
+                    blocknum++;
                 }
                 if(word.getWord().equals("}")){
                     def_num--;
+                    blocknum--;
                 }
                 if(word.getWord().equals("int")){
                     VarDecl();
@@ -2007,7 +2009,7 @@ public class Main {
             }
         }
         if(tag_while.peek()==1){
-            for (int i = 0; i<=varList.size()-1; i++) {
+            for (int i = varList.size()-1; i>=0; i--) {
                 if(str.equals(varList.get(i).getWord())){
                     Varpos=i;
                     return true;
@@ -3099,6 +3101,7 @@ public class Main {
                 var=new Var();
                 var.setWord("null");
                 var.setOrder(orderNum);
+                var.setOrderUse("@null");
                 varList.add(var);
                 orderNum++;
                 varNum++;
