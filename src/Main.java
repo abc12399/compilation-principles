@@ -2278,6 +2278,7 @@ public class Main {
                         s1+=varList.get(varNum-1).getOrderUse();
                     }
                     s1+=", i32* ";
+
                     s1+=varList.get(waiting).getOrderUse();
                     s1+="\n";
                     Out+=s1;

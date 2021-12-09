@@ -13,6 +13,15 @@ int isdigit(int x) {
     return 0;
 }
 
+int power(int b, int a) {
+    int result = 1;
+    while (a != 0) {
+        result = result * b;
+        a = a - 1;
+    }
+    return result;
+}
+
 int getstr(int get[]) {
     int x = getch();
     int length = 0;
@@ -132,7 +141,6 @@ int main()
         }
         i = i + 1;
     }
-
     while(chat > 0)
     {
         int c = chapop();
@@ -142,7 +150,6 @@ int main()
     }
     get2[ii]= 64;
     i = 1;
-
     while (get2[i] != 64)
     {
         if (get2[i] == 43 || get2[i] == 45 || get2[i] == 42 || get2[i] == 47 || get2[i] == 37 || get2[i] == 94)
