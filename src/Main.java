@@ -1631,31 +1631,32 @@ public class Main {
                 gotos+="\n";
 
 
-//                if(block1==null){
-//                    block1="";
-//                    block1+=goout;
-//                }
-//
-//                if (!block1.contains("ret")&&
-//                        (!block1.contains("br label")||
-//                                (block1.contains("br label")&&block1.lastIndexOf("br label")<block1.length()-10))){
-//                    block1+=goout;
-//                }
-//                if(block2==null){
-//                    block2="";
-//                    block2+=goout;
-//                }
-//                if(!block2.contains("ret")&&
-//                        (!block2.contains("br label")||
-//                                (block2.contains("br label")&& block2.lastIndexOf("br label")<block2.length()-10))){
-//                    block2+=goout;
-//                }
-                if(!block1.contains("br label")||block1.lastIndexOf("br label")<=block1.lastIndexOf(":")){
+                if(block1==null){
+                    block1="";
                     block1+=goout;
                 }
-                if(!block2.contains("br label")||block2.lastIndexOf("br label")<=block2.lastIndexOf(":")){
+
+                if (!block1.contains("ret")&&
+                        (!block1.contains("br label")||
+                                (block1.contains("br label")&&block1.lastIndexOf("br label")<=block1.lastIndexOf(":")))){
+                    block1+=goout;
+                }
+                if(block2==null){
+                    block2="";
                     block2+=goout;
                 }
+                if(!block2.contains("ret")&&
+                        (!block2.contains("br label")||
+                                (block2.contains("br label")&& block2.lastIndexOf("br label")<=block2.lastIndexOf(":")))){
+                    block2+=goout;
+                }
+
+//                if(!block1.contains("br label")||block1.lastIndexOf("br label")<=block1.lastIndexOf(":")){
+//                    block1+=goout;
+//                }
+//                if(!block2.contains("br label")||block2.lastIndexOf("br label")<=block2.lastIndexOf(":")){
+//                    block2+=goout;
+//                }
 
                 if(store1!=null){
                     int declare=Out.indexOf("define dso_local");
