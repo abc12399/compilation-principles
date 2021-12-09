@@ -2007,7 +2007,7 @@ public class Main {
             }
         }
         if(tag_while.peek()==1){
-            for (int i = varList.size()-1; i>=0; i--) {
+            for (int i = 0; i<=varList.size()-1; i++) {
                 if(str.equals(varList.get(i).getWord())){
                     Varpos=i;
                     return true;
@@ -2227,7 +2227,7 @@ public class Main {
                 else{
 
                     Var var=new Var();
-                    var.setWord(u);
+                    var.setWord(str);
                     var.setBlocknum(blocknum);
                     var.setOrder(orderNum);
 
@@ -2250,11 +2250,11 @@ public class Main {
                 word= scanner.scan();
                 if(!search(u)){
                     System.out.println(u+"/////////////");
-                    waiting=Varpos;
+
                     error();
                 }
 
-
+                waiting=Varpos;
                 InitVal();
                 //这里 定义 int a=1; 把1 存储在a中
                 if(arrtag==0){
@@ -3181,10 +3181,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
