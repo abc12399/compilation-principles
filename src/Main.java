@@ -2693,6 +2693,14 @@ public class Main {
             System.out.println(tag_while.peek());
             if(tag_while.peek()==1){
                 word=scanner.scan();
+                if(!search(word.getWord())){
+                    Var var=new Var();
+                    var.setWord(word.getWord());
+                    var.setOrderUse("@x"+varNum);
+                    varNum++;
+                    varList.add(var);
+                    Out=(var.getOrderUse()+" = = dso_local global i32 0\n")+Out;
+                }
                 System.out.println(word.getWord());
                 Stmt();
             }
