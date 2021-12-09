@@ -1380,21 +1380,21 @@ public class Main {
         // 这里如果是false直接就去else或者外边了
 
         while (word.getWord().equals("&&")){
-            String s="\t";
-            Var var=new Var();
-            var.setOrder(orderNum);
-            orderNum++;
-            varNum++;
-            varList.add(var);
-            s+=("br i1 %"+(orderNum-2)+", label %"+(orderNum-1)+", label false\n");
-            s+=(orderNum-1);
-            s+=":\n";
-            Out+=s;
+//            String s="\t";
+//            Var var=new Var();
+//            var.setOrder(orderNum);
+//            orderNum++;
+//            varNum++;
+//            varList.add(var);
+//            s+=("br i1 %"+(orderNum-2)+", label %"+(orderNum-1)+", label false\n");
+//            s+=(orderNum-1);
+//            s+=":\n";
+//            Out+=s;
             int andnum=varNum-1;
             word= scanner.scan();
             EqExp();
             judge();
-        //    fillIn(" =  and i1 ",andnum);
+            fillIn(" =  and i1 ",andnum);
         }
     }
     public void judge(){
@@ -1426,22 +1426,22 @@ public class Main {
         judge();
         while(word.getWord().equals("||")){
 
-            Out=Out.replaceAll("false",("%"+orderNum));
-            String s="\t";
-            Var var=new Var();
-            var.setOrder(orderNum);
-            orderNum++;
-            varNum++;
-            varList.add(var);
-            s+=("br i1 %"+(orderNum-2)+", label true"+", label %"+(orderNum-1)+"\n");
-            s+=(orderNum-1);
-            s+=":\n";
-            Out+=s;
+//            Out=Out.replaceAll("false",("%"+orderNum));
+//            String s="\t";
+//            Var var=new Var();
+//            var.setOrder(orderNum);
+//            orderNum++;
+//            varNum++;
+//            varList.add(var);
+//            s+=("br i1 %"+(orderNum-2)+", label true"+", label %"+(orderNum-1)+"\n");
+//            s+=(orderNum-1);
+//            s+=":\n";
+//            Out+=s;
             int ornum=varNum-1;
             word= scanner.scan();
             LAndExp();
             judge();
-           // fillIn(" =  or i1 ",ornum);
+            fillIn(" =  or i1 ",ornum);
         }
     }
     public void Cond(){
