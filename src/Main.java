@@ -1636,18 +1636,18 @@ public class Main {
                     block1+=goout;
                 }
 
-                if (!block1.contains("ret")&&
+                if (!block1.contains("ret ")&&
                         (!block1.contains("br label")||
-                                (block1.contains("br label")&&block1.lastIndexOf("br label")<=block1.lastIndexOf(":")))){
+                                (block1.lastIndexOf("br label")<=block1.lastIndexOf(":")))){
                     block1+=goout;
                 }
                 if(block2==null){
                     block2="";
                     block2+=goout;
                 }
-                if(!block2.contains("ret")&&
+                if(!block2.contains("ret ")&&
                         (!block2.contains("br label")||
-                                (block2.contains("br label")&& block2.lastIndexOf("br label")<=block2.lastIndexOf(":")))){
+                                (block2.lastIndexOf("br label")<=block2.lastIndexOf(":")))){
                     block2+=goout;
                 }
 
