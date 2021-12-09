@@ -104,6 +104,38 @@ int main()
                 }
                 chapush(43);
             }
+            if (get[i] == 45)
+            {
+                while (chas[chat] == 43 || chas[chat] == 45 ||chas[chat] == 42 || chas[chat] == 47 || chas[chat] == 37 || chas[chat] == 94)
+                {
+                    if(find()==0)break;
+                }
+                chapush(45);
+            }
+            if(get[i] == 42)
+            {
+                while (chas[chat] == 42 || chas[chat] == 47 ||chas[chat] == 37 || chas[chat] == 94)
+                {
+                    if (find()==0)break;
+                }
+                chapush(42);
+            }
+            if (get[i] == 47)
+            {
+                while (chas[chat] == 42 || chas[chat] == 47 || chas[chat] == 37 || chas[chat] == 94)
+                {
+                    if (find()==0)break;
+                }
+                chapush(47);
+            }
+            if (get[i] == 37)
+            {
+                while (chas[chat] == 42 || chas[chat] == 47 || chas[chat] == 37 || chas[chat] == 94)
+                {
+                    if (find()==0)break;
+                }
+                chapush(37);
+            }
             get2[ii] = 32;
             ii = ii + 1;
         }

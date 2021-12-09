@@ -1714,6 +1714,7 @@ public class Main {
                 }
                 if(word.getWord().equals("int")){
                     VarDecl();
+                    scanner.goBack();
                 }
             }
 
@@ -2249,7 +2250,6 @@ public class Main {
 
                 }
                 else{
-
                     Var var=new Var();
                     var.setWord(str);
                     var.setBlocknum(blocknum);
@@ -3058,7 +3058,7 @@ public class Main {
         Ident();
         int t=varNum-1;
         if(word.getWord().equals("(")){
-            blocknum++;
+           // blocknum++;
             word= scanner.scan();
             if(!word.getWord().equals(")")){
                 blocknum++;
