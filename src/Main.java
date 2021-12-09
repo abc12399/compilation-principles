@@ -1556,7 +1556,10 @@ public class Main {
                     s1+=":";
                     //这里继续生成%cond+1块 定义 from to1 to2 out
                     Stmt();
-                    int temp=Out.indexOf(store1);
+                    int b=store1.indexOf("\n");
+                    String test=store1.substring(0,b);
+
+                    int temp=Out.indexOf(test);
                     if(temp<=0){
                         block1=Out.substring(store1.length());
                     }
@@ -1787,6 +1790,9 @@ public class Main {
                     tag_while.pop();
 
                     continueStack.pop();
+
+
+
                     int temp=Out.indexOf(store1);
                     if(temp<=0){
                         block1=Out.substring(store1.length());
@@ -3200,10 +3206,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
