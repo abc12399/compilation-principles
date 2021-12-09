@@ -72,7 +72,7 @@ public class Scanner {
 
     public void goBackFromWhile(){
         pos=record1Stack.pop();
-        temp=0;
+
     }
 
     public void record(){
@@ -81,7 +81,7 @@ public class Scanner {
 
     public void goBackBaseTemp(){
         pos=recordstack.pop();
-        temp=0;
+
     }
 
     public Scanner(String content) {

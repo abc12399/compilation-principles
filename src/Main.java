@@ -25,6 +25,8 @@ public class Main {
 
     public int r_record;
 
+    public int mainp;
+
     public Stack<Integer> tag_while=new Stack<>();
 
     public ArrayList<Var> varList;
@@ -1691,8 +1693,13 @@ public class Main {
             int tag=0;
             scanner.record1();
             int def_num=0;
-
-            while (true){
+            while (!word.getWord().equals("{")){
+                word=scanner.scan();
+            }
+            def_num++;
+            blocknum++;
+           // word=scanner.scan();
+            while (def_num!=0){
                 word= scanner.scan();
                 if(word.getWord().equals("{")){
                     def_num++;
@@ -1704,9 +1711,6 @@ public class Main {
                 }
                 if(word.getWord().equals("int")){
                     VarDecl();
-                }
-                if(def_num==0){
-                    break;
                 }
             }
 
@@ -1871,7 +1875,7 @@ public class Main {
 
                         for (int k = 0; k < varList.size(); k++) {
                             if(varList.get(k).getWord().equals("a")){
-                                System.out.println("???????"+k+varList.get(k).getBlocknum()+"   "+blocknum);
+                                System.out.println("???????"+varList.get(k).getOrderUse()+"/////"+k+varList.get(k).getBlocknum()+"   "+blocknum);
                             }
                         }
                         error();
@@ -1894,6 +1898,8 @@ public class Main {
                             s1+=varList.get(varNum-1).getOrderUse();
                         }
                         s1+=", i32* ";
+                        search(str_e);
+                        waiting=Varpos;
                         s1+=varList.get(waiting).getOrderUse();
                         s1+="\n";
                         Out+=s1;
@@ -2009,7 +2015,7 @@ public class Main {
             }
         }
         if(tag_while.peek()==1){
-            for (int i = varList.size()-1; i>=0; i--) {
+            for (int i = mainp; i<=varList.size()-1; i++) {
                 if(str.equals(varList.get(i).getWord())){
                     Varpos=i;
                     return true;
@@ -2868,6 +2874,8 @@ public class Main {
                     if(varList.get(t).getParamList().get(k)==1){
                        // int x=searchOrder();
                         String w=str_temp.get(k);
+                        System.out.println(w+"===========================================");
+                        System.out.println(orderNum);
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
@@ -2914,7 +2922,7 @@ public class Main {
                     else{
                         int x=searchOrder(varList.get(pass_Array.get(k)).getOrder());
                         String w=str_temp.get(k);
-
+                        System.out.println(w+"===========================================");
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
@@ -2991,7 +2999,9 @@ public class Main {
         FuncType();
         String funcname=word.getWord();
         func.setWord(funcname);
-
+        if(funcname=="main"){
+            mainp=varList.size()-1;
+        }
         funcList.add(funcname);
         if(functype.equals("int")){
             Out+="i32  ";

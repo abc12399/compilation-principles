@@ -141,6 +141,7 @@ int main()
         }
         i = i + 1;
     }
+
     while(chat > 0)
     {
         int c = chapop();
@@ -150,6 +151,7 @@ int main()
     }
     get2[ii]= 64;
     i = 1;
+
     while (get2[i] != 64)
     {
         if (get2[i] == 43 || get2[i] == 45 || get2[i] == 42 || get2[i] == 47 || get2[i] == 37 || get2[i] == 94)
