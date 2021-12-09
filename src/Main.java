@@ -2020,10 +2020,22 @@ public class Main {
         }
         if(tag_while.peek()==1){
             for (int i = varList.size()-1; i>=0; i--) {
+                if(varList.get(i).getWord().contains("@")){
+                    if(str.equals(varList.get(i).getWord())){
+
+                        Varpos=i;
+                        return true;
+                    }
+                }
+            }
+            for (int i = varList.size()-1; i>=0; i--) {
+
                 if(str.equals(varList.get(i).getWord())){
+
                     Varpos=i;
                     return true;
                 }
+
             }
         }
         return false;
@@ -2900,7 +2912,7 @@ public class Main {
                         array.setWord(w);
                         Var var1=new Var();
                         var1.setOrder(orderNum);
-                        var1.setBlocknum(blocknum);
+                        var1.setBlocknum(blocknum+1);
                         var1.setWord(w);
                         varList.add(var1);
                         varNum++;orderNum++;
@@ -2909,7 +2921,7 @@ public class Main {
 
                         Var var2=new Var();
                         var2.setOrder(orderNum);
-                        var2.setBlocknum(blocknum);
+                        var2.setBlocknum(blocknum+1);
                         varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse()+"\n");
@@ -2917,7 +2929,7 @@ public class Main {
                         array.setFlag(1);
                         array.setDimension(1);
                         array.setY(1);
-                        array.setBlocknum(blocknum);
+                        array.setBlocknum(blocknum+1);
                         arrays.add(array);
                     }
                     else if(varList.get(t).getParamList().get(k)==2){
@@ -2949,7 +2961,7 @@ public class Main {
                         Var var1=new Var();
                         var1.setWord(w);
                         var1.setOrder(orderNum);
-                        var1.setBlocknum(blocknum);
+                        var1.setBlocknum(blocknum+1);
                         varList.add(var1);
                         varNum++;orderNum++;
                         funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
@@ -2957,7 +2969,7 @@ public class Main {
 
                         Var var2=new Var();
                         var2.setOrder(orderNum);
-                        var2.setBlocknum(blocknum);
+                        var2.setBlocknum(blocknum+1);
                         varList.add(var2);
                         orderNum++;varNum++;
                         funcValStart+=("\t"+var2.getOrderUse()+" = load i32* , i32* * "+var1.getOrderUse());
@@ -2965,7 +2977,7 @@ public class Main {
                         array.setFlag(1);
                         array.setDimension(2);
                         array.setY(pass);
-                        array.setBlocknum(blocknum);
+                        array.setBlocknum(blocknum+1);
                         arrays.add(array);
                     }
                 }
