@@ -2879,12 +2879,12 @@ public class Main {
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
-                        var1.setOrderUse("@x"+varNum);
+                        var1.setOrder(orderNum);
                         var1.setBlocknum(blocknum);
                         var1.setWord(w);
                         varList.add(var1);
-                        varNum++;
-                        Out=(var1.getOrderUse()+" = dso_local global i32 0\n")+Out;
+                        varNum++;orderNum++;
+                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
                         funcValStart+=("\tstore i32* "+varList.get(pass_Array.get(k)).getOrderUse()+", i32* * "+var1.getOrderUse()+"\n");
 
                         Var var2=new Var();
@@ -2928,11 +2928,11 @@ public class Main {
                         array.setWord(w);
                         Var var1=new Var();
                         var1.setWord(w);
-                        var1.setOrderUse("@x"+varNum);
+                        var1.setOrder(orderNum);
                         var1.setBlocknum(blocknum);
                         varList.add(var1);
-                        varNum++;
-                        Out=(var1.getOrderUse()+" = dso_local global i32 0\n")+Out;
+                        varNum++;orderNum++;
+                        funcValStart+=("\t"+var1.getOrderUse()+" = alloca i32*\n");
                         funcValStart+=("\tstore i32* "+varList.get(pass_Array.get(k)).getOrderUse()+", i32* * "+var1.getOrderUse()+"\n");
 
                         Var var2=new Var();
