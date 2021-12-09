@@ -2265,7 +2265,13 @@ public class Main {
 
                     error();
                 }
-
+                search(u);
+                System.out.println(u);
+                System.out.println(waiting);
+                System.out.println();
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" +
+                        "++++++++++++++++++++++++++++++++++++++++++++++++++" +
+                        "++++++++++++++++++++++++++++++++++++++++++");
                 waiting=Varpos;
                 InitVal();
                 //这里 定义 int a=1; 把1 存储在a中
@@ -2278,7 +2284,8 @@ public class Main {
                         s1+=varList.get(varNum-1).getOrderUse();
                     }
                     s1+=", i32* ";
-
+                    search(u);
+                    waiting=Varpos;
                     s1+=varList.get(waiting).getOrderUse();
                     s1+="\n";
                     Out+=s1;
