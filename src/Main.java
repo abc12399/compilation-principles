@@ -1987,10 +1987,17 @@ public class Main {
     public boolean search(String str){
         for (int i = varList.size()-1; i>=0; i--) {
             if(str.equals(varList.get(i).getWord())){
-                if(varList.get(i).getBlocknum()<=blocknum){
+                if(tag_while.peek()==1){
                     Varpos=i;
                     return true;
                 }
+                else {
+                    if(varList.get(i).getBlocknum()<=blocknum){
+                        Varpos=i;
+                        return true;
+                    }
+                }
+
 
             }
         }
@@ -2122,6 +2129,7 @@ public class Main {
     }
     public void VarDef(){
         if(check==1){
+            String u=word.getWord();
             if((!search(word.getWord())||varList.get(Varpos).getBlocknum()<blocknum)&&word.getType().equals("Ident")){
                 String str=word.getWord();
                 word= scanner.scan();
@@ -2229,6 +2237,7 @@ public class Main {
             }
             if(word.getWord().equals("=")){
                 word= scanner.scan();
+                search(u);
                 waiting=Varpos;
                 InitVal();
                 //这里 定义 int a=1; 把1 存储在a中
