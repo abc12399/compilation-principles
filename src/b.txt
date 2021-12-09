@@ -22,9 +22,9 @@ define dso_local i32  @main(){
 	%5 = load i32* , i32* * %4
 	%6 = alloca i32
 	%7 = call i32 @getch()
-	store i32 %7, i32* %6
+	store i32 %7, i32* @ii
 	%8 = alloca i32
-	store i32 0, i32* %8
+	store i32 0, i32* @ii
 	br label %9
 9:
 	%10 = load i32, i32* %6
@@ -52,7 +52,7 @@ define dso_local i32  @main(){
 	br label %25
 25:
 	%26 = load i32 , i32 * @return
-	store i32 %26, i32* %8
+	store i32 %26, i32* @ii
 	br label %27
 27:
 	%28 = load i32, i32* @i

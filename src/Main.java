@@ -1849,19 +1849,32 @@ public class Main {
             Out+=s1;
         }
         else if(word.getType().equals("Ident")){
-            System.out.println(word.getWord());
+          //  System.out.println(word.getWord());
+            String str_e=word.getWord();
+
             word= scanner.scan();
             if(word.getWord().equals("=")){
-                scanner.goBack2();
-                word= scanner.scan();
+//                scanner.goBack2();
+//                word= scanner.scan();
 
-                if(!search(word.getWord())&&tag_while.peek()!=1){
+                if(!search(str_e)&&tag_while.peek()!=1){
                     error();
                 }
                 else {
                     System.out.println();
 
-                    Lval();
+                    //Lval();
+                    if(!search(str_e)){
+                        System.out.println(str_e);
+
+                        for (int k = 0; k < varList.size(); k++) {
+                            if(varList.get(k).getWord().equals("a")){
+                                System.out.println("???????"+k+varList.get(k).getBlocknum()+"   "+blocknum);
+                            }
+                        }
+                        error();
+                    }
+
                     int waiting=Varpos;
                     if(varList.get(waiting).getType().equals("Const")){
                         error();
@@ -1987,18 +2000,18 @@ public class Main {
     public boolean search(String str){
         for (int i = varList.size()-1; i>=0; i--) {
             if(str.equals(varList.get(i).getWord())){
-                if(tag_while.peek()==1){
+                if(varList.get(i).getBlocknum()<=blocknum){
                     Varpos=i;
                     return true;
                 }
-                else {
-                    if(varList.get(i).getBlocknum()<=blocknum){
-                        Varpos=i;
-                        return true;
-                    }
+            }
+        }
+        if(tag_while.peek()==1){
+            for (int i = varList.size()-1; i>=0; i--) {
+                if(str.equals(varList.get(i).getWord())){
+                    Varpos=i;
+                    return true;
                 }
-
-
             }
         }
         return false;
@@ -2212,11 +2225,9 @@ public class Main {
 
                 }
                 else{
-                    scanner.goBack2();
-                    word=scanner.scan();
 
                     Var var=new Var();
-                    var.setWord(word.getWord());
+                    var.setWord(u);
                     var.setBlocknum(blocknum);
                     var.setOrder(orderNum);
 
@@ -2224,7 +2235,7 @@ public class Main {
                     Varpos=varNum;
                     varNum++;
                     orderNum++;
-                    Ident();
+                   // Ident();
                     String s="\t";
                     s+=var.getOrderUse();
 
@@ -2237,8 +2248,13 @@ public class Main {
             }
             if(word.getWord().equals("=")){
                 word= scanner.scan();
-                search(u);
-                waiting=Varpos;
+                if(!search(u)){
+                    System.out.println(u+"/////////////");
+                    waiting=Varpos;
+                    error();
+                }
+
+
                 InitVal();
                 //这里 定义 int a=1; 把1 存储在a中
                 if(arrtag==0){
