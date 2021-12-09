@@ -1762,10 +1762,8 @@ public class Main {
                 //br i1 label t01 label to2
                 from=orderNum-1;
                 if(word.getWord().equals(")")){
-
+                    Out+="\n";
                     store1=Out;
-
-
                     word= scanner.scan();
                     String s1="\n";
                     Var wvar=new Var();
@@ -1794,8 +1792,8 @@ public class Main {
                         block1=Out.substring(store1.length());
                     }
                     else {
-                        block1=Out.substring(temp+store1.length());
-                        store1=Out.substring(0,temp+store1.length());
+                        block1=Out.substring(temp+store1.length()+2);
+                        store1=Out.substring(0,temp+store1.length()+2);
                     }
                     //这里要加跳转到Out
                     block1=s1+block1;
@@ -2696,7 +2694,7 @@ public class Main {
                 if(!search(word.getWord())){
                     Var var=new Var();
                     var.setWord(word.getWord());
-                    var.setOrderUse("@x"+varNum);
+                    var.setOrderUse("@x"+varNum+word.getWord());
                     varNum++;
                     varList.add(var);
                     Out=(var.getOrderUse()+" = = dso_local global i32 0\n")+Out;
@@ -3203,10 +3201,10 @@ public class Main {
         FuncDef();
     }
     public static void main(String[] args) {
-        String path=args[0];
-        String output=args[1];
-//        String path="a.txt";
-//        String output="b.txt";
+//        String path=args[0];
+//        String output=args[1];
+        String path="a.txt";
+        String output="b.txt";
 
         String filecontent="";
 
