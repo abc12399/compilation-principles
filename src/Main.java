@@ -667,16 +667,13 @@ public class Main {
             else{
                 scanner.goBack2();
                 word= scanner.scan();
-                System.out.println("1111111");
-                System.out.println(funcList);
-                System.out.println(word.getWord());
+
                 if(searchFunList(word.getWord())==-1){
                     Ident();
                     if(word.getWord().equals("(")){
                         scanner.goBack2();
                         word= scanner.scan();
                         funcList.add(word.getWord());
-                        System.out.println(funcList);
                         Ident();
                         word= scanner.scan();
                         if(word.getWord().equals(")")){
@@ -1017,11 +1014,9 @@ public class Main {
                                 }
 
                                 pass_Array=waitnum;
-                                System.out.println("passarray"+pass_Array);
 
                                 if(present!=-1){
-                                    System.out.println("start to tun");
-                                  //  flag_of_run=1;
+
                                     flag_of_runs.push(1);
                                     int res=FuncRun(present);
 
@@ -1047,7 +1042,6 @@ public class Main {
                                     }
 
                                     flag_of_runs.pop();
-                                    System.out.println("return "+word.getWord());
                                     return;
                                 }
                                 else{
@@ -1128,8 +1122,6 @@ public class Main {
 
         }
         else{
-            System.out.println("2222");
-            System.out.println(word.getWord());
             PrimaryExp();
         }
 
@@ -1485,13 +1477,7 @@ public class Main {
                     s1+="\n";
                     Out+=s1;
                     Out+="\tbr label %ooout\n";
-//                    Var var1=new Var();
-//                    var1.setOrder(orderNum);
-//                    orderNum++;
-//                    varNum++;
-//                    varList.add(var1);
-//                    Out+=("\t"+var1.getOrderUse()+" = load i32,i32 * @return\n");
-                 //   System.out.println(Out);
+//
                     if(word.getWord().equals(";")){
                         word= scanner.scan();
                         return;
@@ -1720,8 +1706,7 @@ public class Main {
 
             scanner.goBackFromWhile();
             word=scanner.scan();
-            System.out.println(word.getWord()+"");
-          //  word= scanner.scan();
+
             if(word.getWord().equals("(")){
                 int skiptowhile=orderNum;
                 Out+="\tbr label %"+skiptowhile+"\n";
@@ -1872,11 +1857,10 @@ public class Main {
                     error();
                 }
                 else {
-                    System.out.println();
+
 
                     //Lval();
                     if(!search(str_e)){
-                        System.out.println(str_e);
 
                         for (int k = 0; k < varList.size(); k++) {
                             if(varList.get(k).getWord().equals("a")){
@@ -2010,6 +1994,7 @@ public class Main {
             error();
         }
     }
+
     public boolean search(String str){
         for (int i = varList.size()-1; i>=0; i--) {
             if(str.equals(varList.get(i).getWord())){
@@ -2019,28 +2004,9 @@ public class Main {
                 }
             }
         }
-        if(tag_while.peek()==1){
-            for (int i = varList.size()-1; i>=0; i--) {
-                if(varList.get(i).getWord().contains("@")){
-                    if(str.equals(varList.get(i).getWord())){
-
-                        Varpos=i;
-                        return true;
-                    }
-                }
-            }
-            for (int i = varList.size()-1; i>=0; i--) {
-
-                if(str.equals(varList.get(i).getWord())){
-
-                    Varpos=i;
-                    return true;
-                }
-
-            }
-        }
         return false;
     }
+
     public void globalInitVal(){
         if (word.getWord().equals("{")){
             word=scanner.scan();
@@ -2273,17 +2239,10 @@ public class Main {
             if(word.getWord().equals("=")){
                 word= scanner.scan();
                 if(!search(u)){
-                    System.out.println(u+"/////////////");
 
                     error();
                 }
                 search(u);
-                System.out.println(u);
-                System.out.println(waiting);
-                System.out.println();
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" +
-                        "++++++++++++++++++++++++++++++++++++++++++++++++++" +
-                        "++++++++++++++++++++++++++++++++++++++++++");
                 waiting=Varpos;
                 InitVal();
                 //这里 定义 int a=1; 把1 存储在a中
@@ -2713,20 +2672,28 @@ public class Main {
 
     public void BlockItem(){
         if(word.getWord().equals("const")||word.getWord().equals("int")){
-            System.out.println(word.getWord());
-            System.out.println(tag_while.peek());
             if(tag_while.peek()==1){
                 word=scanner.scan();
                 if(!search(word.getWord())){
+                   // error();
                     Var var=new Var();
                     var.setWord(word.getWord());
+                    var.setBlocknum(blocknum);
                     var.setOrderUse("@x"+varNum+word.getWord());
                     varNum++;
                     varList.add(var);
                     Out=(var.getOrderUse()+" = = dso_local global i32 0\n")+Out;
+
+                    Stmt();
                 }
-                System.out.println(word.getWord());
-                Stmt();
+                else{
+                    while (!word.getWord().equals(";")){
+                        word=scanner.scan();
+                    }
+                    //       Stmt();
+                    word=scanner.scan();
+                }
+
             }
             else {
                 Decl();
@@ -2879,15 +2846,12 @@ public class Main {
         int pos=recordFuncArray.get(p).getPos();
 
         scanner.record();
-        System.out.println(word.getWord()+".....................");
         scanner.setPos(pos);
         word= scanner.scan();
-        System.out.println("这里的word是funcname"+word.getWord());
 
 
         Ident();
         int t=varNum-1;
-        System.out.println(word.getWord()+"555555555555555");
         if(word.getWord().equals("(")){
             word= scanner.scan();
             if(!word.getWord().equals(")")){
@@ -2901,13 +2865,10 @@ public class Main {
                 search(funcname);
                 t=Varpos;
                 int l=varList.get(Varpos).getParamList().size();
-                System.out.println(word.getWord()+".............");
                 for (int k = 0; k <l; k++) {
                     if(varList.get(t).getParamList().get(k)==1){
                        // int x=searchOrder();
                         String w=str_temp.get(k);
-                        System.out.println(w+"===========================================");
-                        System.out.println(orderNum);
                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
@@ -2935,7 +2896,6 @@ public class Main {
                     else if(varList.get(t).getParamList().get(k)==2){
                         int x=searchOrder(varList.get(pass_Array.get(k)).getOrder());
                         String w=str_temp.get(k);
-                        System.out.println(w+"6666666666666666");
                         Var var1=new Var();
                         var1.setOrderUse("@x"+varNum);
                         var1.setWord(w);
@@ -2955,8 +2915,7 @@ public class Main {
                     else{
                         int x=searchOrder(varList.get(pass_Array.get(k)).getOrder());
                         String w=str_temp.get(k);
-                        System.out.println(w+"===========================================");
-                        Array array=new Array();
+                         Array array=new Array();
                         array.setWord(w);
                         Var var1=new Var();
                         var1.setWord(w);
@@ -2991,12 +2950,10 @@ public class Main {
                 word= scanner.scan();
             }
             if(word.getWord().equals(")")){
-                System.out.println("7878888888"+word.getWord());
                 word= scanner.scan();
 
                 Block();
 
-                System.out.println("hereeeeee"+word.getWord());
                 int end=scanner.getPos();
                 String re_num=file.substring(pos,end);
                 int return_num=0;
@@ -3008,8 +2965,7 @@ public class Main {
                 scanner.goBackBaseTemp();
 
                 word= scanner.scan();
-                System.out.println("***********************************"+word.getWord());
-                return return_num;
+                 return return_num;
             }
 
             error();
@@ -3051,14 +3007,13 @@ public class Main {
         varNum++;
 
         nowPos=Out.length()+1;
-        System.out.println("nowpos "+nowPos);
+
 
         Out+=("@"+funcname+"(");
 
         Ident();
         int t=varNum-1;
         if(word.getWord().equals("(")){
-           // blocknum++;
             word= scanner.scan();
             if(!word.getWord().equals(")")){
                 blocknum++;
@@ -3167,34 +3122,24 @@ public class Main {
                 String cal=Out;
                 int f_num=0;
                 String f_word="@"+funcname;
-                System.out.println(f_word);
+
                 while(cal.lastIndexOf(f_word)!=-1){
 
                     int uu=cal.lastIndexOf(f_word);
                     cal=cal.substring(0,uu);
-                    System.out.println(cal);
-                    System.out.println("00000000000000000000000000000");
                     f_num++;
                 }
-                System.out.println(funcname);
-                System.out.println("fnum"+ f_num);
-
-                if(f_num==1 &&!funcname.equals("main")){
-                    Out=Out.substring(0,Out.indexOf("@"+funcname));
-                    int lllll=Out.lastIndexOf("\n");
-                    if(lllll<0){
-                        lllll=0;
+                if(f_num==1 &&!funcname.equals("main")) {
+                    Out = Out.substring(0, Out.indexOf("@" + funcname));
+                    int lllll = Out.lastIndexOf("\n");
+                    if (lllll < 0) {
+                        lllll = 0;
                     }
-                    Out=Out.substring(0,lllll);
-                    Out+="\n";
+                    Out = Out.substring(0, lllll);
+                    Out += "\n";
                     recordFuncArray.add(func);
-                    nowPos=0;
+                    nowPos = 0;
                 }
-                System.out.println("------------------------");
-                System.out.println(Out);
-                System.out.println("++++++++++++++++++++");
-                System.out.println(word.getType());
-                System.out.println(word.getWord());
                 if(word.getType().equals("Ident")){
                     orderNum=0;
                     CompUnit();

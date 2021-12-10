@@ -74,6 +74,7 @@ int main()
     intt=0;
     chat=0;
     int lengets = getstr(get);
+
     while (i < lengets)
     {
         if (isdigit(get[i]) == 1)
@@ -112,22 +113,7 @@ int main()
                 }
                 chapush(45);
             }
-            if(get[i] == 42)
-            {
-                while (chas[chat] == 42 || chas[chat] == 47 ||chas[chat] == 37 || chas[chat] == 94)
-                {
-                    if (find()==0)break;
-                }
-                chapush(42);
-            }
-            if (get[i] == 47)
-            {
-                while (chas[chat] == 42 || chas[chat] == 47 || chas[chat] == 37 || chas[chat] == 94)
-                {
-                    if (find()==0)break;
-                }
-                chapush(47);
-            }
+
             if (get[i] == 37)
             {
                 while (chas[chat] == 42 || chas[chat] == 47 || chas[chat] == 37 || chas[chat] == 94)
