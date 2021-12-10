@@ -2682,7 +2682,7 @@ public class Main {
                     var.setOrderUse("@x"+varNum+word.getWord());
                     varNum++;
                     varList.add(var);
-                    Out=(var.getOrderUse()+" = = dso_local global i32 0\n")+Out;
+                    Out=(var.getOrderUse()+" = dso_local global i32 0\n")+Out;
 
                     Stmt();
                 }
